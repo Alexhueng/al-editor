@@ -1,7 +1,10 @@
 <template>
-  <div class="flex h-full w-full">
+  <div class="flex w-full h-full">
     <div id="stencil"></div>
     <div id="graph-container"></div>
+    <TeleportContainer />
+
+    <OptionsPanel :mask="false" />
   </div>
 </template>
 
@@ -14,8 +17,15 @@ import { Snapline } from '@antv/x6-plugin-snapline'
 import { Keyboard } from '@antv/x6-plugin-keyboard'
 import { Clipboard } from '@antv/x6-plugin-clipboard'
 import { History } from '@antv/x6-plugin-history'
-import insertCss from 'insert-css'
+import { insertCss } from 'insert-css'
 import { onMounted } from 'vue'
+import { register, getTeleport } from '@antv/x6-vue-shape'
+import { useRegister } from '@/views/nodes/custom-1/index'
+import OptionsPanel from '@/views/optionsPanel/index.vue'
+import { usePanelStore } from '@/stores/panel'
+
+const TeleportContainer = getTeleport()
+const panelStore = usePanelStore()
 
 onMounted(() => {
   preWork()
@@ -102,31 +112,42 @@ onMounted(() => {
     .use(new History())
   // #endregion
 
+  graph.on('cell:click', ({ e, x, y, cell, view }) => {
+    panelStore.panelVisible = true
+    panelStore.currentSelectedNode = cell
+  })
+
+  graph.on('blank:click', () => {
+    panelStore.currentSelectedNode = null
+    panelStore.panelVisible = false
+  })
+
   // #region 初始化 stencil
   const stencil = new Stencil({
-    title: '流程图',
+    title: '基础组件',
     target: graph,
-    stencilGraphWidth: 200,
-    stencilGraphHeight: 180,
-    collapsable: true,
+    stencilGraphWidth: 280,
+    // stencilGraphHeight: 180,
+    // collapsable: true,
+    scaled: true,
     groups: [
       {
-        title: '基础流程图',
+        title: '基础节点',
         name: 'group1',
       },
-      {
-        title: '系统设计图',
-        name: 'group2',
-        graphHeight: 250,
-        layoutOptions: {
-          rowHeight: 70,
-        },
-      },
+      // {
+      //   title: '系统设计图',
+      //   name: 'group2',
+      //   // graphHeight: 250,
+      //   layoutOptions: {
+      //     rowHeight: 70,
+      //   },
+      // },
     ],
     layoutOptions: {
-      columns: 2,
+      columns: 1,
       columnWidth: 80,
-      rowHeight: 55,
+      // rowHeight: 55,
     },
   })
   document.getElementById('stencil')?.appendChild(stencil.container)
@@ -418,16 +439,27 @@ onMounted(() => {
     true,
   )
 
-  const r1 = graph.createNode({
-    shape: 'custom-rect',
-    label: '开始',
-    attrs: {
-      body: {
-        rx: 20,
-        ry: 26,
-      },
-    },
+  // const r1 = graph.createNode({
+  //   shape: 'custom-rect',
+  //   label: '开始',
+  //   height: 36,
+  //   attrs: {
+  //     body: {
+  //       // rx: 20,
+  //       // ry: 26,
+  //     },
+  //   },
+  // })
+
+  // register nodes
+  useRegister(undefined, {
+    ports,
   })
+
+  const r1 = graph.createNode({
+    shape: 'custom-1',
+  })
+
   const r2 = graph.createNode({
     shape: 'custom-rect',
     label: '过程',
@@ -522,17 +554,21 @@ onMounted(() => {
       border: 1px solid #dfe3e8;
     }
     #stencil {
-      width: 180px;
+      width: 300px;
       height: 100%;
       position: relative;
       border-right: 1px solid #dfe3e8;
     }
     #graph-container {
-      width: calc(100% - 180px);
+      width: calc(100% - 300px);
       height: 100%;
     }
     .x6-widget-stencil  {
       background-color: #fff;
+    }
+    .x6-widget-stencil-content {
+      padding: 10px;
+      padding-top: 42px;
     }
     .x6-widget-stencil-title {
       background-color: #fff;
