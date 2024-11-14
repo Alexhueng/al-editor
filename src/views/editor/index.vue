@@ -1,5 +1,5 @@
 <template>
-  <div class="flex h-full w-full">
+  <div class="flex w-full h-full">
     <div id="stencil"></div>
     <div id="graph-container"></div>
   </div>
@@ -113,6 +113,7 @@ onMounted(() => {
       {
         title: '基础流程图',
         name: 'group1',
+        graphHeight: 250,
       },
       {
         title: '系统设计图',
@@ -418,6 +419,29 @@ onMounted(() => {
     true,
   )
 
+  Graph.registerNode(
+    'shape-ellipse',
+    {
+      inherit: 'ellipse',
+      x: 100,
+      y: 100,
+      width: 52,
+      height: 42,
+      attrs: {
+        body: {
+          strokeWidth: 1,
+          stroke: '#5F95FF',
+          fill: '#EFF4FF',
+        },
+        text: {
+          fontSize: 12,
+          fill: '#262626',
+        },
+      },
+      ports: { ...ports },
+    },
+    true,
+  )
   const r1 = graph.createNode({
     shape: 'custom-rect',
     label: '开始',
@@ -464,7 +488,11 @@ onMounted(() => {
     shape: 'custom-circle',
     label: '连接',
   })
-  stencil.load([r1, r2, r3, r4, r5, r6], 'group1')
+  const r7 = graph.createNode({
+    shape: 'shape-ellipse',
+    label: '椭圆',
+  })
+  stencil.load([r1, r2, r3, r4, r5, r6, r7], 'group1')
 
   const imageShapes = [
     {

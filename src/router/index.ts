@@ -13,6 +13,11 @@ const router = createRouter({
       name: 'editor',
       component: () => import('@/views/editor/index.vue'),
     },
+    {
+      path: '/vueNode',
+      name: 'vueNode',
+      component: () => import('@/views/vueNode/index.vue'),
+    },
   ],
 })
 

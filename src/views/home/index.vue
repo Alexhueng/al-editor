@@ -6,6 +6,12 @@
     >
       to editor
     </div>
+    <div
+      class="text-3xl text-center mt-[20px] bg-white border border-[#dedede] w-fit px-2 rounded-lg cursor-pointer"
+      @click="router.push('/vueNode')"
+    >
+      to vueNode
+    </div>
   </div>
 </template>
 
