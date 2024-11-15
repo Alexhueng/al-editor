@@ -114,11 +114,11 @@ onMounted(() => {
 
   graph.on('cell:click', ({ e, x, y, cell, view }) => {
     panelStore.panelVisible = true
-    panelStore.currentSelectedNode = cell
+    panelStore.setNode(cell)
   })
 
   graph.on('blank:click', () => {
-    panelStore.currentSelectedNode = null
+    panelStore.setNode(null)
     panelStore.panelVisible = false
   })
 

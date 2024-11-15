@@ -16,9 +16,19 @@ export const usePanelStore = defineStore('Panel', () => {
     panelVisible.value = visible ?? !panelVisible.value
   }
 
+  const setNode = (node: Cell) => {
+    currentSelectedNode.value = node
+  }
+
+  const getNode = () => {
+    return currentSelectedNode.value
+  }
+
   return {
     panelVisible,
     togglePanel,
+    setNode,
+    getNode,
     currentSelectedNode,
   }
 })

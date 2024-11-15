@@ -19,8 +19,13 @@ const panelStore = usePanelStore()
 
 const handleNodeContentChange = (evt: any) => {
   const value = evt.target.value
-  panelStore.currentSelectedNode?.setProp({
-    text: value,
+  const node = panelStore.getNode()
+  // node?.setProp({
+  //   text: value,
+  // })
+
+  node.setData({
+    text: value
   })
 }
 </script>
