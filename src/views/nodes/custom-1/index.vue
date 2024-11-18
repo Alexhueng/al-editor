@@ -12,11 +12,15 @@ import { inject, ref, onMounted, watch, reactive } from 'vue'
 import type { Size, Node, Cell } from '@antv/x6'
 import { usePanelStore } from '@/stores/panel'
 
+interface State {
+  data: any
+}
+
 const panelStore = usePanelStore()
 const getNode: any = inject('getNode')
 const size = ref<Size | null>(null)
-const node = ref<Node>({})
-const state = reactive({
+const node = ref<Node | null>(null)
+const state = reactive<State>({
   data: null,
 })
 
@@ -27,7 +31,6 @@ watch(
       node.value?.on('change:data', ({ cell }: { cell: any }) => {
         node.value = cell
         state.data = ref(cell.data)
-        console.log(cell);
       })
     }
   },
