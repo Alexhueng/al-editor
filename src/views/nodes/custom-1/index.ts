@@ -10,5 +10,9 @@ export const useRegister = (name = NODE_NAME, data: any) => {
     ...data,
     shape: name,
     component: node,
+    data: {
+      text: '自定义节点',
+      backgroundColor: 'linear-gradient(161deg, #0f62ff 0%, #5e94ff 100%)',
+    },
   })
 }

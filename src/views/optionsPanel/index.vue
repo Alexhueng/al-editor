@@ -11,7 +11,11 @@
     <n-drawer-content title="节点属性">
       <n-form :model="form" :label-col="{ span: 4 }" :wrapper-col="{ span: 20 }">
         <n-form-item label="节点内容">
-          <n-input placeholder="请输入节点内容" @input="handleNodeContentChange" />
+          <n-input
+            v-model:value="data.text"
+            placeholder="请输入节点内容"
+            @input="handleNodeContentChange"
+          />
         </n-form-item>
 
         <n-form-item label="宽高">
@@ -30,6 +34,17 @@
             />
           </n-space>
         </n-form-item>
+
+        <n-form-item label="背景颜色">
+          <div class="w-full">
+            <n-color-picker
+              v-model:value="data.backgroundColor"
+              :modes="['rgb', 'hex', 'hsl']"
+              @update:value="handleUpdateColor"
+            />
+            <n-input v-model:value="data.backgroundColor" @update:value="handleUpdateColor" />
+          </div>
+        </n-form-item>
       </n-form>
     </n-drawer-content>
   </n-drawer>
@@ -47,6 +62,7 @@ const form = reactive({
   height: 0,
 })
 const size = ref({} as Size)
+const data = ref({} as any)
 
 watch(
   () => panelStore.panelVisible,
@@ -54,6 +70,8 @@ watch(
     if (value) {
       const node = panelStore.getNode()
       size.value = node!.getSize()
+      data.value = node!.getData() || {}
+      console.log(node)
     }
   },
 )
@@ -85,5 +103,11 @@ const resize = (value: number, type: SizeType) => {
 const handleNodeSizeChange = (evt: InputEvent, type: SizeType) => {
   const value = Number((evt.target as HTMLInputElement).value)
   resize(value, type)
+}
+
+const handleUpdateColor = (value: string) => {
+  node.value.setData({
+    backgroundColor: value,
+  })
 }
 </script>
