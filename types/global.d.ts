@@ -1,1 +1,3 @@
-export {}
+interface Window {
+  a: string
+}
