@@ -5,6 +5,7 @@
       width: `${state?.size?.width}px`,
       height: `${state?.size?.height}px`,
       background: state?.data?.backgroundColor,
+      zIndex: state?.data?.zIndex,
     }"
   >
     <div class="text-center break-keep">{{ state?.data?.text }}</div>
@@ -13,6 +14,7 @@
 
 <script lang="ts" setup>
 import { inject, ref, onMounted, watch, reactive } from 'vue'
+// import type { ToRef } from 'vue'
 import type { Size, Node, Cell } from '@antv/x6'
 import { usePanelStore } from '@/stores/panel'
 
@@ -22,7 +24,7 @@ interface State {
 }
 
 const panelStore = usePanelStore()
-const getNode: Node = inject('getNode')
+const getNode: () => Node = inject('getNode')!
 const size = ref<Size | null>(null)
 const node = ref<Node | null>(null)
 const state = reactive<State>({

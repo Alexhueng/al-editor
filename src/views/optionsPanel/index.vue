@@ -18,6 +18,32 @@
           />
         </n-form-item>
 
+        <n-form-item label="层级">
+          <n-input-number
+            v-model:value="zIndex"
+            placeholder="请输入层级"
+            class="w-full"
+            @update:value="handleZIndexChange"
+          />
+        </n-form-item>
+
+        <n-form-item label="位置">
+          <n-space>
+            <n-input-number
+              v-model:value="position.x"
+              placeholder="x"
+              @update:value="(value: number) => handleUpdatePosition(value, 'x')"
+              @input="(evt: InputEvent) => handleNodePostionChange(evt, 'x')"
+            />
+            <n-input-number
+              v-model:value="position.y"
+              placeholder="y"
+              @update:value="(value: number) => handleUpdatePosition(value, 'y')"
+              @input="(evt: InputEvent) => handleNodePostionChange(evt, 'y')"
+            />
+          </n-space>
+        </n-form-item>
+
         <n-form-item label="宽高">
           <n-space>
             <n-input-number
@@ -29,7 +55,7 @@
             <n-input-number
               v-model:value="size.height"
               placeholder="请输入高"
-              @update:value="(value) => handleUpdateSize(value, 'h')"
+              @update:value="(value: number) => handleUpdateSize(value, 'h')"
               @input="(evt: InputEvent) => handleNodeSizeChange(evt, 'h')"
             />
           </n-space>
@@ -63,22 +89,24 @@ const form = reactive({
 })
 const size = ref({} as Size)
 const data = ref({} as any)
+const position = ref({} as any)
+const zIndex = ref(0)
+
+const node = computed(() => {
+  return panelStore.getNode()!
+})
 
 watch(
   () => panelStore.panelVisible,
   (value) => {
     if (value) {
-      const node = panelStore.getNode()
-      size.value = node!.getSize()
-      data.value = node!.getData() || {}
-      console.log(node)
+      size.value = node.value!.getSize()
+      data.value = node.value!.getData() || {}
+      position.value = node.value?.getPosition()
+      zIndex.value = node.value?.getZIndex()!
     }
   },
 )
-
-const node = computed(() => {
-  return panelStore.getNode()!
-})
 
 const handleNodeContentChange = (value: string) => {
   // const node = panelStore.getNode()
@@ -89,6 +117,11 @@ const handleNodeContentChange = (value: string) => {
   node.value!.setData({
     text: value,
   })
+}
+
+const handleZIndexChange = (value: number) => {
+  console.log(value)
+  node.value.setZIndex(value)
 }
 
 const handleUpdateSize = (value: number, type: SizeType) => {
@@ -109,5 +142,18 @@ const handleUpdateColor = (value: string) => {
   node.value.setData({
     backgroundColor: value,
   })
+}
+
+type positionType = 'x' | 'y'
+const handleUpdatePosition = (value: number, type: positionType) => {
+  node.value.setPosition(
+    type === 'x' ? value : position.value.x,
+    type === 'y' ? value : position.value.y,
+  )
+}
+
+const handleNodePostionChange = (evt: InputEvent, type: positionType) => {
+  const value = Number((evt.target as HTMLInputElement).value)
+  handleUpdatePosition(value, type)
 }
 </script>
