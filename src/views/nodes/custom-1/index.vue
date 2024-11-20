@@ -1,7 +1,11 @@
 <template>
   <div
-    class="custom-node bg-white rounded-[2px] text-white flex justify-center items-center"
-    :style="{ width: `${size?.width}px`, height: `${size?.height}px` }"
+    class="custom-node rounded-[2px] text-white flex justify-center items-center"
+    :style="{
+      width: `${state?.size?.width}px`,
+      height: `${state?.size?.height}px`,
+      background: state?.data?.backgroundColor,
+    }"
   >
     <div class="text-center break-keep">{{ state?.data?.text }}</div>
   </div>
@@ -14,14 +18,16 @@ import { usePanelStore } from '@/stores/panel'
 
 interface State {
   data: any
+  size: Size | null
 }
 
 const panelStore = usePanelStore()
-const getNode: any = inject('getNode')
+const getNode: Node = inject('getNode')
 const size = ref<Size | null>(null)
 const node = ref<Node | null>(null)
 const state = reactive<State>({
   data: null,
+  size: null,
 })
 
 watch(
@@ -29,7 +35,6 @@ watch(
   (value: any) => {
     if (value === node.value) {
       node.value?.on('change:data', ({ cell }: { cell: any }) => {
-        node.value = cell
         state.data = ref(cell.data)
       })
     }
@@ -37,16 +42,17 @@ watch(
 )
 onMounted(() => {
   node.value = getNode() as Node
-  size.value = node.value.getSize()
+  state.size = ref(node.value.getSize())
+  state.data = ref(node.value.getData())
 
   node.value.on('change:size', ({ current }: { current: Size }) => {
-    size.value = current
+    state.size = current
   })
 })
 </script>
 
 <style lang="scss" scoped>
 .custom-node {
-  background: linear-gradient(161deg, #0f62ff 0%, #5e94ff 100%);
+  // background: linear-gradient(161deg, #0f62ff 0%, #5e94ff 100%);
 }
 </style>
