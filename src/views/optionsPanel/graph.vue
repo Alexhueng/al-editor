@@ -12,7 +12,7 @@
       </n-form-item>
       <n-form-item label="背景图片" style="display: block">
         <n-flex vertical>
-          <Upload @uploadSuccess="uploadSuccess" />
+          <Upload @uploadSuccess="uploadSuccess" @valueChange="uploadSuccess" />
         </n-flex>
       </n-form-item>
 
@@ -62,10 +62,12 @@ const setBackgroundColor = () => {
   }
 }
 
-const uploadSuccess = (fileWithUrl: any) => {
-  console.log(fileWithUrl, '是封建时代')
+const uploadSuccess = (obj: any) => {
   graphStore.graph?.drawBackground({
-    image: fileWithUrl,
+    image: obj.url,
+    position: obj.position,
+    size: obj.size,
+    repeat: obj.repeat,
   })
 }
 const handleUpdateColor = (value: string) => {

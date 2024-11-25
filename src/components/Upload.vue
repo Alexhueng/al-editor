@@ -13,20 +13,22 @@
   </n-upload>
   <div>
     <n-form ref="formRef" inline :label-width="80" :model="formValue">
-      <n-form-item label="背景图片位置" path="position">
-        <n-input v-model:value="formValue.position" placeholder="背景图片位置" />
-      </n-form-item>
-      <n-form-item label="背景图片大小" path="size">
-        <n-input v-model:value="formValue.size" placeholder="背景图片大小" />
-      </n-form-item>
-      <n-form-item label="背景图片重复方式" path="repeat">
-        <n-select v-model:value="formValue.repeat" :options="options" />
-      </n-form-item>
+      <n-flex vertical>
+        <n-form-item label="背景图片位置" path="position">
+          <n-input v-model:value="formValue.position" placeholder="背景图片位置" />
+        </n-form-item>
+        <n-form-item label="背景图片大小" path="size">
+          <n-input v-model:value="formValue.size" placeholder="背景图片大小" />
+        </n-form-item>
+        <n-form-item label="背景图片重复方式" path="repeat">
+          <n-select v-model:value="formValue.repeat" :options="options" />
+        </n-form-item>
+      </n-flex>
     </n-form>
   </div>
 </template>
 <script lang="ts" setup>
-import { defineComponent, ref, defineEmits } from 'vue'
+import { defineComponent, ref, defineEmits, watch } from 'vue'
 // 已上传文件列表
 const selectedFiles = ref([])
 const options = ref([
@@ -50,10 +52,19 @@ const options = ref([
 const formValue = ref({
   position: '',
   size: '',
-  repeat: '',
+  repeat: 'watermark',
+  url: '',
 })
 const emit = defineEmits(['uploadSuccess'])
 
+watch(
+  () => formValue,
+  (obj: any) => {
+    console.log(obj.value, '附件是打开')
+    emit('uploadSuccess', obj.value)
+  },
+  { deep: true },
+)
 interface FileType {
   name: string
   uid: number
@@ -109,9 +120,10 @@ const handleFileSelect = (files: FileType[]) => {
       console.error('传入的参数不是File类型的文件对象', files.file?.file)
     }
   }
+  formValue.value.url = fileWithUrl.url
   if (selectedFiles.value.length > 0) {
-    emit('uploadSuccess', fileWithUrl.url)
+    emit('uploadSuccess', formValue.value)
   }
-  console.log('上点击发送考虑', fileWithUrl)
+  console.log('上点击发送考虑', formValue.value)
 }
 </script>
