@@ -14,6 +14,7 @@ export const useRegister = (name = NODE_NAME, data: any) => {
       text: '自定义节点',
       backgroundColor: 'linear-gradient(161deg, #0f62ff 0%, #5e94ff 100%)',
       zIndex: 1,
+      borderRadius: 0,
     },
   })
 }

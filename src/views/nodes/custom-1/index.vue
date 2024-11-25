@@ -6,6 +6,7 @@
       height: `${state?.size?.height}px`,
       background: state?.data?.backgroundColor,
       zIndex: state?.data?.zIndex,
+      borderRadius: `${state?.data?.borderRadius}%`,
     }"
   >
     <div class="text-center break-keep">{{ state?.data?.text }}</div>

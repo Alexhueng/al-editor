@@ -71,6 +71,9 @@
             <n-input v-model:value="data.backgroundColor" @update:value="handleUpdateColor" />
           </div>
         </n-form-item>
+        <!-- <n-form-item label="角度选择">
+          <AngleSelection @angle="handleUpdateRadius"></AngleSelection>
+        </n-form-item> -->
       </n-form>
     </n-drawer-content>
   </n-drawer>
@@ -79,6 +82,7 @@
 import { ref, watch, computed, reactive } from 'vue'
 import { usePanelStore } from '@/stores/panel'
 import type { Node, Size } from '@antv/x6'
+// import AngleSelection from '@/components/AngleSelection.vue'
 
 type SizeType = 'w' | 'h'
 
@@ -143,6 +147,11 @@ const handleUpdateColor = (value: string) => {
     backgroundColor: value,
   })
 }
+// const handleUpdateRadius = (value: string) => {
+//   node.value.setData({
+//     borderRadius: value,
+//   })
+// }
 
 type positionType = 'x' | 'y'
 const handleUpdatePosition = (value: number, type: positionType) => {
