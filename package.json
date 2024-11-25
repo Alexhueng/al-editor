@@ -25,6 +25,7 @@
     "@antv/x6-plugin-stencil": "^2.1.5",
     "@antv/x6-plugin-transform": "^2.1.8",
     "@antv/x6-vue-shape": "^2.1.2",
+    "@vicons/ionicons5": "^0.12.0",
     "ant-design-vue": "^4.2.6",
     "insert-css": "^2.0.0",
     "pinia": "^2.2.6",
