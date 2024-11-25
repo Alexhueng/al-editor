@@ -10,6 +10,11 @@
           />
         </div>
       </n-form-item>
+      <n-form-item label="背景图片" style="display: block">
+        <n-flex vertical>
+          <Upload @uploadSuccess="uploadSuccess" />
+        </n-flex>
+      </n-form-item>
 
       <n-form-item label="网格">
         <div class="w-full"></div>
@@ -33,6 +38,7 @@
 <script lang="ts" setup>
 import { reactive, onMounted, watch } from 'vue'
 import { useGraphStore } from '@/stores/graph'
+import Upload from '@/components/Upload.vue'
 
 const form = reactive({
   backgroundColor: '#fff',
@@ -56,6 +62,12 @@ const setBackgroundColor = () => {
   }
 }
 
+const uploadSuccess = (fileWithUrl: any) => {
+  console.log(fileWithUrl, '是封建时代')
+  graphStore.graph?.drawBackground({
+    image: fileWithUrl,
+  })
+}
 const handleUpdateColor = (value: string) => {
   graphStore.graph?.drawBackground({
     color: value,
