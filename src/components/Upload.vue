@@ -8,9 +8,20 @@
     multiple
     action="#"
     :custom-request="handleFileSelect"
+    :max="1"
   >
     <n-button>点击上传</n-button>
   </n-upload>
+  <div class="image-list">
+    <div
+      v-for="(image, index) in selectedFiles"
+      :key="index"
+      class="image-item"
+      @click="selectImage(index)"
+    >
+      <img :src="image.url" :class="{ selected: selectedIndex === index }" />
+    </div>
+  </div>
   <div>
     <n-form ref="formRef" inline :label-width="80" :model="formValue">
       <n-flex vertical>
@@ -31,6 +42,8 @@
 import { defineComponent, ref, defineEmits, watch } from 'vue'
 // 已上传文件列表
 const selectedFiles = ref([])
+// 当前选中图片的索引
+const selectedIndex = ref(-1)
 const options = ref([
   {
     label: '水印效果',
@@ -60,7 +73,6 @@ const emit = defineEmits(['uploadSuccess'])
 watch(
   () => formValue,
   (obj: any) => {
-    console.log(obj.value, '附件是打开')
     emit('uploadSuccess', obj.value)
   },
   { deep: true },
@@ -106,8 +118,6 @@ const handleFileSelect = (files: FileType[]) => {
         const fileUrl = URL.createObjectURL(file)
         fileWithUrl = { ...file, url: fileUrl }
         selectedFiles.value.push(fileWithUrl)
-      } else {
-        console.error('传入的参数不是File类型的文件对象', file)
       }
     })
   } else {
@@ -116,14 +126,42 @@ const handleFileSelect = (files: FileType[]) => {
       const fileUrl = URL.createObjectURL(files.file?.file)
       fileWithUrl = { ...files.file?.file, url: fileUrl }
       selectedFiles.value.push(fileWithUrl)
-    } else {
-      console.error('传入的参数不是File类型的文件对象', files.file?.file)
     }
   }
   formValue.value.url = fileWithUrl.url
-  if (selectedFiles.value.length > 0) {
-    emit('uploadSuccess', formValue.value)
-  }
-  console.log('上点击发送考虑', formValue.value)
+  if (selectedFiles.value.length > 0) selectedIndex.value = selectedFiles.value.length - 1
+}
+// 点击图片时触发的方法，用于更新选中的索引
+const selectImage = (index) => {
+  selectedIndex.value = index
+  formValue.value.url = selectedFiles.value[index].url
 }
 </script>
+
+<style lang="scss">
+.n-upload-file-list.n-upload-file-list--grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.image-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 100%;
+  > div {
+    width: 25%;
+    img {
+      width: 100%;
+    }
+  }
+}
+
+.image-item {
+  cursor: pointer;
+}
+
+.selected {
+  border: 3px solid blue;
+}
+</style>

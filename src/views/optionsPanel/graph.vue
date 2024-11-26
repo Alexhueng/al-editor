@@ -68,6 +68,7 @@ const uploadSuccess = (obj: any) => {
     position: obj.position,
     size: obj.size,
     repeat: obj.repeat,
+    color: form.backgroundColor,
   })
 }
 const handleUpdateColor = (value: string) => {
