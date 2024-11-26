@@ -42,6 +42,10 @@ import Upload from '@/components/Upload.vue'
 
 const form = reactive({
   backgroundColor: '#fff',
+  image: '',
+  position: '',
+  repeat: '',
+  size: '',
 })
 
 const graphStore = useGraphStore()
@@ -60,6 +64,10 @@ const setBackgroundColor = () => {
   if (background.color) {
     form.backgroundColor = background.color
   }
+  form.image = background.image
+  form.position = background.position
+  form.repeat = background.repeat
+  form.size = background.size
 }
 
 const uploadSuccess = (obj: any) => {
@@ -70,10 +78,15 @@ const uploadSuccess = (obj: any) => {
     repeat: obj.repeat,
     color: form.backgroundColor,
   })
+  setBackgroundColor()
 }
 const handleUpdateColor = (value: string) => {
   graphStore.graph?.drawBackground({
     color: value,
+    image: form.image,
+    position: form.position,
+    size: form.size,
+    repeat: form.repeat,
   })
   setBackgroundColor()
 }
