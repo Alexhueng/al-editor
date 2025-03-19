@@ -23,7 +23,7 @@
     </div>
   </div>
   <div>
-    <n-form ref="formRef" inline :label-width="80" :model="formValue">
+    <n-form ref="formRef" :show-feedback="false" inline :label-width="80" :model="formValue">
       <n-flex vertical>
         <n-form-item label="背景图片位置" path="position">
           <n-input v-model:value="formValue.position" placeholder="背景图片位置" />

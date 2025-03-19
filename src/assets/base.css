@@ -58,7 +58,7 @@
   font-weight: normal;
 }
 
-body {
+html > body {
   min-height: 100vh !important;
   color: var(--color-text);
   background: var(--color-background);

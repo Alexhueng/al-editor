@@ -1,5 +1,5 @@
 <template>
-  <div
+  <template
     class="custom-node rounded-[2px] text-white flex justify-center items-center"
     :style="{
       width: `${state?.size?.width}px`,
@@ -10,7 +10,7 @@
     }"
   >
     <div class="text-center break-keep">{{ state?.data?.text }}</div>
-  </div>
+  </template>
 </template>
 
 <script lang="ts" setup>

@@ -1,6 +1,11 @@
 <template>
   <div class="w-full p-4">
-    <n-form :model="form" :label-col="{ span: 4 }" :wrapper-col="{ span: 20 }">
+    <n-form
+      :model="form"
+      :label-col="{ span: 4 }"
+      :show-feedback="false"
+      :wrapper-col="{ span: 20 }"
+    >
       <n-form-item label="背景颜色">
         <div class="w-full">
           <n-color-picker
@@ -10,14 +15,73 @@
           />
         </div>
       </n-form-item>
+
       <n-form-item label="背景图片" style="display: block">
         <n-flex vertical>
           <Upload @uploadSuccess="uploadSuccess" @valueChange="uploadSuccess" />
         </n-flex>
       </n-form-item>
 
-      <n-form-item label="网格">
-        <div class="w-full"></div>
+      <n-form-item label="网格" class="mt-4">
+        <template #label>
+          <span class="mr-2">网格</span>
+          <n-switch v-model:value="form.grid.visible" @update:value="handleUpdateGrid"></n-switch>
+        </template>
+        <div class="w-full text-[14px] text-[#666]">
+          <div class="flex items-center mt-3 break-keep">
+            类型
+            <n-select
+              v-model:value="form.grid.type"
+              class="ml-3"
+              :disabled="!form.grid.visible"
+              :options="[
+                { label: 'dot', value: 'dot' },
+                { label: 'fixedDot', value: 'fixedDot' },
+                { label: 'mesh', value: 'mesh' },
+                // { label: 'doubleMesh', value: 'doubleMesh' },
+              ]"
+              @update:value="handleUpdateGrid"
+            ></n-select>
+          </div>
+
+          <div class="flex items-center mt-3 break-keep">
+            网格大小
+            <n-slider
+              v-model:value="form.grid.size"
+              class="ml-3"
+              :disabled="!form.grid.visible"
+              :min="1"
+              :max="20"
+              @update:value="handleUpdateGrid"
+            ></n-slider>
+          </div>
+
+          <div class="flex items-center mt-3 break-keep">
+            网格颜色
+
+            <n-color-picker
+              v-model:value="form.grid.color"
+              class="ml-3"
+              :disabled="!form.grid.visible"
+              :modes="['rgb', 'hex', 'hsl']"
+              @update:value="handleUpdateGrid"
+            />
+          </div>
+
+          <div class="flex items-center my-3 break-keep">
+            线条厚度
+
+            <n-slider
+              v-model:value="form.grid.thickness"
+              class="ml-3"
+              :disabled="!form.grid.visible"
+              :min="0.5"
+              :step="0.5"
+              :max="10"
+              @update:value="handleUpdateGrid"
+            ></n-slider>
+          </div>
+        </div>
       </n-form-item>
 
       <n-form-item label="画布平移">
@@ -46,6 +110,13 @@ const form = reactive({
   position: '',
   repeat: '',
   size: '',
+  grid: {
+    visible: true,
+    type: 'dot',
+    size: 10,
+    color: '#ccc',
+    thickness: 0.5,
+  },
 })
 
 const graphStore = useGraphStore()
@@ -89,6 +160,18 @@ const handleUpdateColor = (value: string) => {
     repeat: form.repeat,
   })
   setBackgroundColor()
+}
+
+const handleUpdateGrid = (value: boolean) => {
+  graphStore.graph?.drawGrid({
+    ...form.grid,
+    args: [
+      {
+        color: form.grid.color,
+        thickness: form.grid.thickness,
+      },
+    ],
+  })
 }
 </script>
 
