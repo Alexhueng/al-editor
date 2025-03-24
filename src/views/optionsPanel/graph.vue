@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full p-4">
+  <div class="w-full p-4 select-none">
     <n-form
       :model="form"
       :label-col="{ span: 4 }"
@@ -16,7 +16,7 @@
         </div>
       </n-form-item>
 
-      <n-form-item label="背景图片" style="display: block">
+      <n-form-item label="背景图片(仅支持png格式)" style="display: block">
         <n-flex vertical>
           <Upload @uploadSuccess="uploadSuccess" @valueChange="uploadSuccess" />
         </n-flex>
@@ -84,16 +84,15 @@
         </div>
       </n-form-item>
 
-      <n-form-item label="画布平移">
-        <div class="w-full"></div>
-      </n-form-item>
-
       <n-form-item label="画布缩放">
-        <div class="w-full"></div>
-      </n-form-item>
-
-      <n-form-item label="视口变换">
-        <div class="w-full"></div>
+        <n-slider
+          v-model:value="form.zoom"
+          class="ml-3"
+          :min="0.5"
+          :step="0.1"
+          :max="12"
+          @update:value="handleUpdateZoom"
+        ></n-slider>
       </n-form-item>
     </n-form>
   </div>
@@ -107,9 +106,9 @@ import Upload from '@/components/Upload.vue'
 const form = reactive({
   backgroundColor: '#fff',
   image: '',
-  position: '',
+  position: '' as any,
   repeat: '',
-  size: '',
+  size: '' as any,
   grid: {
     visible: true,
     type: 'dot',
@@ -117,6 +116,7 @@ const form = reactive({
     color: '#ccc',
     thickness: 0.5,
   },
+  zoom: 1.2,
 })
 
 const graphStore = useGraphStore()
@@ -130,14 +130,18 @@ watch(
   },
 )
 
+graphStore.graph?.on('scale', ({ sx, sy }) => {
+  form.zoom = sx
+})
+
 const setBackgroundColor = () => {
   const background = graphStore.graph?.options?.background || {}
   if (background.color) {
     form.backgroundColor = background.color
   }
-  form.image = background.image
+  form.image = background.image!
   form.position = background.position
-  form.repeat = background.repeat
+  form.repeat = background.repeat!
   form.size = background.size
 }
 
@@ -172,6 +176,10 @@ const handleUpdateGrid = (value: boolean) => {
       },
     ],
   })
+}
+
+const handleUpdateZoom = (value: number) => {
+  graphStore.graph?.zoomTo(value)
 }
 </script>
 

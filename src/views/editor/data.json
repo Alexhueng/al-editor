@@ -1,0 +1,270 @@
+{
+  "cells": [
+    {
+      "shape": "edge",
+      "attrs": {
+        "line": {
+          "stroke": "#A2B1C3",
+          "targetMarker": { "name": "block", "width": 12, "height": 8 }
+        }
+      },
+      "id": "43ba5f83-a05d-456b-8ec6-65920f46bec4",
+      "zIndex": 0,
+      "source": {
+        "cell": "64f1394b-605a-4412-917d-ab94176b49b6",
+        "port": "5029c8fc-d7ed-4321-bf0f-027adcc11707"
+      },
+      "target": {
+        "cell": "f022ae7e-3262-4aba-a9a0-7708bb6adfde",
+        "port": "ebe73d0a-f0d3-4d18-b9c9-9b87d771523c"
+      }
+    },
+    {
+      "shape": "edge",
+      "attrs": {
+        "line": {
+          "stroke": "#A2B1C3",
+          "targetMarker": { "name": "block", "width": 12, "height": 8 }
+        }
+      },
+      "id": "1468f177-8230-46c5-b038-e6635c4ed4fb",
+      "zIndex": 0,
+      "source": {
+        "cell": "64f1394b-605a-4412-917d-ab94176b49b6",
+        "port": "5029c8fc-d7ed-4321-bf0f-027adcc11707"
+      },
+      "target": {
+        "cell": "6a127b62-95a3-46d0-b195-b31fcbb004c3",
+        "port": "ebe73d0a-f0d3-4d18-b9c9-9b87d771523c"
+      }
+    },
+    {
+      "position": { "x": 930, "y": 340 },
+      "size": { "width": 220, "height": 42 },
+      "view": "vue-shape-view",
+      "shape": "custom-1",
+      "data": {
+        "text": "新能源汽车",
+        "backgroundColor": "linear-gradient(161deg, #0f62ff 0%, #5e94ff 100%)",
+        "zIndex": 1,
+        "borderRadius": 0
+      },
+      "ports": {
+        "groups": {
+          "top": {
+            "position": "top",
+            "attrs": {
+              "circle": {
+                "r": 4,
+                "magnet": true,
+                "stroke": "#5F95FF",
+                "strokeWidth": 1,
+                "fill": "#fff",
+                "style": { "visibility": "hidden" }
+              }
+            }
+          },
+          "right": {
+            "position": "right",
+            "attrs": {
+              "circle": {
+                "r": 4,
+                "magnet": true,
+                "stroke": "#5F95FF",
+                "strokeWidth": 1,
+                "fill": "#fff",
+                "style": { "visibility": "hidden" }
+              }
+            }
+          },
+          "bottom": {
+            "position": "bottom",
+            "attrs": {
+              "circle": {
+                "r": 4,
+                "magnet": true,
+                "stroke": "#5F95FF",
+                "strokeWidth": 1,
+                "fill": "#fff",
+                "style": { "visibility": "hidden" }
+              }
+            }
+          },
+          "left": {
+            "position": "left",
+            "attrs": {
+              "circle": {
+                "r": 4,
+                "magnet": true,
+                "stroke": "#5F95FF",
+                "strokeWidth": 1,
+                "fill": "#fff",
+                "style": { "visibility": "hidden" }
+              }
+            }
+          }
+        },
+        "items": [
+          { "group": "top", "id": "ebe73d0a-f0d3-4d18-b9c9-9b87d771523c" },
+          { "group": "right", "id": "0001d5d9-0031-49f1-9b24-b1267f001692" },
+          { "group": "bottom", "id": "5029c8fc-d7ed-4321-bf0f-027adcc11707" },
+          { "group": "left", "id": "f828b7ce-4306-4b50-a993-9feeda92df20" }
+        ]
+      },
+      "id": "64f1394b-605a-4412-917d-ab94176b49b6",
+      "zIndex": 1
+    },
+    {
+      "position": { "x": 750, "y": 470 },
+      "size": { "width": 220, "height": 42 },
+      "view": "vue-shape-view",
+      "shape": "custom-1",
+      "data": {
+        "text": "自动驾驶",
+        "backgroundColor": "linear-gradient(161deg, #0f62ff 0%, #5e94ff 100%)",
+        "zIndex": 1,
+        "borderRadius": 0
+      },
+      "ports": {
+        "groups": {
+          "top": {
+            "position": "top",
+            "attrs": {
+              "circle": {
+                "r": 4,
+                "magnet": true,
+                "stroke": "#5F95FF",
+                "strokeWidth": 1,
+                "fill": "#fff",
+                "style": { "visibility": "hidden" }
+              }
+            }
+          },
+          "right": {
+            "position": "right",
+            "attrs": {
+              "circle": {
+                "r": 4,
+                "magnet": true,
+                "stroke": "#5F95FF",
+                "strokeWidth": 1,
+                "fill": "#fff",
+                "style": { "visibility": "hidden" }
+              }
+            }
+          },
+          "bottom": {
+            "position": "bottom",
+            "attrs": {
+              "circle": {
+                "r": 4,
+                "magnet": true,
+                "stroke": "#5F95FF",
+                "strokeWidth": 1,
+                "fill": "#fff",
+                "style": { "visibility": "hidden" }
+              }
+            }
+          },
+          "left": {
+            "position": "left",
+            "attrs": {
+              "circle": {
+                "r": 4,
+                "magnet": true,
+                "stroke": "#5F95FF",
+                "strokeWidth": 1,
+                "fill": "#fff",
+                "style": { "visibility": "hidden" }
+              }
+            }
+          }
+        },
+        "items": [
+          { "group": "top", "id": "ebe73d0a-f0d3-4d18-b9c9-9b87d771523c" },
+          { "group": "right", "id": "0001d5d9-0031-49f1-9b24-b1267f001692" },
+          { "group": "bottom", "id": "5029c8fc-d7ed-4321-bf0f-027adcc11707" },
+          { "group": "left", "id": "f828b7ce-4306-4b50-a993-9feeda92df20" }
+        ]
+      },
+      "id": "f022ae7e-3262-4aba-a9a0-7708bb6adfde",
+      "zIndex": 2
+    },
+    {
+      "position": { "x": 1100, "y": 590 },
+      "size": { "width": 220, "height": 42 },
+      "view": "vue-shape-view",
+      "shape": "custom-1",
+      "data": {
+        "text": "智能座舱",
+        "backgroundColor": "linear-gradient(161deg, #0f62ff 0%, #5e94ff 100%)",
+        "zIndex": 1,
+        "borderRadius": 0
+      },
+      "ports": {
+        "groups": {
+          "top": {
+            "position": "top",
+            "attrs": {
+              "circle": {
+                "r": 4,
+                "magnet": true,
+                "stroke": "#5F95FF",
+                "strokeWidth": 1,
+                "fill": "#fff",
+                "style": { "visibility": "hidden" }
+              }
+            }
+          },
+          "right": {
+            "position": "right",
+            "attrs": {
+              "circle": {
+                "r": 4,
+                "magnet": true,
+                "stroke": "#5F95FF",
+                "strokeWidth": 1,
+                "fill": "#fff",
+                "style": { "visibility": "hidden" }
+              }
+            }
+          },
+          "bottom": {
+            "position": "bottom",
+            "attrs": {
+              "circle": {
+                "r": 4,
+                "magnet": true,
+                "stroke": "#5F95FF",
+                "strokeWidth": 1,
+                "fill": "#fff",
+                "style": { "visibility": "hidden" }
+              }
+            }
+          },
+          "left": {
+            "position": "left",
+            "attrs": {
+              "circle": {
+                "r": 4,
+                "magnet": true,
+                "stroke": "#5F95FF",
+                "strokeWidth": 1,
+                "fill": "#fff",
+                "style": { "visibility": "hidden" }
+              }
+            }
+          }
+        },
+        "items": [
+          { "group": "top", "id": "ebe73d0a-f0d3-4d18-b9c9-9b87d771523c" },
+          { "group": "right", "id": "0001d5d9-0031-49f1-9b24-b1267f001692" },
+          { "group": "bottom", "id": "5029c8fc-d7ed-4321-bf0f-027adcc11707" },
+          { "group": "left", "id": "f828b7ce-4306-4b50-a993-9feeda92df20" }
+        ]
+      },
+      "id": "6a127b62-95a3-46d0-b195-b31fcbb004c3",
+      "zIndex": 3
+    }
+  ]
+}

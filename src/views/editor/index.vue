@@ -1,8 +1,11 @@
 <template>
   <div class="flex w-full h-full">
     <div id="stencil" :style="{ width: stencilWidth + 'px' }"></div>
+
+    <Toolbar />
     <div
       id="graph-container"
+      class="mt-[50px]"
       :style="{ width: `calc(100% - ${stencilWidth + controlPanelWidth}px)` }"
     />
     <div class="graph-control-panel" :style="{ width: controlPanelWidth + 'px' }">
@@ -32,13 +35,12 @@ import OptionsPanel from '@/views/optionsPanel/index.vue'
 import { usePanelStore } from '@/stores/panel'
 import { useGraphStore } from '@/stores/graph'
 import GraphControlPanel from '@/views/optionsPanel/graph.vue'
+import Toolbar from './toolbar.vue'
+import { stencilWidth, controlPanelWidth } from './consts'
 
 const TeleportContainer = getTeleport()
 const panelStore = usePanelStore()
 const graphStore = useGraphStore()
-
-const stencilWidth = 300
-const controlPanelWidth = 500
 
 onMounted(() => {
   // preWork()
@@ -49,13 +51,16 @@ onMounted(() => {
     background: {
       color: '#F2F7FA',
     },
-    // panning: true,
+    panning: {
+      enabled: true,
+      modifiers: ['ctrl'],
+    },
     mousewheel: {
       enabled: true,
       zoomAtMousePosition: true,
       modifiers: 'ctrl',
       minScale: 0.5,
-      maxScale: 3,
+      maxScale: 12,
     },
     connecting: {
       router: 'manhattan',
@@ -106,7 +111,7 @@ onMounted(() => {
   // #endregion
 
   graphStore.setGraph(graph)
-  console.log(graph)
+  // console.log(graph)
 
   // #region 使用插件
   graph
@@ -128,7 +133,7 @@ onMounted(() => {
     .use(new History())
   // #endregion
 
-  graph.on('cell:click', ({ e, x, y, cell, view }) => {
+  graph.on('cell:dblclick', ({ e, x, y, cell, view }) => {
     panelStore.panelVisible = true
     panelStore.setNode(cell)
   })
@@ -216,7 +221,7 @@ onMounted(() => {
   })
 
   // delete
-  graph.bindKey('backspace', () => {
+  graph.bindKey(['backspace', 'delete'], () => {
     const cells = graph.getSelectedCells()
     if (cells.length) {
       graph.removeCells(cells)
@@ -224,18 +229,18 @@ onMounted(() => {
   })
 
   // zoom
-  graph.bindKey(['ctrl+1', 'meta+1'], () => {
-    const zoom = graph.zoom()
-    if (zoom < 1.5) {
-      graph.zoom(0.1)
-    }
-  })
-  graph.bindKey(['ctrl+2', 'meta+2'], () => {
-    const zoom = graph.zoom()
-    if (zoom > 0.5) {
-      graph.zoom(-0.1)
-    }
-  })
+  // graph.bindKey(['ctrl+1', 'meta+1'], () => {
+  //   const zoom = graph.zoom()
+  //   if (zoom < 1.5) {
+  //     graph.zoom(0.1)
+  //   }
+  // })
+  // graph.bindKey(['ctrl+2', 'meta+2'], () => {
+  //   const zoom = graph.zoom()
+  //   if (zoom > 0.5) {
+  //     graph.zoom(-0.1)
+  //   }
+  // })
 
   // 控制连接桩显示/隐藏
   const showPorts = (ports: NodeListOf<SVGElement>, show: boolean) => {
