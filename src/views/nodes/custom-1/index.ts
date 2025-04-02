@@ -5,7 +5,7 @@ export const NODE_NAME = 'custom-1'
 
 export const useRegister = (name = NODE_NAME, data: any) => {
   register({
-    width: 220,
+    width: 100,
     height: 42,
     ...data,
     shape: name,

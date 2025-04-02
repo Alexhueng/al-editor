@@ -29,6 +29,7 @@ const handleSave = () => {
   if (graph) {
     const json = graph.toJSON()
     console.log(json)
+    console.log(JSON.stringify(json))
   }
 }
 

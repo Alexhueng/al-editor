@@ -20,30 +20,26 @@
 
 <script setup lang="ts">
 import { Graph, Shape } from '@antv/x6'
+import type { Node } from '@antv/x6'
 import { Stencil } from '@antv/x6-plugin-stencil'
-import { Transform } from '@antv/x6-plugin-transform'
-import { Selection } from '@antv/x6-plugin-selection'
-import { Snapline } from '@antv/x6-plugin-snapline'
-import { Keyboard } from '@antv/x6-plugin-keyboard'
-import { Clipboard } from '@antv/x6-plugin-clipboard'
-import { History } from '@antv/x6-plugin-history'
-import { insertCss } from 'insert-css'
 import { onMounted } from 'vue'
 import { register, getTeleport } from '@antv/x6-vue-shape'
-import { useRegister } from '@/views/nodes/custom-1/index'
+// import { useRegister } from '@/views/nodes/custom-1/index'
 import OptionsPanel from '@/views/optionsPanel/index.vue'
 import { usePanelStore } from '@/stores/panel'
 import { useGraphStore } from '@/stores/graph'
 import GraphControlPanel from '@/views/optionsPanel/graph.vue'
 import Toolbar from './toolbar.vue'
-import { stencilWidth, controlPanelWidth } from './consts'
+import { stencilWidth, controlPanelWidth, colors } from './consts'
+import { preWork } from './insertCss'
+import usePlugins from './plugins/index'
 
 const TeleportContainer = getTeleport()
 const panelStore = usePanelStore()
 const graphStore = useGraphStore()
 
 onMounted(() => {
-  // preWork()
+  preWork()
 
   const graph = new Graph({
     container: document.getElementById('graph-container')!,
@@ -52,27 +48,38 @@ onMounted(() => {
       color: '#F2F7FA',
     },
     panning: {
-      enabled: true,
-      modifiers: ['ctrl'],
+      enabled: false,
+      // modifiers: ['ctrl'],
     },
     mousewheel: {
       enabled: true,
       zoomAtMousePosition: true,
-      modifiers: 'ctrl',
+      // modifiers: 'ctrl',
       minScale: 0.5,
       maxScale: 12,
     },
+    embedding: true,
+    interacting: {
+      nodeMovable: true,
+      edgeMovable: true,
+      magnetConnectable: true,
+      edgeLabelMovable: true,
+      arrowheadMovable: true,
+      vertexMovable: true,
+      vertexAddable: true,
+      vertexDeletable: true,
+    },
     connecting: {
-      router: 'manhattan',
-      connector: {
-        name: 'rounded',
-        args: {
-          radius: 8,
-        },
-      },
-      anchor: 'center',
-      connectionPoint: 'anchor',
-      allowBlank: false,
+      // router: 'manhattan',
+      // connector: {
+      //   name: 'rounded',
+      //   args: {
+      //     radius: 8,
+      //   },
+      // },
+      // anchor: 'center',
+      // connectionPoint: 'anchor',
+      // allowBlank: true,
       snap: {
         radius: 20,
       },
@@ -101,7 +108,7 @@ onMounted(() => {
         name: 'stroke',
         args: {
           attrs: {
-            fill: '#5F95FF',
+            fill: 'red',
             stroke: '#5F95FF',
           },
         },
@@ -111,67 +118,67 @@ onMounted(() => {
   // #endregion
 
   graphStore.setGraph(graph)
-  // console.log(graph)
 
   // #region 使用插件
-  graph
-    .use(
-      new Transform({
-        resizing: true,
-        rotating: true,
-      }),
-    )
-    .use(
-      new Selection({
-        rubberband: true,
-        showNodeSelectionBox: true,
-      }),
-    )
-    .use(new Snapline())
-    .use(new Keyboard())
-    .use(new Clipboard())
-    .use(new History())
+  usePlugins(graph)
   // #endregion
 
   graph.on('cell:dblclick', ({ e, x, y, cell, view }) => {
     panelStore.panelVisible = true
-    panelStore.setNode(cell)
+    panelStore.setCell(cell)
   })
 
   graph.on('blank:click', () => {
-    panelStore.setNode(null)
+    panelStore.setCell(null)
     panelStore.panelVisible = false
+  })
+
+  graph.on('edge:mouseenter', ({ cell }) => {
+    if (cell.isEdge()) {
+      cell.addTools('vertices', 'onhover')
+    }
+  })
+
+  graph.on('edge:mouseleave', ({ cell }) => {
+    if (cell.isEdge()) {
+      cell.removeTools()
+    }
   })
 
   // #region 初始化 stencil
   const stencil = new Stencil({
-    title: '基础组件',
+    title: '图形库',
     target: graph,
     stencilGraphWidth: 280,
-    // stencilGraphHeight: 180,
-    // collapsable: true,
+    stencilGraphHeight: 0,
+    collapsable: false,
     scaled: true,
     groups: [
       {
         title: '基础节点',
         name: 'group1',
+        layoutOptions: {
+          rowHeight: 60,
+        },
       },
-      // {
-      //   title: '系统设计图',
-      //   name: 'group2',
-      //   // graphHeight: 250,
-      //   layoutOptions: {
-      //     rowHeight: 70,
-      //   },
-      // },
+      {
+        title: '系统设计图',
+        name: 'group2',
+        // graphHeight: 250,
+        layoutOptions: {
+          // rowHeight: 80,
+        },
+      },
     ],
     layoutOptions: {
-      columns: 1,
+      columns: 3,
       columnWidth: 80,
       // rowHeight: 55,
     },
   })
   document.getElementById('stencil')?.appendChild(stencil.container)
+
+  console.log(stencil)
   // #endregion
 
   // #region 快捷键与事件
@@ -220,8 +227,8 @@ onMounted(() => {
     }
   })
 
-  // delete
-  graph.bindKey(['backspace', 'delete'], () => {
+  // delete 'backspace',
+  graph.bindKey(['delete'], () => {
     const cells = graph.getSelectedCells()
     if (cells.length) {
       graph.removeCells(cells)
@@ -229,6 +236,7 @@ onMounted(() => {
   })
 
   // zoom
+  // ctrl + 数字会冲突到chrome浏览器的切换标签快捷键.
   // graph.bindKey(['ctrl+1', 'meta+1'], () => {
   //   const zoom = graph.zoom()
   //   if (zoom < 1.5) {
@@ -349,15 +357,18 @@ onMounted(() => {
       attrs: {
         body: {
           strokeWidth: 1,
-          stroke: '#5F95FF',
-          fill: '#EFF4FF',
+          stroke: colors.primary,
+          fill: colors.primary,
         },
         text: {
           fontSize: 12,
-          fill: '#262626',
+          fill: colors.text,
         },
       },
       ports: { ...ports },
+      __proto__: {
+        aaa: 111,
+      },
     },
     true,
   )
@@ -371,12 +382,12 @@ onMounted(() => {
       attrs: {
         body: {
           strokeWidth: 1,
-          stroke: '#5F95FF',
-          fill: '#EFF4FF',
+          stroke: colors.primary,
+          fill: colors.primary,
         },
         text: {
           fontSize: 12,
-          fill: '#262626',
+          fill: colors.text,
         },
       },
       ports: {
@@ -403,12 +414,12 @@ onMounted(() => {
       attrs: {
         body: {
           strokeWidth: 1,
-          stroke: '#5F95FF',
-          fill: '#EFF4FF',
+          stroke: colors.primary,
+          fill: colors.primary,
         },
         text: {
           fontSize: 12,
-          fill: '#262626',
+          fill: colors.text,
         },
       },
       ports: { ...ports },
@@ -460,30 +471,28 @@ onMounted(() => {
     true,
   )
 
-  // const r1 = graph.createNode({
-  //   shape: 'custom-rect',
-  //   label: '开始',
-  //   height: 36,
-  //   attrs: {
-  //     body: {
-  //       // rx: 20,
-  //       // ry: 26,
-  //     },
-  //   },
+  const r1 = graph.createNode({
+    shape: 'custom-rect',
+    label: 'text',
+    attrs: {
+      body: {
+        rx: 20,
+        ry: 26,
+      },
+    },
+  })
+  // register nodes
+  // useRegister(undefined, {
+  //   ports,
   // })
 
-  // register nodes
-  useRegister(undefined, {
-    ports,
-  })
-
-  const r1 = graph.createNode({
-    shape: 'custom-1',
-  })
+  // const r1 = graph.createNode({
+  //   shape: 'custom-1',
+  // })
 
   const r2 = graph.createNode({
     shape: 'custom-rect',
-    label: '过程',
+    label: 'text',
   })
   const r3 = graph.createNode({
     shape: 'custom-rect',
@@ -493,7 +502,7 @@ onMounted(() => {
         ry: 6,
       },
     },
-    label: '可选过程',
+    label: 'text',
   })
   const r4 = graph.createNode({
     shape: 'custom-polygon',
@@ -502,7 +511,7 @@ onMounted(() => {
         refPoints: '0,10 10,0 20,10 10,20',
       },
     },
-    label: '决策',
+    label: 'text',
   })
   const r5 = graph.createNode({
     shape: 'custom-polygon',
@@ -511,13 +520,23 @@ onMounted(() => {
         refPoints: '10,0 40,0 30,20 0,20',
       },
     },
-    label: '数据',
+    label: 'text',
   })
   const r6 = graph.createNode({
     shape: 'custom-circle',
-    label: '连接',
+    label: 'text',
   })
-  stencil.load([r1, r2, r3, r4, r5, r6], 'group1')
+  const triangleNode = graph.createNode({
+    shape: 'custom-polygon',
+    attrs: {
+      body: {
+        refPoints: '0,20 20,20 10,0', // 三个顶点: 左下, 右下, 顶部中心
+      },
+    },
+    label: 'text', // e.g., "Judgment" or "Condition"
+  })
+
+  stencil.load([r1, r2, r3, r4, r5, r6, triangleNode], 'group1')
 
   const imageShapes = [
     {
@@ -558,121 +577,7 @@ onMounted(() => {
   )
   stencil.load(imageNodes, 'group2')
   // #endregion
-
-  // function preWork() {
-  //   // 这里协助演示的代码，在实际项目中根据实际情况进行调整
-  //   const container = document.getElementById('graph-container')!
-  //   const stencilContainer = document.createElement('div')
-  //   stencilContainer.id = 'stencil'
-  //   const graphContainer = document.createElement('div')
-  //   graphContainer.id = 'graph-container'
-  //   container?.appendChild(stencilContainer)
-  //   container?.appendChild(graphContainer)
-
-  //   insertCss(`
-  //   #container {
-  //     display: flex;
-  //     border: 1px solid #dfe3e8;
-  //   }
-  //   #stencil {
-  //     width: 300px;
-  //     height: 100%;
-  //     position: relative;
-  //     border-right: 1px solid #dfe3e8;
-  //   }
-  //   // #graph-container {
-  //   //   width: calc(100% - 300px);
-  //   //   height: 100%;
-  //   // }
-  //   .x6-widget-stencil  {
-  //     background-color: #fff;
-  //   }
-  //   .x6-widget-stencil-content {
-  //     padding: 10px;
-  //     padding-top: 42px;
-  //   }
-  //   .x6-widget-stencil-title {
-  //     background-color: #fff;
-  //   }
-  //   .x6-widget-stencil-group-title {
-  //     background-color: #fff !important;
-  //   }
-  //   .x6-widget-transform {
-  //     margin: -1px 0 0 -1px;
-  //     padding: 0px;
-  //     border: 1px solid #239edd;
-  //   }
-  //   .x6-widget-transform > div {
-  //     border: 1px solid #239edd;
-  //   }
-  //   .x6-widget-transform > div:hover {
-  //     background-color: #3dafe4;
-  //   }
-  //   .x6-widget-transform-active-handle {
-  //     background-color: #3dafe4;
-  //   }
-  //   .x6-widget-transform-resize {
-  //     border-radius: 0;
-  //   }
-  //   .x6-widget-selection-inner {
-  //     border: 1px solid #239edd;
-  //   }
-  //   .x6-widget-selection-box {
-  //     opacity: 0;
-  //   }
-  // `)
-  // }
 })
 </script>
 
-<style lang="scss" scoped>
-#container {
-  display: flex;
-  border: 1px solid #dfe3e8;
-}
-#stencil {
-  height: 100%;
-  position: relative;
-  border-right: 1px solid #dfe3e8;
-}
-// #graph-container {
-//   width: calc(100% - 300px);
-//   height: 100%;
-// }
-.x6-widget-stencil {
-  background-color: #fff;
-}
-.x6-widget-stencil-content {
-  padding: 10px;
-  padding-top: 42px;
-}
-.x6-widget-stencil-title {
-  background-color: #fff;
-}
-.x6-widget-stencil-group-title {
-  background-color: #fff !important;
-}
-.x6-widget-transform {
-  margin: -1px 0 0 -1px;
-  padding: 0px;
-  border: 1px solid #239edd;
-}
-.x6-widget-transform > div {
-  border: 1px solid #239edd;
-}
-.x6-widget-transform > div:hover {
-  background-color: #3dafe4;
-}
-.x6-widget-transform-active-handle {
-  background-color: #3dafe4;
-}
-.x6-widget-transform-resize {
-  border-radius: 0;
-}
-.x6-widget-selection-inner {
-  border: 1px solid #239edd;
-}
-.x6-widget-selection-box {
-  opacity: 0;
-}
-</style>
+<style lang="scss" scoped></style>

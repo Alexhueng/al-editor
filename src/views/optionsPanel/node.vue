@@ -1,11 +1,7 @@
 <template>
   <n-form :model="form" :label-col="{ span: 4 }" :wrapper-col="{ span: 20 }">
     <n-form-item label="节点内容">
-      <n-input
-        v-model:value="data.text"
-        placeholder="请输入节点内容"
-        @input="handleNodeContentChange"
-      />
+      <n-input v-model:value="text" placeholder="请输入节点内容" @input="handleNodeContentChange" />
     </n-form-item>
 
     <n-form-item label="层级">
@@ -82,11 +78,11 @@
     <n-form-item label="背景颜色">
       <div class="w-full">
         <n-color-picker
-          v-model:value="data.backgroundColor"
+          v-model:value="backgroundColor"
           :modes="['rgb', 'hex', 'hsl']"
           @update:value="handleUpdateColor"
         />
-        <n-input v-model:value="data.backgroundColor" @update:value="handleUpdateColor" />
+        <!-- <n-input v-model:value="data.backgroundColor" @update:value="handleUpdateColor" /> -->
       </div>
     </n-form-item>
 
@@ -117,25 +113,30 @@ const form = reactive({
   width: 0,
   height: 0,
 })
+const text = ref('')
 const size = ref({} as Size)
 const data = ref({} as any)
+const backgroundColor = ref('')
 const position = ref({} as any)
 const zIndex = ref(0)
 const angel = ref(0)
 
 const node = computed(() => {
-  return panelStore.getNode()!
+  return panelStore.getCell()! as Node
 })
 
 watch(
   () => panelStore.panelVisible,
   (value) => {
     if (value) {
+      if (!node.value.isNode()) return
+      text.value = node.value.getAttrByPath('text/text')
       size.value = node.value!.getSize()
       data.value = node.value!.getData() || {}
       position.value = node.value?.getPosition()
       zIndex.value = node.value?.getZIndex()!
       angel.value = node.value?.getAngle()
+      backgroundColor.value = node.value?.getAttrByPath('body/fill')
     }
   },
   {
@@ -144,8 +145,13 @@ watch(
 )
 
 const handleNodeContentChange = (value: string) => {
-  node.value!.setData({
-    text: value,
+  // node.value!.setData({
+  //   text: value,
+  // })
+  node.value.setAttrs({
+    text: {
+      text: value,
+    },
   })
 }
 
@@ -181,8 +187,14 @@ const handleNodeSizeChange = (evt: InputEvent, type: SizeType) => {
 }
 
 const handleUpdateColor = (value: string) => {
-  node.value.setData({
-    backgroundColor: value,
+  console.log(node.value)
+  // node.value.setData({
+  //   backgroundColor: value,
+  // })
+  node.value.setAttrs({
+    body: {
+      fill: value,
+    },
   })
 }
 

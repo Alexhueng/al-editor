@@ -155,6 +155,7 @@ const uploadSuccess = (obj: any) => {
   })
   setBackgroundColor()
 }
+
 const handleUpdateColor = (value: string) => {
   graphStore.graph?.drawBackground({
     color: value,

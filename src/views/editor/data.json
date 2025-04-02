@@ -8,15 +8,37 @@
           "targetMarker": { "name": "block", "width": 12, "height": 8 }
         }
       },
-      "id": "43ba5f83-a05d-456b-8ec6-65920f46bec4",
+      "id": "a236a4d8-df58-444e-828a-144b2481740a",
       "zIndex": 0,
       "source": {
-        "cell": "64f1394b-605a-4412-917d-ab94176b49b6",
-        "port": "5029c8fc-d7ed-4321-bf0f-027adcc11707"
+        "cell": "4775939d-82a6-40b1-b1bb-485e93c74149",
+        "port": "09717ece-1e4b-434e-871f-ac14e522f5d1"
       },
       "target": {
-        "cell": "f022ae7e-3262-4aba-a9a0-7708bb6adfde",
-        "port": "ebe73d0a-f0d3-4d18-b9c9-9b87d771523c"
+        "cell": "122b6bed-ba2e-4b2b-bfe5-71333d930591",
+        "port": "c1447cf5-1c15-4deb-8310-edc85c668562"
+      },
+      "vertices": [{ "x": 990, "y": 290 }],
+      "router": { "name": "metro" },
+      "connector": { "name": "smooth" }
+    },
+    {
+      "shape": "edge",
+      "attrs": {
+        "line": {
+          "stroke": "#A2B1C3",
+          "targetMarker": { "name": "block", "width": 12, "height": 8 }
+        }
+      },
+      "id": "69500d22-c642-4d9c-9f53-a83b8d639c71",
+      "zIndex": 0,
+      "source": {
+        "cell": "4775939d-82a6-40b1-b1bb-485e93c74149",
+        "port": "09717ece-1e4b-434e-871f-ac14e522f5d1"
+      },
+      "target": {
+        "cell": "cd7bd7bf-9670-4e0b-a568-72161960733f",
+        "port": "8a3de2f4-e031-4c47-bd34-bef551f2c73f"
       }
     },
     {
@@ -27,28 +49,85 @@
           "targetMarker": { "name": "block", "width": 12, "height": 8 }
         }
       },
-      "id": "1468f177-8230-46c5-b038-e6635c4ed4fb",
+      "id": "d23da7d8-8a92-443b-bcfe-7150df578069",
       "zIndex": 0,
       "source": {
-        "cell": "64f1394b-605a-4412-917d-ab94176b49b6",
-        "port": "5029c8fc-d7ed-4321-bf0f-027adcc11707"
+        "cell": "cd7bd7bf-9670-4e0b-a568-72161960733f",
+        "port": "82eb15a0-1c50-4ba2-9677-f7199992586a"
       },
       "target": {
-        "cell": "6a127b62-95a3-46d0-b195-b31fcbb004c3",
-        "port": "ebe73d0a-f0d3-4d18-b9c9-9b87d771523c"
+        "cell": "9533dd64-9109-45cc-858d-a739d5f65442",
+        "port": "cae16d76-c8e4-4d29-9fd0-5811b826ed75"
       }
     },
     {
-      "position": { "x": 930, "y": 340 },
-      "size": { "width": 220, "height": 42 },
-      "view": "vue-shape-view",
-      "shape": "custom-1",
-      "data": {
-        "text": "新能源汽车",
-        "backgroundColor": "linear-gradient(161deg, #0f62ff 0%, #5e94ff 100%)",
-        "zIndex": 1,
-        "borderRadius": 0
+      "shape": "edge",
+      "attrs": {
+        "line": {
+          "stroke": "#A2B1C3",
+          "targetMarker": { "name": "block", "width": 12, "height": 8 }
+        }
       },
+      "id": "58836a29-a2d5-4e91-8e3e-e85600c22559",
+      "zIndex": 0,
+      "source": {
+        "cell": "122b6bed-ba2e-4b2b-bfe5-71333d930591",
+        "port": "29b725ce-7541-4610-9e85-e799d0dbb3b9"
+      },
+      "target": {
+        "cell": "a8431007-004f-4004-b81c-ad3183d3c234",
+        "port": "244a1b05-173b-4f7a-b92b-4c41b9ff8dcc"
+      },
+      "vertices": [{ "x": 883, "y": 400 }],
+      "router": { "name": "manhattan" }
+    },
+    {
+      "shape": "edge",
+      "attrs": {
+        "line": {
+          "stroke": "#A2B1C3",
+          "targetMarker": { "name": "block", "width": 12, "height": 8 }
+        }
+      },
+      "id": "998eecb2-5618-452e-a3a5-6e84f92eedaf",
+      "zIndex": 0,
+      "source": {
+        "cell": "9533dd64-9109-45cc-858d-a739d5f65442",
+        "port": "aabca49b-63c4-4bf5-ade7-7a9665742067"
+      },
+      "target": {
+        "cell": "6dde113b-64dd-4201-8ee2-ee04583eaaf3",
+        "port": "25e6d471-3097-436f-93f2-a545357df955"
+      }
+    },
+    {
+      "shape": "edge",
+      "attrs": {
+        "line": {
+          "stroke": "#A2B1C3",
+          "targetMarker": { "name": "block", "width": 12, "height": 8 }
+        }
+      },
+      "id": "ea427f92-9cb0-47a4-98f4-70f0e2324f1f",
+      "zIndex": 0,
+      "source": {
+        "cell": "122b6bed-ba2e-4b2b-bfe5-71333d930591",
+        "port": "29b725ce-7541-4610-9e85-e799d0dbb3b9"
+      },
+      "target": {
+        "cell": "19017752-5da8-4508-b969-35f1364c28fa",
+        "port": "0553613c-0bde-470e-8cbe-429fd4ee1370"
+      },
+      "vertices": [{ "x": 1180, "y": 440 }],
+      "connector": { "name": "smooth" },
+      "router": { "name": "manhattan" }
+    },
+    {
+      "position": { "x": 850, "y": 200 },
+      "size": { "width": 66, "height": 36 },
+      "attrs": { "text": { "text": "text" } },
+      "visible": true,
+      "shape": "custom-rect",
       "ports": {
         "groups": {
           "top": {
@@ -105,26 +184,21 @@
           }
         },
         "items": [
-          { "group": "top", "id": "ebe73d0a-f0d3-4d18-b9c9-9b87d771523c" },
-          { "group": "right", "id": "0001d5d9-0031-49f1-9b24-b1267f001692" },
-          { "group": "bottom", "id": "5029c8fc-d7ed-4321-bf0f-027adcc11707" },
-          { "group": "left", "id": "f828b7ce-4306-4b50-a993-9feeda92df20" }
+          { "group": "top", "id": "49bd9f17-582e-4304-904b-e1823512b5d8" },
+          { "group": "right", "id": "85d939e0-a6de-4378-9e2d-6199b9d3ac49" },
+          { "group": "bottom", "id": "09717ece-1e4b-434e-871f-ac14e522f5d1" },
+          { "group": "left", "id": "9bc2c5ec-f19b-43b1-9c62-c9488dfe25f5" }
         ]
       },
-      "id": "64f1394b-605a-4412-917d-ab94176b49b6",
+      "id": "4775939d-82a6-40b1-b1bb-485e93c74149",
       "zIndex": 1
     },
     {
-      "position": { "x": 750, "y": 470 },
-      "size": { "width": 220, "height": 42 },
-      "view": "vue-shape-view",
-      "shape": "custom-1",
-      "data": {
-        "text": "自动驾驶",
-        "backgroundColor": "linear-gradient(161deg, #0f62ff 0%, #5e94ff 100%)",
-        "zIndex": 1,
-        "borderRadius": 0
-      },
+      "position": { "x": 710.5, "y": 316 },
+      "size": { "width": 66, "height": 36 },
+      "attrs": { "text": { "text": "text" }, "body": { "rx": 6, "ry": 6 } },
+      "visible": true,
+      "shape": "custom-rect",
       "ports": {
         "groups": {
           "top": {
@@ -181,26 +255,21 @@
           }
         },
         "items": [
-          { "group": "top", "id": "ebe73d0a-f0d3-4d18-b9c9-9b87d771523c" },
-          { "group": "right", "id": "0001d5d9-0031-49f1-9b24-b1267f001692" },
-          { "group": "bottom", "id": "5029c8fc-d7ed-4321-bf0f-027adcc11707" },
-          { "group": "left", "id": "f828b7ce-4306-4b50-a993-9feeda92df20" }
+          { "group": "top", "id": "8a3de2f4-e031-4c47-bd34-bef551f2c73f" },
+          { "group": "right", "id": "d5888f6b-6fbb-488a-8fb6-9cf8cb1877d0" },
+          { "group": "bottom", "id": "82eb15a0-1c50-4ba2-9677-f7199992586a" },
+          { "group": "left", "id": "a41e5b44-a2f8-484f-9d0f-edbcd0fa0943" }
         ]
       },
-      "id": "f022ae7e-3262-4aba-a9a0-7708bb6adfde",
+      "id": "cd7bd7bf-9670-4e0b-a568-72161960733f",
       "zIndex": 2
     },
     {
-      "position": { "x": 1100, "y": 590 },
-      "size": { "width": 220, "height": 42 },
-      "view": "vue-shape-view",
-      "shape": "custom-1",
-      "data": {
-        "text": "智能座舱",
-        "backgroundColor": "linear-gradient(161deg, #0f62ff 0%, #5e94ff 100%)",
-        "zIndex": 1,
-        "borderRadius": 0
-      },
+      "position": { "x": 1090, "y": 326 },
+      "size": { "width": 66, "height": 36 },
+      "attrs": { "text": { "text": "text" }, "body": { "refPoints": "10,0 40,0 30,20 0,20" } },
+      "visible": true,
+      "shape": "custom-polygon",
       "ports": {
         "groups": {
           "top": {
@@ -257,14 +326,306 @@
           }
         },
         "items": [
-          { "group": "top", "id": "ebe73d0a-f0d3-4d18-b9c9-9b87d771523c" },
-          { "group": "right", "id": "0001d5d9-0031-49f1-9b24-b1267f001692" },
-          { "group": "bottom", "id": "5029c8fc-d7ed-4321-bf0f-027adcc11707" },
-          { "group": "left", "id": "f828b7ce-4306-4b50-a993-9feeda92df20" }
+          { "group": "top", "id": "c1447cf5-1c15-4deb-8310-edc85c668562" },
+          { "group": "bottom", "id": "29b725ce-7541-4610-9e85-e799d0dbb3b9" }
         ]
       },
-      "id": "6a127b62-95a3-46d0-b195-b31fcbb004c3",
+      "id": "122b6bed-ba2e-4b2b-bfe5-71333d930591",
       "zIndex": 3
+    },
+    {
+      "position": { "x": 721, "y": 471 },
+      "size": { "width": 45, "height": 45 },
+      "attrs": { "text": { "text": "text" } },
+      "visible": true,
+      "shape": "custom-circle",
+      "ports": {
+        "groups": {
+          "top": {
+            "position": "top",
+            "attrs": {
+              "circle": {
+                "r": 4,
+                "magnet": true,
+                "stroke": "#5F95FF",
+                "strokeWidth": 1,
+                "fill": "#fff",
+                "style": { "visibility": "hidden" }
+              }
+            }
+          },
+          "right": {
+            "position": "right",
+            "attrs": {
+              "circle": {
+                "r": 4,
+                "magnet": true,
+                "stroke": "#5F95FF",
+                "strokeWidth": 1,
+                "fill": "#fff",
+                "style": { "visibility": "hidden" }
+              }
+            }
+          },
+          "bottom": {
+            "position": "bottom",
+            "attrs": {
+              "circle": {
+                "r": 4,
+                "magnet": true,
+                "stroke": "#5F95FF",
+                "strokeWidth": 1,
+                "fill": "#fff",
+                "style": { "visibility": "hidden" }
+              }
+            }
+          },
+          "left": {
+            "position": "left",
+            "attrs": {
+              "circle": {
+                "r": 4,
+                "magnet": true,
+                "stroke": "#5F95FF",
+                "strokeWidth": 1,
+                "fill": "#fff",
+                "style": { "visibility": "hidden" }
+              }
+            }
+          }
+        },
+        "items": [
+          { "group": "top", "id": "cae16d76-c8e4-4d29-9fd0-5811b826ed75" },
+          { "group": "right", "id": "f4dcd5fc-4373-40df-9ba6-fad1f8036971" },
+          { "group": "bottom", "id": "85546a5e-54fc-4401-8062-72e1c8a8411a" },
+          { "group": "left", "id": "aabca49b-63c4-4bf5-ade7-7a9665742067" }
+        ]
+      },
+      "id": "9533dd64-9109-45cc-858d-a739d5f65442",
+      "zIndex": 4
+    },
+    {
+      "position": { "x": 850, "y": 476 },
+      "size": { "width": 66, "height": 36 },
+      "attrs": { "text": { "text": "text" }, "body": { "rx": 20, "ry": 26 } },
+      "visible": true,
+      "shape": "custom-rect",
+      "ports": {
+        "groups": {
+          "top": {
+            "position": "top",
+            "attrs": {
+              "circle": {
+                "r": 4,
+                "magnet": true,
+                "stroke": "#5F95FF",
+                "strokeWidth": 1,
+                "fill": "#fff",
+                "style": { "visibility": "hidden" }
+              }
+            }
+          },
+          "right": {
+            "position": "right",
+            "attrs": {
+              "circle": {
+                "r": 4,
+                "magnet": true,
+                "stroke": "#5F95FF",
+                "strokeWidth": 1,
+                "fill": "#fff",
+                "style": { "visibility": "hidden" }
+              }
+            }
+          },
+          "bottom": {
+            "position": "bottom",
+            "attrs": {
+              "circle": {
+                "r": 4,
+                "magnet": true,
+                "stroke": "#5F95FF",
+                "strokeWidth": 1,
+                "fill": "#fff",
+                "style": { "visibility": "hidden" }
+              }
+            }
+          },
+          "left": {
+            "position": "left",
+            "attrs": {
+              "circle": {
+                "r": 4,
+                "magnet": true,
+                "stroke": "#5F95FF",
+                "strokeWidth": 1,
+                "fill": "#fff",
+                "style": { "visibility": "hidden" }
+              }
+            }
+          }
+        },
+        "items": [
+          { "group": "top", "id": "244a1b05-173b-4f7a-b92b-4c41b9ff8dcc" },
+          { "group": "right", "id": "9a999d65-6674-48e7-a7b5-da94a2c27357" },
+          { "group": "bottom", "id": "03c4217b-cad1-47cc-a065-84fae978b825" },
+          { "group": "left", "id": "3ecedcfa-25b3-46cf-b000-4c2cb19648a9" }
+        ]
+      },
+      "id": "a8431007-004f-4004-b81c-ad3183d3c234",
+      "zIndex": 5
+    },
+    {
+      "position": { "x": 598, "y": 467.5 },
+      "size": { "width": 52, "height": 52 },
+      "attrs": {
+        "text": { "text": "Client" },
+        "image": {
+          "xlink:href": "https://gw.alipayobjects.com/zos/bmw-prod/687b6cb9-4b97-42a6-96d0-34b3099133ac.svg"
+        }
+      },
+      "visible": true,
+      "shape": "custom-image",
+      "ports": {
+        "groups": {
+          "top": {
+            "position": "top",
+            "attrs": {
+              "circle": {
+                "r": 4,
+                "magnet": true,
+                "stroke": "#5F95FF",
+                "strokeWidth": 1,
+                "fill": "#fff",
+                "style": { "visibility": "hidden" }
+              }
+            }
+          },
+          "right": {
+            "position": "right",
+            "attrs": {
+              "circle": {
+                "r": 4,
+                "magnet": true,
+                "stroke": "#5F95FF",
+                "strokeWidth": 1,
+                "fill": "#fff",
+                "style": { "visibility": "hidden" }
+              }
+            }
+          },
+          "bottom": {
+            "position": "bottom",
+            "attrs": {
+              "circle": {
+                "r": 4,
+                "magnet": true,
+                "stroke": "#5F95FF",
+                "strokeWidth": 1,
+                "fill": "#fff",
+                "style": { "visibility": "hidden" }
+              }
+            }
+          },
+          "left": {
+            "position": "left",
+            "attrs": {
+              "circle": {
+                "r": 4,
+                "magnet": true,
+                "stroke": "#5F95FF",
+                "strokeWidth": 1,
+                "fill": "#fff",
+                "style": { "visibility": "hidden" }
+              }
+            }
+          }
+        },
+        "items": [
+          { "group": "top", "id": "6cfdb71e-8748-4727-9c13-bda4173c1f87" },
+          { "group": "right", "id": "25e6d471-3097-436f-93f2-a545357df955" },
+          { "group": "bottom", "id": "edabb277-985f-48dd-a247-32b577a9afb6" },
+          { "group": "left", "id": "7e6332c6-2327-4a26-a512-e9154f9443c8" }
+        ]
+      },
+      "id": "6dde113b-64dd-4201-8ee2-ee04583eaaf3",
+      "zIndex": 6
+    },
+    {
+      "position": { "x": 990, "y": 550 },
+      "size": { "width": 52, "height": 52 },
+      "attrs": {
+        "text": { "text": "Api" },
+        "image": {
+          "xlink:href": "https://gw.alipayobjects.com/zos/bmw-prod/c55d7ae1-8d20-4585-bd8f-ca23653a4489.svg"
+        }
+      },
+      "visible": true,
+      "shape": "custom-image",
+      "ports": {
+        "groups": {
+          "top": {
+            "position": "top",
+            "attrs": {
+              "circle": {
+                "r": 4,
+                "magnet": true,
+                "stroke": "#5F95FF",
+                "strokeWidth": 1,
+                "fill": "#fff",
+                "style": { "visibility": "hidden" }
+              }
+            }
+          },
+          "right": {
+            "position": "right",
+            "attrs": {
+              "circle": {
+                "r": 4,
+                "magnet": true,
+                "stroke": "#5F95FF",
+                "strokeWidth": 1,
+                "fill": "#fff",
+                "style": { "visibility": "hidden" }
+              }
+            }
+          },
+          "bottom": {
+            "position": "bottom",
+            "attrs": {
+              "circle": {
+                "r": 4,
+                "magnet": true,
+                "stroke": "#5F95FF",
+                "strokeWidth": 1,
+                "fill": "#fff",
+                "style": { "visibility": "hidden" }
+              }
+            }
+          },
+          "left": {
+            "position": "left",
+            "attrs": {
+              "circle": {
+                "r": 4,
+                "magnet": true,
+                "stroke": "#5F95FF",
+                "strokeWidth": 1,
+                "fill": "#fff",
+                "style": { "visibility": "hidden" }
+              }
+            }
+          }
+        },
+        "items": [
+          { "group": "top", "id": "0553613c-0bde-470e-8cbe-429fd4ee1370" },
+          { "group": "right", "id": "83815033-3cb6-4787-abe8-9a1817606fab" },
+          { "group": "bottom", "id": "2ef267fd-93d9-4c93-aaee-5ec57a8e6002" },
+          { "group": "left", "id": "04889986-508d-4dc6-833d-f77629841b4d" }
+        ]
+      },
+      "id": "19017752-5da8-4508-b969-35f1364c28fa",
+      "zIndex": 7
     }
   ]
 }

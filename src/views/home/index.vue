@@ -13,6 +13,7 @@
       to vueNode
     </div>
   </div>
+  <!-- <div contenteditable="true">contenteditable</div> -->
 </template>
 
 <script setup lang="ts">

@@ -1,36 +1,36 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
-import type { Cell, Node } from '@antv/x6'
+import type { Cell, Node, Edge } from '@antv/x6'
 
 interface PanelStore {
   panelVisible: boolean
   togglePanel: () => {}
-  currentSelectedNode: null | Node
-  setNode: (node: Node | null) => {}
+  currentSelectedNode: Cell | null
+  setNode: (node: Cell) => {}
   getNode: () => Cell | null
 }
 
 export const usePanelStore = defineStore('Panel', () => {
   const panelVisible = ref(false)
-  const currentSelectedNode = ref<null | Node>(null)
+  const currentSelectedNode = ref<PanelStore['currentSelectedNode']>(null)
 
   const togglePanel = (visible: boolean) => {
     panelVisible.value = visible ?? !panelVisible.value
   }
 
-  const setNode = (node: Node | null) => {
-    currentSelectedNode.value = node
+  const setCell = (cell: Cell | null) => {
+    currentSelectedNode.value = cell
   }
 
-  const getNode = () => {
+  const getCell = () => {
     return currentSelectedNode.value
   }
 
   return {
     panelVisible,
     togglePanel,
-    setNode,
-    getNode,
+    setCell,
+    getCell,
     currentSelectedNode,
   }
 })
