@@ -33,6 +33,7 @@ import Toolbar from './toolbar.vue'
 import { stencilWidth, controlPanelWidth, colors } from './consts'
 import { preWork } from './insertCss'
 import usePlugins from './plugins/index'
+import { useContextMenu } from './contextMenu/index'
 
 const TeleportContainer = getTeleport()
 const panelStore = usePanelStore()
@@ -48,8 +49,8 @@ onMounted(() => {
       color: '#F2F7FA',
     },
     panning: {
-      enabled: false,
-      // modifiers: ['ctrl'],
+      enabled: true,
+      modifiers: ['ctrl'],
     },
     mousewheel: {
       enabled: true,
@@ -123,7 +124,7 @@ onMounted(() => {
   usePlugins(graph)
   // #endregion
 
-  graph.on('cell:dblclick', ({ e, x, y, cell, view }) => {
+  graph.on('cell:click', ({ e, x, y, cell, view }) => {
     panelStore.panelVisible = true
     panelStore.setCell(cell)
   })
@@ -266,6 +267,10 @@ onMounted(() => {
     const ports = container.querySelectorAll('.x6-port-body') as NodeListOf<SVGElement>
     showPorts(ports, false)
   })
+
+  graph.on('blank:contextmenu', (event) => {
+    useContextMenu(event.e.pageX, event.e.pageY, event)
+  })
   // #endregion
 
   // #region 初始化图形
@@ -366,9 +371,6 @@ onMounted(() => {
         },
       },
       ports: { ...ports },
-      __proto__: {
-        aaa: 111,
-      },
     },
     true,
   )

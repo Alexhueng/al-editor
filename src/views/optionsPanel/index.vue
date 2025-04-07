@@ -9,7 +9,7 @@
     :title="null"
     placement="right"
   >
-    <n-drawer-content :title="`${isNode ? '节点' : '边'}属性`">
+    <n-drawer-content :title="`${isNode ? '节点' : '边'}`">
       <NodeOptions v-if="isNode" />
       <EdgeOptions v-if="isEdge" />
     </n-drawer-content>
@@ -19,7 +19,7 @@
 import { ref, watch, computed, reactive } from 'vue'
 import { usePanelStore } from '@/stores/panel'
 import type { Node, Size } from '@antv/x6'
-import NodeOptions from './node.vue'
+import NodeOptions from './nodePanel/index.vue'
 import EdgeOptions from './edge.vue'
 
 const panelStore = usePanelStore()

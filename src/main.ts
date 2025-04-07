@@ -1,5 +1,4 @@
 import './assets/main.css'
-// import 'tailwindcss/tailwind.css'
 import './assets/style/tailwind.css'
 import Antd, { message } from 'ant-design-vue'
 import NaiveUI from 'naive-ui'
