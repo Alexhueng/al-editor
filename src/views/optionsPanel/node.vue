@@ -187,10 +187,6 @@ const handleNodeSizeChange = (evt: InputEvent, type: SizeType) => {
 }
 
 const handleUpdateColor = (value: string) => {
-  console.log(node.value)
-  // node.value.setData({
-  //   backgroundColor: value,
-  // })
   node.value.setAttrs({
     body: {
       fill: value,

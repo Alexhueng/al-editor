@@ -34,6 +34,8 @@ import { stencilWidth, controlPanelWidth, colors } from './consts'
 import { preWork } from './insertCss'
 import usePlugins from './plugins/index'
 import { useContextMenu } from './contextMenu/index'
+import { useGraph } from './useGraph'
+import { stroke } from '@antv/x6/lib/registry/highlighter/stroke'
 
 const TeleportContainer = getTeleport()
 const panelStore = usePanelStore()
@@ -42,80 +44,7 @@ const graphStore = useGraphStore()
 onMounted(() => {
   preWork()
 
-  const graph = new Graph({
-    container: document.getElementById('graph-container')!,
-    grid: true,
-    background: {
-      color: '#F2F7FA',
-    },
-    panning: {
-      enabled: true,
-      modifiers: ['ctrl'],
-    },
-    mousewheel: {
-      enabled: true,
-      zoomAtMousePosition: true,
-      // modifiers: 'ctrl',
-      minScale: 0.5,
-      maxScale: 12,
-    },
-    embedding: true,
-    interacting: {
-      nodeMovable: true,
-      edgeMovable: true,
-      magnetConnectable: true,
-      edgeLabelMovable: true,
-      arrowheadMovable: true,
-      vertexMovable: true,
-      vertexAddable: true,
-      vertexDeletable: true,
-    },
-    connecting: {
-      // router: 'manhattan',
-      // connector: {
-      //   name: 'rounded',
-      //   args: {
-      //     radius: 8,
-      //   },
-      // },
-      // anchor: 'center',
-      // connectionPoint: 'anchor',
-      // allowBlank: true,
-      snap: {
-        radius: 20,
-      },
-      createEdge() {
-        return new Shape.Edge({
-          attrs: {
-            line: {
-              stroke: '#A2B1C3',
-              strokeWidth: 2,
-              targetMarker: {
-                name: 'block',
-                width: 12,
-                height: 8,
-              },
-            },
-          },
-          zIndex: 0,
-        })
-      },
-      validateConnection({ targetMagnet }) {
-        return !!targetMagnet
-      },
-    },
-    highlighting: {
-      magnetAdsorbed: {
-        name: 'stroke',
-        args: {
-          attrs: {
-            fill: 'red',
-            stroke: '#5F95FF',
-          },
-        },
-      },
-    },
-  })
+  const graph = new useGraph()
   // #endregion
 
   graphStore.setGraph(graph)
@@ -124,23 +53,32 @@ onMounted(() => {
   usePlugins(graph)
   // #endregion
 
-  graph.on('cell:click', ({ e, x, y, cell, view }) => {
-    panelStore.panelVisible = true
-    panelStore.setCell(cell)
-  })
+  // graph.on('cell:click', ({ e, x, y, cell, view }) => {
+  //   panelStore.panelVisible = true
+  //   panelStore.setCell(cell)
+  // })
 
-  graph.on('blank:click', () => {
-    panelStore.setCell(null)
-    panelStore.panelVisible = false
-  })
+  // graph.on('blank:click', () => {
+  //   panelStore.setCell(null)
+  //   panelStore.panelVisible = false
+  // })
 
-  graph.on('edge:mouseenter', ({ cell }) => {
+  graph.on('cell:selected', ({ cell }) => {
+    const selectedCells = graph.getSelectedCells()
+    if (selectedCells.length === 1) {
+      panelStore.panelVisible = true
+      panelStore.setCell(cell)
+    } else {
+      // todo: 群组选中的面板
+    }
     if (cell.isEdge()) {
       cell.addTools('vertices', 'onhover')
     }
   })
 
-  graph.on('edge:mouseleave', ({ cell }) => {
+  graph.on('cell:unselected', ({ cell }) => {
+    panelStore.setCell(null)
+    panelStore.panelVisible = false
     if (cell.isEdge()) {
       cell.removeTools()
     }
@@ -179,60 +117,49 @@ onMounted(() => {
   })
   document.getElementById('stencil')?.appendChild(stencil.container)
 
-  console.log(stencil)
   // #endregion
 
   // #region 快捷键与事件
   graph.bindKey(['meta+c', 'ctrl+c'], () => {
-    const cells = graph.getSelectedCells()
-    if (cells.length) {
-      graph.copy(cells)
-    }
+    graph._copy()
     return false
   })
   graph.bindKey(['meta+x', 'ctrl+x'], () => {
-    const cells = graph.getSelectedCells()
-    if (cells.length) {
-      graph.cut(cells)
-    }
+    graph._cut()
     return false
   })
   graph.bindKey(['meta+v', 'ctrl+v'], () => {
-    if (!graph.isClipboardEmpty()) {
-      const cells = graph.paste({ offset: 32 })
-      graph.cleanSelection()
-      graph.select(cells)
-    }
+    // if (!graph.isClipboardEmpty()) {
+    //   const cells = graph.paste({ offset: 32 })
+    //   graph.cleanSelection()
+    //   graph.select(cells)
+    // }
+    graph._paste()
     return false
   })
 
   // undo redo
-  graph.bindKey(['meta+z', 'ctrl+z'], () => {
-    if (graph.canUndo()) {
-      graph.undo()
-    }
+  graph.bindKey(['meta+z', 'ctrl+z'], (...args) => {
+    graph._undo()
     return false
   })
   graph.bindKey(['meta+shift+z', 'ctrl+shift+z'], () => {
-    if (graph.canRedo()) {
-      graph.redo()
-    }
+    graph._redo()
     return false
   })
 
   // select all
   graph.bindKey(['meta+a', 'ctrl+a'], () => {
-    const nodes = graph.getNodes()
-    if (nodes) {
-      graph.select(nodes)
-    }
+    graph._selectAll()
   })
 
   // delete 'backspace',
   graph.bindKey(['delete'], () => {
-    const cells = graph.getSelectedCells()
-    if (cells.length) {
-      graph.removeCells(cells)
+    graph._deleteCells()
+  })
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Delete') {
+      graph._deleteCells()
     }
   })
 
@@ -361,8 +288,8 @@ onMounted(() => {
       height: 36,
       attrs: {
         body: {
-          strokeWidth: 1,
-          stroke: colors.primary,
+          strokeWidth: 0,
+          // stroke: colors.primary,
           fill: colors.primary,
         },
         text: {
@@ -383,8 +310,8 @@ onMounted(() => {
       height: 36,
       attrs: {
         body: {
-          strokeWidth: 1,
-          stroke: colors.primary,
+          strokeWidth: 0,
+          // stroke: colors.primary,
           fill: colors.primary,
         },
         text: {
@@ -415,13 +342,35 @@ onMounted(() => {
       height: 45,
       attrs: {
         body: {
-          strokeWidth: 1,
-          stroke: colors.primary,
+          strokeWidth: 0,
+          // stroke: colors.primary,
           fill: colors.primary,
         },
         text: {
           fontSize: 12,
           fill: colors.text,
+        },
+      },
+      ports: { ...ports },
+    },
+    true,
+  )
+
+  Graph.registerNode(
+    'custom-riing',
+    {
+      inherit: 'circle',
+      width: 45,
+      height: 45,
+      attrs: {
+        body: {
+          strokeWidth: 2,
+          stroke: '#5F95FF',
+          fill: 'transparent',
+        },
+        text: {
+          fontSize: 12,
+          // fill: colors.text,
         },
       },
       ports: { ...ports },
@@ -528,6 +477,10 @@ onMounted(() => {
     shape: 'custom-circle',
     label: 'text',
   })
+  const ring = graph.createNode({
+    shape: 'custom-riing',
+  })
+
   const triangleNode = graph.createNode({
     shape: 'custom-polygon',
     attrs: {
@@ -538,7 +491,7 @@ onMounted(() => {
     label: 'text', // e.g., "Judgment" or "Condition"
   })
 
-  stencil.load([r1, r2, r3, r4, r5, r6, triangleNode], 'group1')
+  stencil.load([r1, r2, r3, r4, r5, r6, triangleNode, ring], 'group1')
 
   const imageShapes = [
     {

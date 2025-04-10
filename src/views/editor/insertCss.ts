@@ -13,13 +13,13 @@ export function preWork() {
   insertCss(`
   #container {
     display: flex;
-    border: 1px solid #dfe3e8;
+    // border: 1px solid #dfe3e8;
   }
   #stencil {
-    width: 300px;
-    height: 100%;
-    position: relative;
-    border-right: 1px solid #dfe3e8;
+    // width: 300px;
+    // height: 100%;
+    // position: relative;
+    // border-right: 1px solid #dfe3e8;
   }
   .x6-graph {
     // height: fit-content !important;
@@ -63,7 +63,7 @@ export function preWork() {
     border: 1px solid #239edd;
   }
   .x6-widget-selection-box {
-    opacity: 0;
+    opacity: 1;
   }
 `)
 }

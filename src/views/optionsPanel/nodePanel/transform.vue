@@ -71,17 +71,6 @@
       </n-space>
     </n-form-item>
 
-    <n-form-item label="背景颜色">
-      <div class="w-full">
-        <n-color-picker
-          v-model:value="backgroundColor"
-          :modes="['rgb', 'hex', 'hsl']"
-          @update:value="handleUpdateColor"
-        />
-        <!-- <n-input v-model:value="data.backgroundColor" @update:value="handleUpdateColor" /> -->
-      </div>
-    </n-form-item>
-
     <n-form-item label="角度">
       <n-flex class="w-full">
         <n-input-number
@@ -130,7 +119,6 @@ watch(
       position.value = node.value?.getPosition()
       zIndex.value = node.value?.getZIndex()!
       angel.value = node.value?.getAngle()
-      backgroundColor.value = node.value?.getAttrByPath('body/fill')
     }
   },
   {
@@ -167,17 +155,6 @@ const resize = (value: number, type: SizeType) => {
 const handleNodeSizeChange = (evt: InputEvent, type: SizeType) => {
   const value = Number((evt.target as HTMLInputElement).value)
   resize(value, type)
-}
-
-const handleUpdateColor = (value: string) => {
-  // node.value.setData({
-  //   backgroundColor: value,
-  // })
-  node.value.setAttrs({
-    body: {
-      fill: value,
-    },
-  })
 }
 
 type positionType = 'x' | 'y'

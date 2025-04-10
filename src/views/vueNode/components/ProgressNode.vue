@@ -19,7 +19,6 @@ export default defineComponent({
   },
   mounted() {
     const node = (this as any).getNode()
-    console.log(node)
   },
 })
 </script>

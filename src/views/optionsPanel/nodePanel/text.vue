@@ -117,7 +117,6 @@ const handleNodeContentChange = (value: string) => {
 }
 
 const handleBold = () => {
-  console.log(node.value)
   node.value.setAttrs({
     text: {
       fontWeight: isBold.value ? 'normal' : 'bold',

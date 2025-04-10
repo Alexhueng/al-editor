@@ -15,13 +15,45 @@
         @update:value="handleUpdateConnector"
       />
     </n-form-item>
+
+    <n-form-item label="填充">
+      <n-color-picker
+        v-model:value="stroke"
+        :modes="['rgb', 'hex', 'hsl']"
+        @update:value="handleColorChange"
+      />
+    </n-form-item>
+
+    <n-form-item label="线条">
+      <n-space justify="space-between">
+        <n-select
+          v-model:value="strokeType"
+          class="w-[200px]"
+          :options="strokeWidthList"
+          :render-label="renderLabel"
+          @update:value="handleStrokeType"
+        >
+        </n-select>
+        <n-input-number
+          v-model:value="strokeWidth"
+          class="w-[200px]"
+          :min="0"
+          @update:value="handleStrokeWidth"
+        />
+      </n-space>
+    </n-form-item>
   </n-form>
 </template>
 
 <script setup lang="ts">
-import { computed, reactive, watch } from 'vue'
+import { computed, reactive, ref, watch, h } from 'vue'
 import { usePanelStore } from '@/stores/panel'
-import type { Edge } from '@antv/x6'
+import { useGraphStore } from '@/stores/graph'
+
+// import types
+import type { Node, Size, Edge } from '@antv/x6'
+import type { SelectOption } from 'naive-ui'
+import type { VNodeChild } from 'vue'
 
 const routerMap = [
   { value: 'normal', label: '正常' },
@@ -38,7 +70,19 @@ const connectorMap = [
   { value: 'smooth', label: '平滑连接器' },
 ]
 
+const strokeWidthList = [
+  { label: '实线', value: '0', labelClass: 'border-b-[1px] border-[#000] h-[1px] w-[200px]' },
+  { label: '短间隔虚线', value: '1', labelClass: 'border-dashed' },
+  { label: '长间隔虚线', value: '5,5', labelClass: 'dashed-2' },
+  { label: '等长虚线', value: '10,5', labelClass: 'dashed-3' },
+  { label: '长短虚线', value: '15,5,3,5', labelClass: 'dashed-4' },
+]
+
 const panelStore = usePanelStore()
+const graphStore = useGraphStore()
+const stroke = ref('')
+const strokeType = ref('0')
+const strokeWidth = ref(1)
 
 const form = reactive<{
   router?: Edge.RouterData['name']
@@ -54,8 +98,22 @@ watch(
   (value) => {
     if (value) {
       if (!edge.value.isEdge()) return
-      form.router = edge.value.getRouter()?.name
-      form.connector = edge.value.getConnector()?.name
+      const router = edge.value.getRouter()
+      if (typeof router === 'string') {
+        form.router = router
+      } else {
+        form.router = router?.name
+      }
+
+      const connector = edge.value.getConnector()
+      if (typeof connector === 'string') {
+        form.connector = connector
+      } else {
+        form.connector = connector?.name
+      }
+      stroke.value = edge.value.getAttrByPath('line/stroke')
+      strokeType.value = edge.value.getAttrByPath('line/strokeDasharray')
+      strokeWidth.value = edge.value.getAttrByPath('line/strokeWidth')
     }
   },
   {
@@ -69,5 +127,40 @@ const handleUpdateRouter = (value: string) => {
 
 const handleUpdateConnector = (value: string) => {
   edge.value.setConnector(value)
+}
+
+const handleColorChange = (value: string) => {
+  edge.value.setAttrs({
+    line: {
+      stroke: value,
+    },
+  })
+}
+
+const renderLabel = (option: SelectOption): VNodeChild => {
+  const baseClass = 'border-b-[1px] border-[#000] h-[1px] w-[200px]'
+  return h(
+    'div',
+    { class: 'w-full flex  items-center h-[30px]', title: option.label },
+    h('div', {
+      class: baseClass + ' ' + option.labelClass,
+    }),
+  )
+}
+
+const handleStrokeType = (value: string) => {
+  edge.value.setAttrs({
+    line: {
+      strokeDasharray: value,
+    },
+  })
+}
+
+const handleStrokeWidth = (value: number) => {
+  edge.value.setAttrs({
+    line: {
+      strokeWidth: value,
+    },
+  })
 }
 </script>

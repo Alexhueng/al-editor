@@ -7,6 +7,8 @@
     root-class-name="root-class-name"
     :root-style="{ color: 'blue' }"
     :title="null"
+    :mask-closable="false"
+    :close-on-esc="false"
     placement="right"
   >
     <n-drawer-content :title="`${isNode ? '节点' : '边'}`">
@@ -38,9 +40,6 @@ const isEdge = computed(() => {
 
 // watch(
 //   () => panelStore.panelVisible,
-//   (value) => {
-//     if (value) {
-//     }
-//   },
+//   (value) => {},
 // )
 </script>

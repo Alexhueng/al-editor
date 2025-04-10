@@ -8,11 +8,11 @@
         <n-button>撤销</n-button>
         <n-button>全选</n-button>
       </n-space>
-      <div>
-        <n-button @click="handleSave">保存</n-button>
+      <n-space>
+        <n-button type="primary" @click="handleSave">保存</n-button>
         <n-button @click="handleRender">渲染</n-button>
         <n-button @click="handleExport">导出</n-button>
-      </div>
+      </n-space>
     </div>
   </div>
 </template>
@@ -28,15 +28,15 @@ const handleSave = () => {
   const graph = graphStore.graph
   if (graph) {
     const json = graph.toJSON()
-    console.log(json)
-    console.log(JSON.stringify(json))
+    // console.log(json)
+    // console.log(JSON.stringify(json))
   }
 }
 
 const handleRender = () => {
   const graph = graphStore.graph
   if (graph) {
-    graph.fromJSON(data)
+    graph.fromJSON(data as any)
   }
 }
 
