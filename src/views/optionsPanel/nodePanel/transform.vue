@@ -87,8 +87,9 @@
   </n-form>
 </template>
 <script lang="ts" setup>
-import { ref, watch, computed, reactive } from 'vue'
+import { ref, watch, computed, reactive, onMounted, onBeforeUnmount } from 'vue'
 import { usePanelStore } from '@/stores/panel'
+import { useGraphStore } from '@/stores/graph'
 import type { Node, Size } from '@antv/x6'
 
 type SizeType = 'w' | 'h'
@@ -108,23 +109,29 @@ const angel = ref(0)
 const node = computed(() => {
   return panelStore.getCell()! as Node
 })
+const graph = computed(() => {
+  return useGraphStore().graph!
+})
 
-watch(
-  () => panelStore.panelVisible,
-  (value) => {
-    if (value) {
-      if (!node.value.isNode()) return
-      size.value = node.value!.getSize()
-      data.value = node.value!.getData() || {}
-      position.value = node.value?.getPosition()
-      zIndex.value = node.value?.getZIndex()!
-      angel.value = node.value?.getAngle()
-    }
-  },
-  {
-    immediate: true,
-  },
-)
+const initNode = () => {
+  if (!node.value || !node.value.isNode()) return
+  size.value = node.value!.getSize()
+  data.value = node.value!.getData() || {}
+  position.value = node.value?.getPosition()
+  zIndex.value = node.value?.getZIndex()!
+  angel.value = node.value?.getAngle()
+}
+
+onMounted(() => {
+  initNode()
+  graph.value.on('selection:changed', () => {
+    initNode()
+  })
+})
+
+onBeforeUnmount(() => {
+  graph.value.off('selection:changed')
+})
 
 const handleZIndexChange = (value: number, type: 'up' | 'down' | 'top' | 'bottom') => {
   if (!type) {

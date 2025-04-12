@@ -18,6 +18,7 @@
   "dependencies": {
     "@antv/x6": "^2.18.1",
     "@antv/x6-plugin-clipboard": "^2.1.6",
+    "@antv/x6-plugin-dnd": "^2.1.1",
     "@antv/x6-plugin-export": "^2.1.6",
     "@antv/x6-plugin-history": "^2.2.4",
     "@antv/x6-plugin-keyboard": "^2.2.3",
@@ -28,8 +29,13 @@
     "@antv/x6-vue-shape": "^2.1.2",
     "@vicons/ionicons5": "^0.12.0",
     "ant-design-vue": "^4.2.6",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "insert-css": "^2.0.0",
+    "lucide-vue-next": "^0.487.0",
     "pinia": "^2.2.6",
+    "tailwind-merge": "^3.2.0",
+    "tailwindcss-animate": "^1.0.7",
     "vue": "^3.5.12",
     "vue-router": "^4.4.5"
   },
@@ -60,6 +66,7 @@
     "typescript": "~5.6.3",
     "vite": "^5.4.10",
     "vite-plugin-vue-devtools": "^7.5.4",
+    "vite-svg-loader": "^5.1.0",
     "vitest": "^2.1.4",
     "vue-tsc": "^2.1.10"
   }

@@ -46,7 +46,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, reactive, ref, watch, h } from 'vue'
+import { computed, reactive, ref, watch, h, onMounted, onBeforeMount } from 'vue'
 import { usePanelStore } from '@/stores/panel'
 import { useGraphStore } from '@/stores/graph'
 
@@ -79,7 +79,9 @@ const strokeWidthList = [
 ]
 
 const panelStore = usePanelStore()
-const graphStore = useGraphStore()
+const graph = computed(() => {
+  return useGraphStore().graph
+})
 const stroke = ref('')
 const strokeType = ref('0')
 const strokeWidth = ref(1)
@@ -93,33 +95,36 @@ const edge = computed(() => {
   return panelStore.getCell()! as Edge
 })
 
-watch(
-  () => panelStore.panelVisible,
-  (value) => {
-    if (value) {
-      if (!edge.value.isEdge()) return
-      const router = edge.value.getRouter()
-      if (typeof router === 'string') {
-        form.router = router
-      } else {
-        form.router = router?.name
-      }
+const initEdge = () => {
+  if (!edge.value || !edge.value.isEdge()) return
+  const router = edge.value.getRouter()
+  if (typeof router === 'string') {
+    form.router = router
+  } else {
+    form.router = router?.name
+  }
 
-      const connector = edge.value.getConnector()
-      if (typeof connector === 'string') {
-        form.connector = connector
-      } else {
-        form.connector = connector?.name
-      }
-      stroke.value = edge.value.getAttrByPath('line/stroke')
-      strokeType.value = edge.value.getAttrByPath('line/strokeDasharray')
-      strokeWidth.value = edge.value.getAttrByPath('line/strokeWidth')
-    }
-  },
-  {
-    immediate: true,
-  },
-)
+  const connector = edge.value.getConnector()
+  if (typeof connector === 'string') {
+    form.connector = connector
+  } else {
+    form.connector = connector?.name
+  }
+  stroke.value = edge.value.getAttrByPath('line/stroke')
+  strokeType.value = edge.value.getAttrByPath('line/strokeDasharray')
+  strokeWidth.value = edge.value.getAttrByPath('line/strokeWidth')
+}
+
+onMounted(() => {
+  initEdge()
+  graph.value?.on('selection:changed', () => {
+    initEdge()
+  })
+})
+
+onBeforeMount(() => {
+  graph.value?.off('selection:changed')
+})
 
 const handleUpdateRouter = (value: string) => {
   edge.value.setRouter(value)

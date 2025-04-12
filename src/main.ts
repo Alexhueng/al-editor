@@ -2,6 +2,7 @@ import './assets/main.css'
 import './assets/style/tailwind.css'
 import Antd, { message } from 'ant-design-vue'
 import NaiveUI from 'naive-ui'
+import SvgIcon from './components/SvgIcon/index.vue'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
@@ -15,6 +16,7 @@ app.use(createPinia())
 app.use(router)
 app.use(NaiveUI)
 app.use(Antd)
+app.component('SvgIcon', SvgIcon)
 
 app.mount('#app')
 

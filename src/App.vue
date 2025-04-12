@@ -1,9 +1,15 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
+import { NConfigProvider } from 'naive-ui'
+import { dateZhCN, zhCN } from 'naive-ui'
 </script>
 
 <template>
-  <RouterView />
+  <NConfigProvider class="h-full" :locale="zhCN" :date-locale="dateZhCN">
+    <n-message-provider>
+      <RouterView />
+    </n-message-provider>
+  </NConfigProvider>
 </template>
 
 <style scoped></style>

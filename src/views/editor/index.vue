@@ -21,7 +21,8 @@
 <script setup lang="ts">
 import { Graph, Shape } from '@antv/x6'
 import type { Node } from '@antv/x6'
-import { Stencil } from '@antv/x6-plugin-stencil'
+// import { Stencil } from '@antv/x6-plugin-stencil'
+import { Stencil } from '@/plugins/stencil'
 import { onMounted } from 'vue'
 import { register, getTeleport } from '@antv/x6-vue-shape'
 // import { useRegister } from '@/views/nodes/custom-1/index'
@@ -35,7 +36,6 @@ import { preWork } from './insertCss'
 import usePlugins from './plugins/index'
 import { useContextMenu } from './contextMenu/index'
 import { useGraph } from './useGraph'
-import { stroke } from '@antv/x6/lib/registry/highlighter/stroke'
 
 const TeleportContainer = getTeleport()
 const panelStore = usePanelStore()
@@ -92,6 +92,22 @@ onMounted(() => {
     stencilGraphHeight: 0,
     collapsable: false,
     scaled: true,
+    stencilGraphOptions: {
+      embedding: true,
+    },
+    beforeDndStart: ({ node, e }) => {
+      const cloneNode = node.clone()
+      const shape = cloneNode.shape
+
+      if (shape === 'container') {
+        const size = cloneNode.prop('size')
+        cloneNode.prop('size', {
+          width: size!.width * 4,
+          height: size!.height * 4,
+        })
+      }
+      return cloneNode
+    },
     groups: [
       {
         title: '基础节点',
@@ -99,6 +115,7 @@ onMounted(() => {
         layoutOptions: {
           rowHeight: 60,
         },
+        nodeMovable: true,
       },
       {
         title: '系统设计图',
@@ -116,6 +133,12 @@ onMounted(() => {
     },
   })
   document.getElementById('stencil')?.appendChild(stencil.container)
+
+  // Object.values(stencil.graphs).forEach((graph) => {
+  //   graph.on('cell:mouseenter', () => {
+  //     console.log('mouseenter')
+  //   })
+  // })
 
   // #endregion
 
@@ -303,6 +326,28 @@ onMounted(() => {
   )
 
   Graph.registerNode(
+    'container',
+    {
+      inherit: 'rect',
+      width: 66,
+      height: 36,
+      attrs: {
+        body: {
+          strokeWidth: 2,
+          stroke: colors.primary,
+          fill: 'transparent',
+        },
+        text: {
+          fontSize: 12,
+          // fill: colors.text,
+        },
+      },
+      ports: { ...ports },
+    },
+    true,
+  )
+
+  Graph.registerNode(
     'custom-polygon',
     {
       inherit: 'polygon',
@@ -357,7 +402,7 @@ onMounted(() => {
   )
 
   Graph.registerNode(
-    'custom-riing',
+    'ring',
     {
       inherit: 'circle',
       width: 45,
@@ -365,8 +410,8 @@ onMounted(() => {
       attrs: {
         body: {
           strokeWidth: 2,
-          stroke: '#5F95FF',
-          fill: 'transparent',
+          stroke: colors.primary,
+          fill: colors.transparent,
         },
         text: {
           fontSize: 12,
@@ -478,7 +523,10 @@ onMounted(() => {
     label: 'text',
   })
   const ring = graph.createNode({
-    shape: 'custom-riing',
+    shape: 'ring',
+  })
+  const container = graph.createNode({
+    shape: 'container',
   })
 
   const triangleNode = graph.createNode({
@@ -488,10 +536,10 @@ onMounted(() => {
         refPoints: '0,20 20,20 10,0', // 三个顶点: 左下, 右下, 顶部中心
       },
     },
-    label: 'text', // e.g., "Judgment" or "Condition"
+    // label: 'text', // e.g., "Judgment" or "Condition"
   })
 
-  stencil.load([r1, r2, r3, r4, r5, r6, triangleNode, ring], 'group1')
+  stencil.load([r1, r2, r3, r4, r5, r6, triangleNode, ring, container], 'group1')
 
   const imageShapes = [
     {

@@ -52,8 +52,9 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watch, computed, reactive, h } from 'vue'
+import { ref, watch, computed, onMounted, h, onBeforeUnmount } from 'vue'
 import { usePanelStore } from '@/stores/panel'
+import { useGraphStore } from '@/stores/graph'
 import { colors } from '@/views/editor/consts'
 
 // import types
@@ -65,6 +66,10 @@ const panelStore = usePanelStore()
 
 const node = computed(() => {
   return panelStore.getCell()! as Node
+})
+
+const graph = computed(() => {
+  return useGraphStore().graph!
 })
 
 const backgroundColor = ref('')
@@ -116,23 +121,26 @@ const strokeWidthList = [
 
 const defaultBorderType = strokeWidthList[0].value
 
-watch(
-  () => panelStore.panelVisible,
-  (value) => {
-    if (value) {
-      if (!node.value.isNode()) return
-      backgroundColor.value = node.value?.getAttrByPath('body/fill')
-      const stroke = node.value?.getAttrByPath('body/stroke')
-      borderColor.value = node.value?.getAttrByPath('body/stroke')
-      isBorder.value = !!stroke
-      strokeWidth.value = node.value?.getAttrByPath('body/strokeWidth') || 0
-      borderType.value = node.value?.getAttrByPath('body/strokeDasharray') || defaultBorderType
-    }
-  },
-  {
-    immediate: true,
-  },
-)
+const initNode = () => {
+  if (!node.value || !node.value.isNode()) return
+  backgroundColor.value = node.value?.getAttrByPath('body/fill')
+  const stroke = node.value?.getAttrByPath('body/stroke')
+  borderColor.value = node.value?.getAttrByPath('body/stroke')
+  isBorder.value = !!stroke
+  strokeWidth.value = node.value?.getAttrByPath('body/strokeWidth') || 0
+  borderType.value = node.value?.getAttrByPath('body/strokeDasharray') || defaultBorderType
+}
+
+onMounted(() => {
+  initNode()
+  graph.value.on('selection:changed', () => {
+    initNode()
+  })
+})
+
+onBeforeUnmount(() => {
+  graph.value.off('selection:changed')
+})
 
 const handleUpdateColor = (value: string) => {
   backgroundColor.value = value

@@ -24,7 +24,7 @@ import type { Node } from '@antv/x6'
 const graphStore = useGraphStore()
 
 const visible = ref(false)
-const position = ref<{ x: number | undefined; y: number | undefined }>({
+const position = ref<{ x?: number; y?: number }>({
   x: undefined,
   y: undefined,
 })
@@ -93,7 +93,6 @@ const options: (DropdownOption & {
     click: () => {
       const graph = graphStore.graph
       if (!graph) return
-      console.log(graph)
       graph.background.options.background
       if (graph._isGraphEmpty()) return
 
@@ -106,6 +105,7 @@ const options: (DropdownOption & {
 
       graph.toPNG(
         async (dataUri) => {
+          console.log(dataUri)
           const clipboardItem = await base64Image2Clipboard(dataUri)
 
           await navigator.clipboard.write([clipboardItem])

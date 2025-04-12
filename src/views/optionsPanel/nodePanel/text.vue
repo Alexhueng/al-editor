@@ -3,6 +3,7 @@
     <div class="text-[14px] mb-1 font-bold">文本内容</div>
     <n-input
       v-model:value="text"
+      type="textarea"
       placeholder="请输入节点内容"
       maxlength="1000"
       @input="handleNodeContentChange"
@@ -55,13 +56,18 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watch, computed, reactive } from 'vue'
+import { ref, watch, computed, onMounted, onBeforeMount } from 'vue'
 import { usePanelStore } from '@/stores/panel'
-import type { Node, Size } from '@antv/x6'
-const panelStore = usePanelStore()
+import { useGraphStore } from '@/stores/graph'
 
+import type { Node, Size } from '@antv/x6'
+
+const panelStore = usePanelStore()
 const node = computed(() => {
   return panelStore.getCell()! as Node
+})
+const graph = computed(() => {
+  return useGraphStore().graph!
 })
 
 const HAlignMap = [
@@ -85,28 +91,31 @@ const fontColor = ref('#fff')
 const horizontalAlign = ref('middle')
 const verticalAlign = ref('middle')
 
-watch(
-  () => panelStore.panelVisible,
-  (value) => {
-    if (value) {
-      if (!node.value.isNode()) return
-      text.value = node.value.getAttrByPath('text/text')
-      fontSize.value = node.value!.getAttrByPath('text/fontSize')
-      isBold.value = node.value!.getAttrByPath('text/fontWeight') === 'bold'
-      isItalic.value = node.value!.getAttrByPath('text/fontStyle') === 'italic'
-      isUnderline.value = node.value!.getAttrByPath('text/textDecoration') === 'underline'
-      const transform = node.value!.getAttrByPath('text/transform')
-      if (transform && typeof transform === 'string') {
-        isVertical.value = transform.includes('rotate(90deg)')
-      }
-      horizontalAlign.value = node.value!.getAttrByPath('text/textAnchor') as HAlign
-      verticalAlign.value = node.value!.getAttrByPath('text/textVerticalAnchor') as VAlign
-    }
-  },
-  {
-    immediate: true,
-  },
-)
+const initNode = () => {
+  if (!node.value || !node.value.isNode()) return
+  text.value = node.value.getAttrByPath('text/text') || ''
+  fontSize.value = node.value!.getAttrByPath('text/fontSize')
+  isBold.value = node.value!.getAttrByPath('text/fontWeight') === 'bold'
+  isItalic.value = node.value!.getAttrByPath('text/fontStyle') === 'italic'
+  isUnderline.value = node.value!.getAttrByPath('text/textDecoration') === 'underline'
+  const transform = node.value!.getAttrByPath('text/transform')
+  if (transform && typeof transform === 'string') {
+    isVertical.value = transform.includes('rotate(90deg)')
+  }
+  horizontalAlign.value = node.value!.getAttrByPath('text/textAnchor') as HAlign
+  verticalAlign.value = node.value!.getAttrByPath('text/textVerticalAnchor') as VAlign
+}
+
+onMounted(() => {
+  initNode()
+  graph.value.on('selection:changed', () => {
+    initNode()
+  })
+})
+
+onBeforeMount(() => {
+  graph.value.off('selection:changed')
+})
 
 const handleNodeContentChange = (value: string) => {
   node.value.setAttrs({

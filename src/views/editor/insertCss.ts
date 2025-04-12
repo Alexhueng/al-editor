@@ -31,10 +31,12 @@ export function preWork() {
   // }
   .x6-widget-stencil  {
     background-color: #fff;
+    width: fit-content;
   }
   .x6-widget-stencil-content {
     padding: 10px;
     padding-top: 42px;
+    width: fit-content;
   }
   .x6-widget-stencil-title {
     background-color: #fff;

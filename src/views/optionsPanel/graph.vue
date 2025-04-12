@@ -16,11 +16,11 @@
         </div>
       </n-form-item>
 
-      <n-form-item label="背景图片(仅支持png格式)" style="display: block">
+      <!-- <n-form-item label="背景图片(仅支持png格式)" style="display: block">
         <n-flex vertical>
           <Upload @uploadSuccess="uploadSuccess" @valueChange="uploadSuccess" />
         </n-flex>
-      </n-form-item>
+      </n-form-item> -->
 
       <n-form-item label="网格" class="mt-4">
         <template #label>

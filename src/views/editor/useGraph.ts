@@ -2,7 +2,8 @@ import router from '@/router'
 import { Graph, Shape, Node } from '@antv/x6'
 
 export class useGraph extends Graph {
-  graph: Graph
+  graph: Graph;
+  [key: string]: any
 
   constructor(id?: string) {
     const graph = super({
@@ -148,6 +149,31 @@ export class useGraph extends Graph {
     if (this.graph.canRedo()) {
       this.graph.redo()
     }
+  }
+
+  // exports
+  private imgExportOptions = {
+    padding: 40,
+    backgroundColor: '#fff',
+    quality: 1,
+  }
+  _exportSVG(fileName: string) {
+    this.graph?.exportSVG(fileName, {
+      preserveDimensions: true,
+      stylesheet: `
+        .x6-graph-svg {
+          padding: 40px;
+        }
+      `,
+    })
+  }
+
+  _exportPNG(fileName: string) {
+    this.graph?.exportPNG(fileName, this.imgExportOptions)
+  }
+
+  _exportJPEG(fileName: string) {
+    this.graph?.exportJPEG(fileName, this.imgExportOptions)
   }
 
   // getters

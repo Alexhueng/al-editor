@@ -6,6 +6,7 @@ import useKeyboard from './keyboard'
 import useHistory from './history'
 import useClipboard from './clipboard'
 import useExport from './export'
+// import useDnd from './dnd'
 
 export default function (graph: Graph) {
   useExport(graph)
@@ -15,4 +16,5 @@ export default function (graph: Graph) {
   useKeyboard(graph)
   useHistory(graph)
   useClipboard(graph)
+  // useDnd(graph)
 }
