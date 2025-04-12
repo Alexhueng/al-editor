@@ -1,29 +1,41 @@
 <template>
-  <div :class="cn(patternBackgroundVariants({
-  variant,
-  size,
-}), ` ${animate ? 'move move-' + direction : ''} `, props.class)">
-    <div :class="cn(
-  'absolute pointer-events-none inset-0 flex items-center justify-center',
-  patternBackgroundMaskVariants({
-    mask,
-  }),
-)"></div>
+  <div
+    :class="
+      cn(
+        patternBackgroundVariants({
+          variant,
+          size,
+        }),
+        ` ${animate ? 'move move-' + direction : ''} `,
+        props.class,
+      )
+    "
+  >
+    <div
+      :class="
+        cn(
+          'absolute pointer-events-none inset-0 flex items-center justify-center',
+          patternBackgroundMaskVariants({
+            mask,
+          }),
+        )
+      "
+    ></div>
     <slot />
   </div>
 </template>
 
 <script setup lang="ts">
-import { cn } from '@/lib/utils';
-import type { BaseProps as Props } from '.';
+import { cn } from '@/lib/utils'
+import type { BaseProps as Props } from '.'
 import {
   PATTERN_BACKGROUND_DIRECTION,
   PATTERN_BACKGROUND_SPEED,
   PATTERN_BACKGROUND_VARIANT,
   patternBackgroundMaskVariants,
   patternBackgroundVariants,
-} from '.';
-import { computed } from 'vue';
+} from '.'
+import { computed } from 'vue'
 
 const props = withDefaults(defineProps<Props>(), {
   direction: () => PATTERN_BACKGROUND_DIRECTION.Top,
@@ -31,9 +43,9 @@ const props = withDefaults(defineProps<Props>(), {
   speed: () => PATTERN_BACKGROUND_SPEED.Default,
   size: undefined,
   mask: undefined,
-});
+})
 
-const durationFormSpeed = computed(() => `${props.speed}ms`);
+const durationFormSpeed = computed(() => `${props.speed}ms`)
 </script>
 
 <style scoped>

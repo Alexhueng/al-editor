@@ -1,7 +1,7 @@
-import { cva, type VariantProps } from 'class-variance-authority';
-import type { HTMLAttributes } from 'vue';
+import { cva, type VariantProps } from 'class-variance-authority'
+import type { HTMLAttributes } from 'vue'
 
-type ObjectValues<T> = T[keyof T];
+type ObjectValues<T> = T[keyof T]
 
 export const PATTERN_BACKGROUND_DIRECTION = {
   Top: 'top',
@@ -12,31 +12,31 @@ export const PATTERN_BACKGROUND_DIRECTION = {
   TopRight: 'top-right',
   BottomLeft: 'bottom-left',
   BottomRight: 'bottom-right',
-} as const;
+} as const
 
-export type PatternBackgroundDirection = ObjectValues<typeof PATTERN_BACKGROUND_DIRECTION>;
+export type PatternBackgroundDirection = ObjectValues<typeof PATTERN_BACKGROUND_DIRECTION>
 
 export interface BaseProps {
-  class?: HTMLAttributes['class'];
-  animate?: boolean;
-  direction?: PatternBackgroundDirection;
-  variant?: PatternBackgroundVariants['variant'];
-  size?: PatternBackgroundVariants['size'];
-  mask?: PatternBackgroundMaskVariants['mask'];
-  speed?: ObjectValues<typeof PATTERN_BACKGROUND_SPEED>;
+  class?: HTMLAttributes['class']
+  animate?: boolean
+  direction?: PatternBackgroundDirection
+  variant?: PatternBackgroundVariants['variant']
+  size?: PatternBackgroundVariants['size']
+  mask?: PatternBackgroundMaskVariants['mask']
+  speed?: ObjectValues<typeof PATTERN_BACKGROUND_SPEED>
 }
 
 export const PATTERN_BACKGROUND_VARIANT = {
   Grid: 'grid',
   Dot: 'dot',
   BigDot: 'big-dot',
-} as const;
+} as const
 
 export const PATTERN_BACKGROUND_SPEED = {
   Default: 10000,
   Slow: 25000,
   Fast: 5000,
-} as const;
+} as const
 
 export const patternBackgroundVariants = cva('relative text-clip', {
   variants: {
@@ -59,14 +59,14 @@ export const patternBackgroundVariants = cva('relative text-clip', {
     variant: 'grid',
     size: 'md',
   },
-});
+})
 
-export type PatternBackgroundVariants = VariantProps<typeof patternBackgroundVariants>;
+export type PatternBackgroundVariants = VariantProps<typeof patternBackgroundVariants>
 
 export const PATTERN_BACKGROUND_MASK = {
   Ellipse: 'ellipse',
   EllipseTop: 'ellipse-top',
-} as const;
+} as const
 
 export const patternBackgroundMaskVariants = cva('bg-background', {
   variants: {
@@ -80,8 +80,8 @@ export const patternBackgroundMaskVariants = cva('bg-background', {
   defaultVariants: {
     mask: 'ellipse',
   },
-});
+})
 
-export type PatternBackgroundMaskVariants = VariantProps<typeof patternBackgroundMaskVariants>;
+export type PatternBackgroundMaskVariants = VariantProps<typeof patternBackgroundMaskVariants>
 
-export { default as PatternBackground } from './PatternBackground.vue';
+export { default as PatternBackground } from './PatternBackground.vue'
