@@ -1,6 +1,6 @@
 import { useGraph } from '../useGraph'
 import { usePanelStore } from '@/stores/panel'
-import { useContextMenu } from '../contextMenu/index'
+import { useContextMenu } from '../components/contextMenu/index'
 import { defaultPorts, showPorts } from '../ports'
 
 const panelStore = usePanelStore()

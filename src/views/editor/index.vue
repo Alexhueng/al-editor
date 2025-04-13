@@ -31,11 +31,10 @@ import { useEvents } from './useEvents'
 import { useKeyboard } from './useKeyboard'
 import { useRegisterNode } from './registerNode'
 import { useStencil } from './stencil'
-import { Persistence } from './persistence'
 
 import OptionsPanel from '@/views/optionsPanel/index.vue'
 import GraphControlPanel from '@/views/optionsPanel/graph.vue'
-import Toolbar from './toolbar.vue'
+import Toolbar from './components/toolbar/index.vue'
 
 const route = useRoute()
 const TeleportContainer = getTeleport()

@@ -58,13 +58,13 @@
 </template>
 
 <script setup lang="ts">
-import { stencilWidth, controlPanelWidth } from './consts'
+import { stencilWidth, controlPanelWidth } from '../../consts'
 import { useGraphStore } from '@/stores/graph'
 import Modal from '@/components/Modal/index.vue'
 import { ref } from 'vue'
 import { StorageService } from '@/utils/storage'
 import { useMessage } from 'naive-ui'
-import { Persistence } from './persistence'
+import { Persistence } from '../../persistence'
 
 import type { DropdownOption } from 'naive-ui'
 
