@@ -64,6 +64,7 @@ import Modal from '@/components/Modal/index.vue'
 import { ref } from 'vue'
 import { StorageService } from '@/utils/storage'
 import { useMessage } from 'naive-ui'
+import { Persistence } from './persistence'
 
 import type { DropdownOption } from 'naive-ui'
 
@@ -109,7 +110,8 @@ const handleConfirmRender = ({ resolve, reject }: { resolve: () => void; reject:
   const graphs = storage.get('graphs')
   const json = graphs[selectedGraph.value]
   if (graph) {
-    graph.fromJSON(json)
+    graph.fromJSON(json).centerContent()
+    graph.persistence.save(json)
   }
   selectedGraph.value = ''
   resolve()

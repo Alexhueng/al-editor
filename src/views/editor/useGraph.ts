@@ -1,8 +1,13 @@
 import router from '@/router'
 import { Graph, Shape, Node } from '@antv/x6'
+import { StorageService } from '@/utils/storage'
+import { Persistence } from './persistence'
+
+const storage = new StorageService()
 
 export class useGraph extends Graph {
-  graph: Graph;
+  graph: Graph
+  persistence: Persistence;
   [key: string]: any
 
   constructor(id?: string) {
@@ -86,6 +91,7 @@ export class useGraph extends Graph {
     })
 
     this.graph = graph as unknown as Graph
+    this.persistence = new Persistence(this)
   }
 
   _isGraphEmpty() {
@@ -119,6 +125,7 @@ export class useGraph extends Graph {
     const cells = this.graph.getCells()
     if (cells.length) {
       this.graph.removeCells(cells)
+      this.persistence.remove()
     }
   }
   _copy() {
@@ -167,13 +174,19 @@ export class useGraph extends Graph {
       `,
     })
   }
-
   _exportPNG(fileName: string) {
     this.graph?.exportPNG(fileName, this.imgExportOptions)
   }
 
   _exportJPEG(fileName: string) {
     this.graph?.exportJPEG(fileName, this.imgExportOptions)
+  }
+
+  _fromLocalJSON(name: string) {
+    const json = storage.get('graphs')[name]
+    this.graph.fromJSON(json)
+
+    return this.graph
   }
 
   // getters

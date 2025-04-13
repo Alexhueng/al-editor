@@ -1,4 +1,4 @@
-import type { Graph } from '@antv/x6'
+import { useGraph } from '../useGraph'
 import useTransform from './transform'
 import useSelection from './selection'
 import useSnapline from './snapline'
@@ -8,7 +8,7 @@ import useClipboard from './clipboard'
 import useExport from './export'
 // import useDnd from './dnd'
 
-export default function (graph: Graph) {
+export const usePlugins = (graph: useGraph) => {
   useExport(graph)
   useTransform(graph)
   useSelection(graph)

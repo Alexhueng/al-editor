@@ -1,7 +1,6 @@
 import { insertCss } from 'insert-css'
 
 export function preWork() {
-  // 这里协助演示的代码，在实际项目中根据实际情况进行调整
   const container = document.getElementById('graph-container')!
   const stencilContainer = document.createElement('div')
   stencilContainer.id = 'stencil'
