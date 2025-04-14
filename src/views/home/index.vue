@@ -54,7 +54,9 @@ import {
   PATTERN_BACKGROUND_VARIANT,
   PATTERN_BACKGROUND_SPEED,
 } from '@/components/ui/pattern-background/index'
+import { useGraphStore } from '@/stores/graph'
 
+const graphStore = useGraphStore()
 const router = useRouter()
 const storage = new StorageService()
 const maxCount = 6
@@ -80,7 +82,8 @@ onMounted(() => {
 })
 
 const handleClick = (item: string) => {
-  router.push({ path: `/editor/${item}` })
+  router.push({ path: 'editor' })
+  graphStore.setCurrentGraphName(item)
 }
 </script>
 

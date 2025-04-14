@@ -9,7 +9,7 @@ const router = createRouter({
       component: () => import('@/views/home/index.vue'),
     },
     {
-      path: '/editor/:name?',
+      path: '/editor',
       name: 'editor',
       component: () => import('@/views/editor/index.vue'),
     },

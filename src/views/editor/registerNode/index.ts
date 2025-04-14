@@ -1,4 +1,4 @@
-import { Graph, Shape } from '@antv/x6'
+import { Graph, Shape, ObjectExt } from '@antv/x6'
 import { defaultPorts } from '../ports'
 import { colors } from '../consts'
 
@@ -24,6 +24,9 @@ export const useRegisterNode = () => {
     },
     true,
   )
+  // .config({
+  //   // preserveAspectRatio: true,
+  // })
 
   Graph.registerNode(
     'container',
@@ -99,7 +102,9 @@ export const useRegisterNode = () => {
       ports: { ...defaultPorts },
     },
     true,
-  )
+  ).config({
+    preserveAspectRatio: true,
+  })
 
   Graph.registerNode(
     'ring',
@@ -121,7 +126,9 @@ export const useRegisterNode = () => {
       ports: { ...defaultPorts },
     },
     true,
-  )
+  ).config({
+    preserveAspectRatio: true,
+  })
 
   Graph.registerNode(
     'custom-image',

@@ -5,9 +5,14 @@ import { useGraph } from '@/views/editor/useGraph'
 
 export const useGraphStore = defineStore('graph', () => {
   const graph = ref<useGraph | null>(null)
+  const currentGraphName = ref('')
 
   const setGraph = (value: useGraph) => {
     graph.value = value
   }
-  return { graph, setGraph }
+  const setCurrentGraphName = (value: string) => {
+    currentGraphName.value = value
+  }
+
+  return { graph, setGraph, setCurrentGraphName, currentGraphName }
 })

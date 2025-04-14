@@ -1,5 +1,11 @@
 <template>
   <n-form :model="form" :label-col="{ span: 4 }" :wrapper-col="{ span: 20 }">
+    <n-form-item inline label="限制宽高比例" label-placement="left" label-width="auto">
+      <n-checkbox
+        v-model:checked="preserveAspectRatio"
+        @update:checked="handleUpdateAspectRatio"
+      ></n-checkbox>
+    </n-form-item>
     <n-form-item label="层级">
       <div class="w-full">
         <n-input-number
@@ -76,6 +82,7 @@
         <n-input-number
           v-model:value="angel"
           placeholder="请输入角度"
+          :precision="0"
           class="flex-grow"
           @update:value="handleUpdateRotate"
         />
@@ -91,6 +98,7 @@ import { ref, watch, computed, reactive, onMounted, onBeforeUnmount } from 'vue'
 import { usePanelStore } from '@/stores/panel'
 import { useGraphStore } from '@/stores/graph'
 import type { Node, Size } from '@antv/x6'
+import { debounce } from 'lodash-es'
 
 type SizeType = 'w' | 'h'
 
@@ -100,11 +108,10 @@ const form = reactive({
   height: 0,
 })
 const size = ref({} as Size)
-const data = ref({} as any)
-const backgroundColor = ref('')
 const position = ref({} as any)
 const zIndex = ref(0)
 const angel = ref(0)
+const preserveAspectRatio = ref(false)
 
 const node = computed(() => {
   return panelStore.getCell()! as Node
@@ -113,25 +120,53 @@ const graph = computed(() => {
   return useGraphStore().graph!
 })
 
-const initNode = () => {
-  if (!node.value || !node.value.isNode()) return
-  size.value = node.value!.getSize()
-  data.value = node.value!.getData() || {}
-  position.value = node.value?.getPosition()
-  zIndex.value = node.value?.getZIndex()!
+const parseWH = (size: { width: number; height: number }) => {
+  return {
+    width: parseInt(`${Math.round(size.width)}`),
+    height: parseInt(`${Math.round(size.height)}`),
+  }
+}
+
+const parseXY = (position: { x: number; y: number }) => {
+  return {
+    x: parseInt(`${Math.round(position.x)}`),
+    y: parseInt(`${Math.round(position.y)}`),
+  }
+}
+
+const nodeChangeHandler = () => {
+  size.value = parseWH(node.value!.getSize())
+  position.value = parseXY(node.value?.getPosition())
   angel.value = node.value?.getAngle()
 }
 
+const initNode = () => {
+  if (!node.value || !node.value.isNode()) return
+  preserveAspectRatio.value = !!node.value.getProp('preserveAspectRatio')
+  zIndex.value = node.value?.getZIndex()!
+
+  nodeChangeHandler()
+}
+
+let offNode: Node | null = null
 onMounted(() => {
   initNode()
   graph.value.on('selection:changed', () => {
     initNode()
   })
+
+  offNode = node.value.on('changed', debounce(nodeChangeHandler, 100))
 })
 
 onBeforeUnmount(() => {
   graph.value.off('selection:changed')
+  offNode!.off('changed')
 })
+
+const handleUpdateAspectRatio = (value: boolean) => {
+  node.value.setProp('preserveAspectRatio', value)
+  graph.value._recreateTransform(node.value, { resizing: { preserveAspectRatio: value } })
+}
 
 const handleZIndexChange = (value: number, type: 'up' | 'down' | 'top' | 'bottom') => {
   if (!type) {

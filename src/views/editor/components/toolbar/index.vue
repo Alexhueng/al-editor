@@ -3,11 +3,7 @@
     class="absolute top-0 h-[50px] bg-white p-2"
     :style="{ left: stencilWidth + 'px', right: controlPanelWidth + 'px' }"
   >
-    <div class="flex justify-between">
-      <n-space>
-        <!-- <n-button>撤销</n-button>
-        <n-button>全选</n-button> -->
-      </n-space>
+    <div class="flex justify-end">
       <n-space>
         <n-button type="primary" @click="handleSave">
           <svg-icon name="save" size="16" class="mr-2"></svg-icon>
@@ -64,7 +60,6 @@ import Modal from '@/components/Modal/index.vue'
 import { ref } from 'vue'
 import { StorageService } from '@/utils/storage'
 import { useMessage } from 'naive-ui'
-import { Persistence } from '../../persistence'
 
 import type { DropdownOption } from 'naive-ui'
 

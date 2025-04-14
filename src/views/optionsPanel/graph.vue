@@ -101,7 +101,7 @@
 <script lang="ts" setup>
 import { reactive, onMounted, watch } from 'vue'
 import { useGraphStore } from '@/stores/graph'
-import Upload from '@/components/Upload.vue'
+// import Upload from '@/components/Upload.vue'
 
 const form = reactive({
   backgroundColor: '#fff',
@@ -145,16 +145,16 @@ const setBackgroundColor = () => {
   form.size = background.size
 }
 
-const uploadSuccess = (obj: any) => {
-  graphStore.graph?.drawBackground({
-    image: obj.url,
-    position: obj.position,
-    size: obj.size,
-    repeat: obj.repeat,
-    color: form.backgroundColor,
-  })
-  setBackgroundColor()
-}
+// const uploadSuccess = (obj: any) => {
+//   graphStore.graph?.drawBackground({
+//     image: obj.url,
+//     position: obj.position,
+//     size: obj.size,
+//     repeat: obj.repeat,
+//     color: form.backgroundColor,
+//   })
+//   setBackgroundColor()
+// }
 
 const handleUpdateColor = (value: string) => {
   graphStore.graph?.drawBackground({

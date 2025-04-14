@@ -81,8 +81,7 @@ const options: (DropdownOption & {
           }
         })
         const pasteCells = graph.paste({ offset: 0 })
-        graph.cleanSelection()
-        graph.select(pasteCells)
+        graph.resetSelection(pasteCells)
       }
       graph.stopBatch('paste-here')
     },
@@ -105,7 +104,6 @@ const options: (DropdownOption & {
 
       graph.toPNG(
         async (dataUri) => {
-          console.log(dataUri)
           const clipboardItem = await base64Image2Clipboard(dataUri)
 
           await navigator.clipboard.write([clipboardItem])

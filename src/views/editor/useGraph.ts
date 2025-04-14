@@ -1,7 +1,9 @@
-import router from '@/router'
 import { Graph, Shape, Node } from '@antv/x6'
 import { StorageService } from '@/utils/storage'
 import { Persistence } from './persistence'
+import useTransform from './plugins/transform'
+
+import type { Transform } from '@antv/x6-plugin-transform'
 
 const storage = new StorageService()
 
@@ -143,8 +145,7 @@ export class useGraph extends Graph {
   _paste() {
     if (!this.graph.isClipboardEmpty()) {
       const cells = this.graph.paste({ offset: 32 })
-      this.graph.cleanSelection()
-      this.graph.select(cells)
+      this.graph.resetSelection(cells)
     }
   }
   _undo() {
@@ -187,6 +188,11 @@ export class useGraph extends Graph {
     this.graph.fromJSON(json)
 
     return this.graph
+  }
+  _recreateTransform(node: Node, options: Transform.Options = {}) {
+    this.graph.disposePlugins('transform')
+    useTransform(this.graph, options)
+    this.graph.createTransformWidget(node)
   }
 
   // getters

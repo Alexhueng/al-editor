@@ -37,8 +37,8 @@ import GraphControlPanel from '@/views/optionsPanel/graph.vue'
 import Toolbar from './components/toolbar/index.vue'
 
 const route = useRoute()
-const TeleportContainer = getTeleport()
 const graphStore = useGraphStore()
+const TeleportContainer = getTeleport()
 let graph: useGraph | null = null
 
 onMounted(() => {
@@ -57,9 +57,10 @@ onMounted(() => {
   if (graph.persistence.hasUnsaved()) {
     graph.persistence.restore()
   } else {
-    if (!route.params.name) return
-    graph._fromLocalJSON(route.params.name as string).centerContent()
+    if (!graphStore.currentGraphName) return
+    graph._fromLocalJSON(graphStore.currentGraphName).centerContent()
     graph.persistence.save()
+    graphStore.setCurrentGraphName('')
   }
 })
 

@@ -25,13 +25,8 @@ export class Persistence {
 
     events.forEach((event) => {
       this.graph.on(event, () => {
-        console.log(event)
         this.save()
       })
-    })
-
-    window.addEventListener('beforeunload', () => {
-      this.save()
     })
   }
   save(data?: { cells: Cell.Properties[] }) {
