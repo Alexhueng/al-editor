@@ -3,7 +3,11 @@
     class="absolute top-0 h-[50px] bg-white p-2"
     :style="{ left: stencilWidth + 'px', right: controlPanelWidth + 'px' }"
   >
-    <div class="flex justify-end">
+    <div class="flex justify-between">
+      <n-space align="center">
+        <router-link to="/" class="font-bold text-[18px] text-primary">返回首页</router-link>
+        <!-- <n-button>全选</n-button> -->
+      </n-space>
       <n-space>
         <n-button type="primary" @click="handleSave">
           <svg-icon name="save" size="16" class="mr-2"></svg-icon>

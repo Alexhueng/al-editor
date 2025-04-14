@@ -34,14 +34,14 @@ export const useStencil = (graph: useGraph) => {
         },
         nodeMovable: true,
       },
-      {
-        title: '系统设计图',
-        name: 'group2',
-        // graphHeight: 250,
-        layoutOptions: {
-          // rowHeight: 80,
-        },
-      },
+      // {
+      //   title: '系统设计图',
+      //   name: 'group2',
+      //   // graphHeight: 250,
+      //   layoutOptions: {
+      //     // rowHeight: 80,
+      //   },
+      // },
     ],
     layoutOptions: {
       columns: 3,
@@ -168,5 +168,5 @@ export const useStencil = (graph: useGraph) => {
       },
     }),
   )
-  stencil.load(imageNodes, 'group2')
+  // stencil.load(imageNodes, 'group2')
 }

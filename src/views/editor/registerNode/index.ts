@@ -42,7 +42,6 @@ export const useRegisterNode = () => {
         },
         text: {
           fontSize: 12,
-          // fill: colors.text,
         },
       },
       ports: { ...defaultPorts },

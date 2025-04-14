@@ -65,9 +65,9 @@ const routerMap = [
 ]
 
 const connectorMap = [
-  { value: 'normal', label: '简单连接器' },
-  { value: 'rounded', label: '圆角连接器' },
-  { value: 'smooth', label: '平滑连接器' },
+  { value: 'normal', label: '简单' },
+  { value: 'rounded', label: '圆角' },
+  { value: 'smooth', label: '平滑' },
 ]
 
 const strokeWidthList = [

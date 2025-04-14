@@ -2,6 +2,8 @@ import { Graph, Shape, Node } from '@antv/x6'
 import { StorageService } from '@/utils/storage'
 import { Persistence } from './persistence'
 import useTransform from './plugins/transform'
+import { merge } from 'lodash'
+import { GRAPH_DEFAULT_OPTIONS } from './consts'
 
 import type { Transform } from '@antv/x6-plugin-transform'
 
@@ -13,7 +15,7 @@ export class useGraph extends Graph {
   [key: string]: any
 
   constructor(id?: string) {
-    const graph = super({
+    const options = {
       container: document.getElementById(id || 'graph-container')!,
       grid: true,
       background: {
@@ -60,7 +62,7 @@ export class useGraph extends Graph {
           return new Shape.Edge({
             attrs: {
               line: {
-                stroke: '#A2B1C3',
+                stroke: '#0c0c0c',
                 strokeWidth: 2,
                 strokeDasharray: '0',
                 targetMarker: {
@@ -70,12 +72,21 @@ export class useGraph extends Graph {
                 },
               },
             },
+            // labels: [
+            //   {
+            //     attrs: {
+            //       label: {
+            //         text: '',
+            //       },
+            //     },
+            //   },
+            // ],
             router: 'manhattan',
             connector: 'normal',
             zIndex: 0,
           })
         },
-        validateConnection({ targetMagnet }) {
+        validateConnection({ targetMagnet }: any) {
           return !!targetMagnet
         },
       },
@@ -90,7 +101,9 @@ export class useGraph extends Graph {
           },
         },
       },
-    })
+    }
+
+    const graph = super(merge(options, GRAPH_DEFAULT_OPTIONS) as Graph.Options)
 
     this.graph = graph as unknown as Graph
     this.persistence = new Persistence(this)

@@ -102,15 +102,16 @@
 import { reactive, onMounted, watch } from 'vue'
 import { useGraphStore } from '@/stores/graph'
 // import Upload from '@/components/Upload.vue'
+import { GRAPH_DEFAULT_OPTIONS } from '@/views/editor/consts'
 
 const form = reactive({
-  backgroundColor: '#fff',
+  backgroundColor: GRAPH_DEFAULT_OPTIONS.background.color,
   image: '',
   position: '' as any,
   repeat: '',
   size: '' as any,
   grid: {
-    visible: true,
+    visible: GRAPH_DEFAULT_OPTIONS.grid,
     type: 'dot',
     size: 10,
     color: '#ccc',

@@ -4,10 +4,15 @@
 
     <Toolbar />
     <div
-      id="graph-container"
-      class="mt-[50px]"
+      class="flex-grow mt-[50px] w-auto p-4 bg-[#f1f3f4]"
       :style="{ width: `calc(100% - ${stencilWidth + controlPanelWidth}px)` }"
-    />
+    >
+      <div
+        id="graph-container"
+        class="flex-grow rounded h-fit border-[#dedede] border"
+        :style="{ height: `100%` }"
+      />
+    </div>
     <div class="graph-control-panel" :style="{ width: controlPanelWidth + 'px' }">
       <GraphControlPanel />
     </div>
