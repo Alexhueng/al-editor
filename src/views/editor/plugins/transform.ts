@@ -1,6 +1,6 @@
 import type { Graph } from '@antv/x6'
 import { Transform } from '@antv/x6-plugin-transform'
-import { merge } from 'lodash-es'
+import { merge } from 'lodash'
 
 export default function (graph: Graph, options: Transform.Options = {}) {
   graph.use(

@@ -97,8 +97,9 @@
 import { ref, watch, computed, reactive, onMounted, onBeforeUnmount } from 'vue'
 import { usePanelStore } from '@/stores/panel'
 import { useGraphStore } from '@/stores/graph'
+import { debounce } from 'lodash'
+
 import type { Node, Size } from '@antv/x6'
-import { debounce } from 'lodash-es'
 
 type SizeType = 'w' | 'h'
 
@@ -121,6 +122,7 @@ const graph = computed(() => {
 })
 
 const parseWH = (size: { width: number; height: number }) => {
+  size = JSON.parse(JSON.stringify(size))
   return {
     width: parseInt(`${Math.round(size.width)}`),
     height: parseInt(`${Math.round(size.height)}`),
@@ -128,6 +130,7 @@ const parseWH = (size: { width: number; height: number }) => {
 }
 
 const parseXY = (position: { x: number; y: number }) => {
+  position = JSON.parse(JSON.stringify(position))
   return {
     x: parseInt(`${Math.round(position.x)}`),
     y: parseInt(`${Math.round(position.y)}`),
@@ -149,18 +152,19 @@ const initNode = () => {
 }
 
 let offNode: Node | null = null
+const event = debounce(nodeChangeHandler, 200)
 onMounted(() => {
   initNode()
   graph.value.on('selection:changed', () => {
     initNode()
   })
 
-  offNode = node.value.on('changed', debounce(nodeChangeHandler, 100))
+  offNode = node.value.on('changed', event)
 })
 
 onBeforeUnmount(() => {
   graph.value.off('selection:changed')
-  offNode!.off('changed')
+  offNode!.off('changed', event)
 })
 
 const handleUpdateAspectRatio = (value: boolean) => {

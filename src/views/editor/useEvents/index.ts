@@ -28,7 +28,7 @@ export const useEvents = (graph: useGraph) => {
   })
 
   graph.on('cell:unselected', ({ cell }) => {
-    // panelStore.setCell(null)
+    panelStore.setCell(null)
     panelStore.panelVisible = false
     if (cell.isNode()) {
       graph.disposePlugins('transform')
