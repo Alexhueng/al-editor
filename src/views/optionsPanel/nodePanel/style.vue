@@ -131,15 +131,14 @@ const initNode = () => {
   borderType.value = node.value?.getAttrByPath('body/strokeDasharray') || defaultBorderType
 }
 
+const fn = () => initNode()
 onMounted(() => {
   initNode()
-  graph.value.on('selection:changed', () => {
-    initNode()
-  })
+  graph.value.on('selection:changed', fn)
 })
 
 onBeforeUnmount(() => {
-  graph.value.off('selection:changed')
+  graph.value.off('selection:changed', fn)
 })
 
 const handleUpdateColor = (value: string) => {

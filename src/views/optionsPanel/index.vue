@@ -4,6 +4,7 @@
     class="custom-class"
     :width="500"
     :show-mask="false"
+    display-directive="show"
     root-class-name="root-class-name"
     :root-style="{ color: 'blue' }"
     :title="null"

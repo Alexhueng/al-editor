@@ -81,6 +81,7 @@ export class useGraph extends Graph {
             //     },
             //   },
             // ],
+            tools: ['edge-editor'],
             router: 'manhattan',
             connector: 'normal',
             zIndex: 0,

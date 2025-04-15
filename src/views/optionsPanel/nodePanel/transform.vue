@@ -153,17 +153,17 @@ const initNode = () => {
 
 let offNode: Node | null = null
 const event = debounce(nodeChangeHandler, 200)
+
+const fn = () => initNode()
 onMounted(() => {
   initNode()
-  graph.value.on('selection:changed', () => {
-    initNode()
-  })
+  graph.value.on('selection:changed', fn)
 
   offNode = node.value.on('changed', event)
 })
 
 onBeforeUnmount(() => {
-  graph.value.off('selection:changed')
+  graph.value.off('selection:changed', fn)
   offNode!.off('changed', event)
 })
 

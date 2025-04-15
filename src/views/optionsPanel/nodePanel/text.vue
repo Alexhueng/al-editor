@@ -56,7 +56,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watch, computed, onMounted, onBeforeMount } from 'vue'
+import { ref, watch, computed, onMounted, onBeforeUnmount } from 'vue'
 import { usePanelStore } from '@/stores/panel'
 import { useGraphStore } from '@/stores/graph'
 
@@ -106,15 +106,14 @@ const initNode = () => {
   verticalAlign.value = node.value!.getAttrByPath('text/textVerticalAnchor') as VAlign
 }
 
+const fn = () => initNode()
 onMounted(() => {
   initNode()
-  graph.value.on('selection:changed', () => {
-    initNode()
-  })
+  graph.value.on('selection:changed', fn)
 })
 
-onBeforeMount(() => {
-  graph.value.off('selection:changed')
+onBeforeUnmount(() => {
+  graph.value.off('selection:changed', fn)
 })
 
 const handleNodeContentChange = (value: string) => {

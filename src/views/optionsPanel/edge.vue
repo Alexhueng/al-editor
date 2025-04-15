@@ -1,5 +1,54 @@
 <template>
-  <n-form label-placement="left">
+  <n-form label-placement="left" label-width="auto">
+    <n-form-item
+      :label="`标签${index + 1}`"
+      v-for="(label, index) in labels"
+      label-width="auto"
+      :key="index"
+    >
+      <div class="w-full">
+        <n-input
+          v-model:value="label.text"
+          type="textarea"
+          class="w-full"
+          @update:value="handleUpdateLabel"
+        />
+        <div class="flex items-center justify-center mt-2 break-keep">
+          <span>字体颜色:</span>
+          <n-color-picker
+            v-model:value="label.color"
+            class="w-[30px] h-[30px] ml-2"
+            :render-label="() => null"
+            :modes="['rgb', 'hex', 'hsl']"
+            @update:value="handleUpdateLabel"
+          />
+
+          <span class="mx-2">背景颜色:</span>
+          <n-color-picker
+            v-model:value="label.backgroundColor"
+            class="w-[30px] h-[30px]"
+            :render-label="() => null"
+            :modes="['rgb', 'hex', 'hsl']"
+            @update:value="handleUpdateLabel"
+          />
+
+          <span class="mx-2">位置:</span>
+          <n-input-number
+            v-model:value="label.distance"
+            class="w-[150px]"
+            :precision="0"
+            :step="10"
+            :min="0"
+            :max="100"
+            @update:value="handleUpdateLabel"
+          >
+            <template #suffix> % </template>
+          </n-input-number>
+        </div>
+      </div>
+    </n-form-item>
+    <n-button class="mb-4" type="primary" @click="handleAddLabel">新增标签</n-button>
+
     <n-form-item label="路由">
       <n-select
         v-model:value="form.router"
@@ -25,10 +74,10 @@
     </n-form-item>
 
     <n-form-item label="线条">
-      <n-space justify="space-between">
+      <div class="flex justify-between">
         <n-select
           v-model:value="strokeType"
-          class="w-[200px]"
+          class="w-[50%] flex-shrink mr-4"
           :options="strokeWidthList"
           :render-label="renderLabel"
           @update:value="handleStrokeType"
@@ -36,22 +85,22 @@
         </n-select>
         <n-input-number
           v-model:value="strokeWidth"
-          class="w-[200px]"
+          class="w-[50%] flex-shrink"
           :min="0"
           @update:value="handleStrokeWidth"
         />
-      </n-space>
+      </div>
     </n-form-item>
   </n-form>
 </template>
 
 <script setup lang="ts">
-import { computed, reactive, ref, watch, h, onMounted, onBeforeMount } from 'vue'
+import { computed, reactive, ref, watch, h, onMounted, onBeforeUnmount } from 'vue'
 import { usePanelStore } from '@/stores/panel'
 import { useGraphStore } from '@/stores/graph'
 
 // import types
-import type { Node, Size, Edge } from '@antv/x6'
+import { Edge, Node } from '@antv/x6'
 import type { SelectOption } from 'naive-ui'
 import type { VNodeChild } from 'vue'
 
@@ -78,6 +127,14 @@ const strokeWidthList = [
   { label: '长短虚线', value: '15,5,3,5', labelClass: 'dashed-4' },
 ]
 
+type Label = Partial<typeof DEFAULT_LABEL>
+const DEFAULT_LABEL = {
+  backgroundColor: '#fff',
+  color: '#000',
+  text: '',
+  distance: undefined,
+}
+
 const panelStore = usePanelStore()
 const graph = computed(() => {
   return useGraphStore().graph
@@ -85,6 +142,7 @@ const graph = computed(() => {
 const stroke = ref('')
 const strokeType = ref('0')
 const strokeWidth = ref(1)
+const labels = ref<Label[]>([])
 
 const form = reactive<{
   router?: Edge.RouterData['name']
@@ -96,6 +154,7 @@ const edge = computed(() => {
 })
 
 const initEdge = () => {
+  console.log('change')
   if (!edge.value || !edge.value.isEdge()) return
   const router = edge.value.getRouter()
   if (typeof router === 'string') {
@@ -113,18 +172,73 @@ const initEdge = () => {
   stroke.value = edge.value.getAttrByPath('line/stroke')
   strokeType.value = edge.value.getAttrByPath('line/strokeDasharray')
   strokeWidth.value = edge.value.getAttrByPath('line/strokeWidth')
+
+  // handle labels
+  const _labels = edge.value.getLabels()
+  const transformed = transfomLabels(_labels)
+  labels.value = transformed.filter((label) => label.text)
+  if (!labels.value.length) {
+    handleAddLabel()
+  }
 }
 
+const fn = () => initEdge()
 onMounted(() => {
   initEdge()
-  graph.value?.on('selection:changed', () => {
-    initEdge()
-  })
+  graph.value?.on('selection:changed', fn)
 })
 
-onBeforeMount(() => {
-  graph.value?.off('selection:changed')
+onBeforeUnmount(() => {
+  graph.value!.off('selection:changed', fn)
 })
+
+const generateLabels = (labels: any) => {
+  return labels.map((label: any) => {
+    return {
+      attrs: {
+        text: {
+          text: label.text,
+          fill: label.color,
+          // 'font-weight': 'bold',
+        },
+        rect: {
+          fill: label.backgroundColor,
+          refWidth: '120%',
+          refX: '-10%',
+        },
+      },
+      position: {
+        distance: label.distance !== undefined ? label.distance / 100 : undefined,
+      },
+    }
+  })
+}
+
+const transfomLabels = (labels: Edge.Label[]) => {
+  return labels.map((label: Edge.Label) => {
+    const attrs = label.attrs || {}
+    // @ts-ignore
+    const distance = label.position?.distance
+    return {
+      text: attrs?.text?.text,
+      color: attrs?.text?.fill,
+      backgroundColor: attrs?.rect?.fill,
+      distance: distance !== undefined ? distance * 100 : undefined,
+    }
+  }) as Label[]
+}
+
+const handleAddLabel = () => {
+  if (labels.value.length >= 5) return
+  labels.value.push({
+    ...DEFAULT_LABEL,
+  })
+  edge.value.setLabels(generateLabels(labels.value))
+}
+
+const handleUpdateLabel = (value: string) => {
+  edge.value.setLabels(generateLabels(labels.value))
+}
 
 const handleUpdateRouter = (value: string) => {
   edge.value.setRouter(value)
