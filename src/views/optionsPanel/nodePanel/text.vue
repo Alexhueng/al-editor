@@ -94,6 +94,7 @@ const verticalAlign = ref('middle')
 const initNode = () => {
   if (!node.value || !node.value.isNode()) return
   text.value = node.value.getAttrByPath('text/text') || ''
+  fontColor.value = node.value!.getAttrByPath('text/fill')
   fontSize.value = node.value!.getAttrByPath('text/fontSize')
   isBold.value = node.value!.getAttrByPath('text/fontWeight') === 'bold'
   isItalic.value = node.value!.getAttrByPath('text/fontStyle') === 'italic'

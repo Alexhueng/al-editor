@@ -26,6 +26,9 @@ importers:
       '@antv/x6-plugin-keyboard':
         specifier: ^2.2.3
         version: 2.2.3(@antv/x6@2.18.1)
+      '@antv/x6-plugin-scroller':
+        specifier: ^2.0.10
+        version: 2.0.10(@antv/x6@2.18.1)
       '@antv/x6-plugin-selection':
         specifier: ^2.2.2
         version: 2.2.2(@antv/x6@2.18.1)
@@ -218,6 +221,11 @@ packages:
 
   '@antv/x6-plugin-keyboard@2.2.3':
     resolution: {integrity: sha512-pnCIC+mDyKKfkcDyLePfGxKVIqXBcldTgannITkHC1kc0IafRS1GMvzpvuDGrM5haRYd6Nwz8kjkJyHkJE4GPA==, tarball: https://registry.npmmirror.com/@antv/x6-plugin-keyboard/-/x6-plugin-keyboard-2.2.3.tgz}
+    peerDependencies:
+      '@antv/x6': ^2.x
+
+  '@antv/x6-plugin-scroller@2.0.10':
+    resolution: {integrity: sha512-CrC5zCbtPe7LJEKK8ucLcDN+9lMtTJNApFmFObAiR/y2LO1QFCHz8GGLVeNOZaIEmJbR/Z/etpJkvc1LE7WhTg==, tarball: https://registry.npmmirror.com/@antv/x6-plugin-scroller/-/x6-plugin-scroller-2.0.10.tgz}
     peerDependencies:
       '@antv/x6': ^2.x
 
@@ -2875,6 +2883,10 @@ snapshots:
     dependencies:
       '@antv/x6': 2.18.1
       mousetrap: 1.6.5
+
+  '@antv/x6-plugin-scroller@2.0.10(@antv/x6@2.18.1)':
+    dependencies:
+      '@antv/x6': 2.18.1
 
   '@antv/x6-plugin-selection@2.2.2(@antv/x6@2.18.1)':
     dependencies:

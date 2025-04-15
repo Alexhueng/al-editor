@@ -6,6 +6,7 @@ import useKeyboard from './keyboard'
 import useHistory from './history'
 import useClipboard from './clipboard'
 import useExport from './export'
+import useScroller from './scroller'
 // import useDnd from './dnd'
 
 export const usePlugins = (graph: useGraph) => {
@@ -16,5 +17,6 @@ export const usePlugins = (graph: useGraph) => {
   useKeyboard(graph)
   useHistory(graph)
   useClipboard(graph)
+  useScroller(graph)
   // useDnd(graph)
 }

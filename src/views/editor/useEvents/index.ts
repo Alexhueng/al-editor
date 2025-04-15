@@ -85,6 +85,25 @@ export const useEvents = (graph: useGraph) => {
     cell.removeTool('target-arrowhead')
   })
 
+  graph.on('blank:mousewheel', ({ e }) => {
+    if (e.ctrlKey) {
+      e.preventDefault()
+      return false
+    }
+  })
+
+  // 全局禁用滚轮缩放
+  window.addEventListener(
+    'wheel',
+    (e) => {
+      if (e.ctrlKey) {
+        e.preventDefault()
+        return false
+      }
+    },
+    { passive: false },
+  )
+
   // graph.on('cell:click', ({ e, x, y, cell, view }) => {
   //   panelStore.panelVisible = true
   //   panelStore.setCell(cell)

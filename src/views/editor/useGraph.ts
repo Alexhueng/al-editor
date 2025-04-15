@@ -6,8 +6,11 @@ import { merge } from 'lodash'
 import { GRAPH_DEFAULT_OPTIONS } from './consts'
 
 import type { Transform } from '@antv/x6-plugin-transform'
+import { ref } from 'vue'
 
 const storage = new StorageService()
+
+export const bgColor = ref('#fff')
 
 export class useGraph extends Graph {
   graph: Graph
@@ -15,23 +18,13 @@ export class useGraph extends Graph {
   [key: string]: any
 
   constructor(id?: string) {
-    const options = {
+    const options: Graph.Options = {
       container: document.getElementById(id || 'graph-container')!,
       grid: true,
-      background: {
-        color: '#F2F7FA',
-      },
       // autoResize: true,
-      panning: {
-        enabled: true,
-        modifiers: ['ctrl'],
-      },
       mousewheel: {
         enabled: true,
         zoomAtMousePosition: true,
-        // modifiers: 'ctrl',
-        minScale: 0.5,
-        maxScale: 12,
       },
       embedding: true,
       interacting: {

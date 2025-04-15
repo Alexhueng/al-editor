@@ -30,9 +30,10 @@ export const useKeyboard = (graph: useGraph) => {
   // select all
   graph.bindKey(['meta+a', 'ctrl+a'], () => {
     graph._selectAll()
+    return false
   })
 
-  // delete 'backspace',
+  // delete
   graph.bindKey(['delete'], () => {
     graph._deleteCells()
   })

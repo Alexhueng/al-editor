@@ -84,7 +84,7 @@
         </div>
       </n-form-item>
 
-      <n-form-item label="画布缩放">
+      <!-- <n-form-item label="画布缩放">
         <n-slider
           v-model:value="form.zoom"
           class="ml-3"
@@ -93,19 +93,21 @@
           :max="12"
           @update:value="handleUpdateZoom"
         ></n-slider>
-      </n-form-item>
+      </n-form-item> -->
     </n-form>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { reactive, onMounted, watch } from 'vue'
+import { reactive, watch } from 'vue'
 import { useGraphStore } from '@/stores/graph'
-// import Upload from '@/components/Upload.vue'
+import Upload from '@/components/Upload.vue'
 import { GRAPH_DEFAULT_OPTIONS } from '@/views/editor/consts'
 
+// GRAPH_DEFAULT_OPTIONS.background!.color
 const form = reactive({
-  backgroundColor: GRAPH_DEFAULT_OPTIONS.background.color,
+  // @ts-ignore
+  backgroundColor: GRAPH_DEFAULT_OPTIONS.background!.color,
   image: '',
   position: '' as any,
   repeat: '',
@@ -146,26 +148,21 @@ const setBackgroundColor = () => {
   form.size = background.size
 }
 
-// const uploadSuccess = (obj: any) => {
-//   graphStore.graph?.drawBackground({
-//     image: obj.url,
-//     position: obj.position,
-//     size: obj.size,
-//     repeat: obj.repeat,
-//     color: form.backgroundColor,
-//   })
-//   setBackgroundColor()
-// }
-
-const handleUpdateColor = (value: string) => {
-  graphStore.graph?.drawBackground({
-    color: value,
-    image: form.image,
-    position: form.position,
-    size: form.size,
-    repeat: form.repeat,
+const uploadSuccess = (obj: any) => {
+  graphStore.graph?.background.draw({
+    image: obj.url,
+    position: obj.position,
+    size: obj.size,
+    repeat: obj.repeat,
+    color: form.backgroundColor,
   })
   setBackgroundColor()
+}
+
+const handleUpdateColor = (value: string) => {
+  graphStore.graph?.background.draw({
+    color: value,
+  })
 }
 
 const handleUpdateGrid = (value: boolean) => {

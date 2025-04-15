@@ -4,7 +4,7 @@
 
     <Toolbar />
     <div
-      class="flex-grow mt-[50px] w-auto p-4 bg-[#f1f3f4]"
+      class="flex-grow mt-[50px] w-auto bg-[#f1f3f4]"
       :style="{ width: `calc(100% - ${stencilWidth + controlPanelWidth}px)` }"
     >
       <div
@@ -62,11 +62,13 @@ onMounted(() => {
   if (graph.persistence.hasUnsaved()) {
     graph.persistence.restore()
   } else {
-    if (!graphStore.currentGraphName) return
-    graph._fromLocalJSON(graphStore.currentGraphName).centerContent()
-    graph.persistence.save()
-    graphStore.setCurrentGraphName('')
+    if (graphStore.currentGraphName) {
+      graph._fromLocalJSON(graphStore.currentGraphName).centerContent()
+      graph.persistence.save()
+      graphStore.setCurrentGraphName('')
+    }
   }
+  graph.zoomTo(0.8)
 })
 
 onBeforeUnmount(() => {
