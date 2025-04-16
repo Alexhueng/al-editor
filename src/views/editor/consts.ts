@@ -22,3 +22,13 @@ export const GRAPH_DEFAULT_OPTIONS: Graph.Options = {
     maxScale: 12,
   },
 }
+
+export const NODE_SIZE = {
+  width: 66,
+  height: 36,
+}
+
+export const EQUAL_NODE_SIZE = {
+  width: 36,
+  height: 36,
+}

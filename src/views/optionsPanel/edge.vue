@@ -154,7 +154,6 @@ const edge = computed(() => {
 })
 
 const initEdge = () => {
-  console.log('change')
   if (!edge.value || !edge.value.isEdge()) return
   const router = edge.value.getRouter()
   if (typeof router === 'string') {

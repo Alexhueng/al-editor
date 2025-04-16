@@ -29,3 +29,21 @@ export const isBoolean = (value: unknown) => getType(value) === 'Boolean'
 export const isArray = (value: unknown) => getType(value) === 'Array'
 export const isNull = (value: unknown) => getType(value) === 'Null'
 export const isUndefined = (value: unknown) => getType(value) === 'Undefined'
+
+// 计算出一个八边形的refPoints
+// const sideLength = Math.min(36, 36)
+// // 缩进量，根据等边八角形的几何特性计算
+// const indent = Math.round(sideLength / (2 + Math.sqrt(2)))
+// const centerX = (36 - sideLength) / 2
+// const centerY = (36 - sideLength) / 2
+
+// const refPoints = [
+//   `${centerX + indent},${centerY}`,
+//   `${centerX + sideLength - indent},${centerY}`,
+//   `${centerX + sideLength},${centerY + indent}`,
+//   `${centerX + sideLength},${centerY + sideLength - indent}`,
+//   `${centerX + sideLength - indent},${centerY + sideLength}`,
+//   `${centerX + indent},${centerY + sideLength}`,
+//   `${centerX},${centerY + sideLength - indent}`,
+//   `${centerX},${centerY + indent}`,
+// ].join(' ')

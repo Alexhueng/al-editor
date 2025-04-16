@@ -1,8 +1,7 @@
 import { useGraph } from '../useGraph'
 import { usePanelStore } from '@/stores/panel'
 import { useContextMenu } from '../components/contextMenu/index'
-import { defaultPorts, showPorts } from '../ports'
-import useTransform from '../plugins/transform'
+import { showPorts } from '../ports'
 
 const panelStore = usePanelStore()
 
@@ -48,8 +47,12 @@ export const useEvents = (graph: useGraph) => {
     return container.querySelectorAll('.x6-port-body') as NodeListOf<SVGElement>
   }
 
+  let timeout: any = null
   graph.on('cell:mouseenter', ({ cell }) => {
     const ports = getPorts()
+    if (timeout) {
+      clearTimeout(timeout)
+    }
     showPorts(ports, true)
 
     if (cell.isEdge()) {
@@ -80,7 +83,9 @@ export const useEvents = (graph: useGraph) => {
 
   graph.on('cell:mouseleave', ({ cell }) => {
     const ports = getPorts()
-    showPorts(ports, false)
+    timeout = setTimeout(() => {
+      showPorts(ports, false)
+    }, 500)
     cell.removeTool('source-arrowhead')
     cell.removeTool('target-arrowhead')
   })
