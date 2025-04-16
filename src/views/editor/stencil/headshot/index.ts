@@ -3,7 +3,7 @@ import { NODE_SIZE, EQUAL_NODE_SIZE, colors } from '@/views/editor/consts'
 import { Stencil } from '@/plugins/stencil'
 
 const options = {
-  title: '职场头像',
+  title: '头像',
   name: 'headshot',
   // graphHeight: 250,
   layoutOptions: {

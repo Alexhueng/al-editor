@@ -30,7 +30,6 @@ import { usePlugins } from './plugins'
 import { useRoute } from 'vue-router'
 import { useEvents } from './useEvents'
 import { useKeyboard } from './useKeyboard'
-import { useRegisterNode } from './registerNode'
 import { useStencil } from './stencil'
 
 import OptionsPanel from '@/views/optionsPanel/index.vue'
@@ -49,7 +48,7 @@ onMounted(() => {
 
   graphStore.setGraph(graph)
 
-  useRegisterNode()
+  // useRegisterNode()
   usePlugins(graph)
   useEvents(graph)
   useKeyboard(graph)

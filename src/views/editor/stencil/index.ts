@@ -1,9 +1,8 @@
 import { Stencil } from '@/plugins/stencil'
 import { useGraph } from '../useGraph'
-import { colors, EQUAL_NODE_SIZE } from '../consts'
+import { load } from './base'
 
-const modules = import.meta.glob('./*/index.ts')
-// console.log(modules)
+const modules = import.meta.glob(['./**/index.ts', '!./base/index.ts'])
 
 export const useStencil = (graph: useGraph) => {
   const stencil = new Stencil({
@@ -44,6 +43,7 @@ export const useStencil = (graph: useGraph) => {
   //   })
   // })
 
+  load(graph, stencil)
   Object.values(modules).forEach((item) => {
     item().then((moduleItem) => {
       ;(moduleItem as any).load(graph, stencil)

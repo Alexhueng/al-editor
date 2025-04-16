@@ -71,10 +71,11 @@ const setItemRef = (el: HTMLDivElement, index: number) => {
 }
 
 onMounted(() => {
-  useRegisterNode()
+  // useRegisterNode()
   itemRefs.value.forEach((item, index) => {
     const graph = new Graph({
       container: item,
+      interacting: false,
     })
     graph.fromJSON(graphs.value[Object.keys(graphs.value)[index]]).centerContent()
     graph.zoom(-0.5)

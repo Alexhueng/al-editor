@@ -30,15 +30,16 @@ export function preWork() {
   // }
   .x6-widget-stencil  {
     background-color: #fff;
-    width: fit-content;
+    width: inherit;
   }
   .x6-widget-stencil-content {
     padding: 10px;
     padding-top: 42px;
-    width: fit-content;
+    width: inherit;
   }
   .x6-widget-stencil-title {
     background-color: #fff;
+    width: inherit;
   }
   .x6-widget-stencil-group-title {
     background-color: #fff !important;

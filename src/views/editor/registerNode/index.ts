@@ -1,4 +1,4 @@
-import { Graph, Shape, ObjectExt } from '@antv/x6'
+import { Graph, Shape } from '@antv/x6'
 import { defaultPorts } from '../ports'
 import { colors, NODE_SIZE, EQUAL_NODE_SIZE } from '../consts'
 
@@ -39,17 +39,7 @@ export const useRegisterNode = () => {
           fill: colors.text,
         },
       },
-      ports: {
-        ...defaultPorts,
-        items: [
-          {
-            group: 'top',
-          },
-          {
-            group: 'bottom',
-          },
-        ],
-      },
+      ports: { ...defaultPorts },
     },
     true,
   )
@@ -84,17 +74,7 @@ export const useRegisterNode = () => {
           fill: colors.text,
         },
       },
-      ports: {
-        ...defaultPorts,
-        items: [
-          {
-            group: 'top',
-          },
-          {
-            group: 'bottom',
-          },
-        ],
-      },
+      ports: { ...defaultPorts },
     },
     true,
   ).config({
