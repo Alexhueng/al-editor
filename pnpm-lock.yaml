@@ -47,6 +47,9 @@ importers:
       '@vicons/ionicons5':
         specifier: ^0.12.0
         version: 0.12.0
+      '@vueuse/core':
+        specifier: ^13.1.0
+        version: 13.1.0(vue@3.5.12(typescript@5.6.3))
       ant-design-vue:
         specifier: ^4.2.6
         version: 4.2.6(vue@3.5.12(typescript@5.6.3))
@@ -130,8 +133,8 @@ importers:
         specifier: ^25.0.1
         version: 25.0.1
       naive-ui:
-        specifier: ^2.40.1
-        version: 2.40.1(vue@3.5.12(typescript@5.6.3))
+        specifier: ^2.41.0
+        version: 2.41.0(vue@3.5.12(typescript@5.6.3))
       npm-run-all2:
         specifier: ^7.0.1
         version: 7.0.1
@@ -156,6 +159,9 @@ importers:
       vite:
         specifier: ^5.4.10
         version: 5.4.10(@types/node@20.17.6)(sass-embedded@1.80.6)
+      vite-plugin-static-copy:
+        specifier: ^2.3.1
+        version: 2.3.1(vite@5.4.10(@types/node@20.17.6)(sass-embedded@1.80.6))
       vite-plugin-vue-devtools:
         specifier: ^7.5.4
         version: 7.6.3(rollup@4.24.4)(vite@5.4.10(@types/node@20.17.6)(sass-embedded@1.80.6))(vue@3.5.12(typescript@5.6.3))
@@ -860,6 +866,9 @@ packages:
   '@types/tough-cookie@4.0.5':
     resolution: {integrity: sha512-/Ad8+nIOV7Rl++6f1BdKxFSMgmoqEoYbHRpPcx3JEfv8VRsQe9Z4mCXeJBzxs7mbHY/XOZZuXlRNfhpVPbs6ZA==, tarball: https://registry.npmmirror.com/@types/tough-cookie/-/tough-cookie-4.0.5.tgz}
 
+  '@types/web-bluetooth@0.0.21':
+    resolution: {integrity: sha512-oIQLCGWtcFZy2JW77j9k8nHzAOpqMHLQejDA48XXMWH6tjCQHz5RCFz1bzsmROyL6PUm+LLnUiI4BCn221inxA==, tarball: https://registry.npmmirror.com/@types/web-bluetooth/-/web-bluetooth-0.0.21.tgz}
+
   '@typescript-eslint/eslint-plugin@8.13.0':
     resolution: {integrity: sha512-nQtBLiZYMUPkclSeC3id+x4uVd1SGtHuElTxL++SfP47jR0zfkZBJHc+gL4qPsgTuypz0k8Y2GheaDYn6Gy3rg==, tarball: https://registry.npmmirror.com/@typescript-eslint/eslint-plugin/-/eslint-plugin-8.13.0.tgz}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
@@ -1077,6 +1086,19 @@ packages:
 
   '@vue/tsconfig@0.5.1':
     resolution: {integrity: sha512-VcZK7MvpjuTPx2w6blwnwZAu5/LgBUtejFOi3pPGQFXQN5Ela03FUtd2Qtg4yWGGissVL0dr6Ro1LfOFh+PCuQ==, tarball: https://registry.npmmirror.com/@vue/tsconfig/-/tsconfig-0.5.1.tgz}
+
+  '@vueuse/core@13.1.0':
+    resolution: {integrity: sha512-PAauvdRXZvTWXtGLg8cPUFjiZEddTqmogdwYpnn60t08AA5a8Q4hZokBnpTOnVNqySlFlTcRYIC8OqreV4hv3Q==, tarball: https://registry.npmmirror.com/@vueuse/core/-/core-13.1.0.tgz}
+    peerDependencies:
+      vue: ^3.5.0
+
+  '@vueuse/metadata@13.1.0':
+    resolution: {integrity: sha512-+TDd7/a78jale5YbHX9KHW3cEDav1lz1JptwDvep2zSG8XjCsVE+9mHIzjTOaPbHUAk5XiE4jXLz51/tS+aKQw==, tarball: https://registry.npmmirror.com/@vueuse/metadata/-/metadata-13.1.0.tgz}
+
+  '@vueuse/shared@13.1.0':
+    resolution: {integrity: sha512-IVS/qRRjhPTZ6C2/AM3jieqXACGwFZwWTdw5sNTSKk2m/ZpkuuN+ri+WCVUP8TqaKwJYt/KuMwmXspMAw8E6ew==, tarball: https://registry.npmmirror.com/@vueuse/shared/-/shared-13.1.0.tgz}
+    peerDependencies:
+      vue: ^3.5.0
 
   abbrev@2.0.0:
     resolution: {integrity: sha512-6/mh1E2u2YgEsCHdY0Yx5oW+61gZU+1vXaoiHHrpKeuRNNgFvS+/jrwHiQhB5apAf5oB7UB7E19ol2R2LKH8hQ==, tarball: https://registry.npmmirror.com/abbrev/-/abbrev-2.0.0.tgz}
@@ -1933,8 +1955,8 @@ packages:
   mz@2.7.0:
     resolution: {integrity: sha512-z81GNO7nnYMEhrGh9LeymoE4+Yr0Wn5McHIZMK5cfQCl+NDX08sCZgUc9/6MHni9IWuFLm1Z3HTCXu2z9fN62Q==, tarball: https://registry.npmmirror.com/mz/-/mz-2.7.0.tgz}
 
-  naive-ui@2.40.1:
-    resolution: {integrity: sha512-3NkL+vLRQZKQxCHXa+7xiD6oM74OrQELaehDkGYRYpr6kjT+JJB+Z7h+5LC70gn8VkbgCAETv0+uRWF+6MLlgQ==, tarball: https://registry.npmmirror.com/naive-ui/-/naive-ui-2.40.1.tgz}
+  naive-ui@2.41.0:
+    resolution: {integrity: sha512-KnmLg+xPLwXV8QVR7ZZ69eCjvel7R5vru8+eFe4VoAJHEgqAJgVph6Zno9K2IVQRpSF3GBGea3tjavslOR4FAA==, tarball: https://registry.npmmirror.com/naive-ui/-/naive-ui-2.41.0.tgz}
     peerDependencies:
       vue: ^3.0.0
 
@@ -2016,6 +2038,10 @@ packages:
   p-locate@5.0.0:
     resolution: {integrity: sha512-LaNjtRWUBY++zB5nE/NwcaoMylSPk+S+ZHNB1TzdbMJMny6dynpAGt7X/tl/QYq3TIeE6nxHppbo2LGymrG5Pw==, tarball: https://registry.npmmirror.com/p-locate/-/p-locate-5.0.0.tgz}
     engines: {node: '>=10'}
+
+  p-map@7.0.3:
+    resolution: {integrity: sha512-VkndIv2fIB99swvQoA65bm+fsmt6UNdGeIB0oxBs+WhAhdh08QA04JXpI7rbB9r08/nkbysKoya9rtDERYOYMA==, tarball: https://registry.npmmirror.com/p-map/-/p-map-7.0.3.tgz}
+    engines: {node: '>=18'}
 
   package-json-from-dist@1.0.1:
     resolution: {integrity: sha512-UEZIS3/by4OC8vL3P2dTXRETpebLI2NiI5vIrjaD/5UtrkFX/tNbwjTSRAGC/+7CAo2pIcBaRgWmcBBHcsaCIw==, tarball: https://registry.npmmirror.com/package-json-from-dist/-/package-json-from-dist-1.0.1.tgz}
@@ -2617,6 +2643,12 @@ packages:
     peerDependenciesMeta:
       '@nuxt/kit':
         optional: true
+
+  vite-plugin-static-copy@2.3.1:
+    resolution: {integrity: sha512-EfsPcBm3ewg3UMG8RJaC0ADq6/qnUZnokXx4By4+2cAcipjT9i0Y0owIJGqmZI7d6nxk4qB1q5aXOwNuSyPdyA==, tarball: https://registry.npmmirror.com/vite-plugin-static-copy/-/vite-plugin-static-copy-2.3.1.tgz}
+    engines: {node: ^18.0.0 || >=20.0.0}
+    peerDependencies:
+      vite: ^5.0.0 || ^6.0.0
 
   vite-plugin-vue-devtools@7.6.3:
     resolution: {integrity: sha512-p1rZMKzreWqxj9U05RaxY1vDoOhGYhA6iX8vKfo4nD6jqTmVoGjjk+U1g5HYwwTCdr/eck3kzO2f4gnPCjqVKA==, tarball: https://registry.npmmirror.com/vite-plugin-vue-devtools/-/vite-plugin-vue-devtools-7.6.3.tgz}
@@ -3419,6 +3451,8 @@ snapshots:
 
   '@types/tough-cookie@4.0.5': {}
 
+  '@types/web-bluetooth@0.0.21': {}
+
   '@typescript-eslint/eslint-plugin@8.13.0(@typescript-eslint/parser@8.13.0(eslint@9.14.0(jiti@1.21.6))(typescript@5.6.3))(eslint@9.14.0(jiti@1.21.6))(typescript@5.6.3)':
     dependencies:
       '@eslint-community/regexpp': 4.12.1
@@ -3736,6 +3770,19 @@ snapshots:
       vue-component-type-helpers: 2.1.10
 
   '@vue/tsconfig@0.5.1': {}
+
+  '@vueuse/core@13.1.0(vue@3.5.12(typescript@5.6.3))':
+    dependencies:
+      '@types/web-bluetooth': 0.0.21
+      '@vueuse/metadata': 13.1.0
+      '@vueuse/shared': 13.1.0(vue@3.5.12(typescript@5.6.3))
+      vue: 3.5.12(typescript@5.6.3)
+
+  '@vueuse/metadata@13.1.0': {}
+
+  '@vueuse/shared@13.1.0(vue@3.5.12(typescript@5.6.3))':
+    dependencies:
+      vue: 3.5.12(typescript@5.6.3)
 
   abbrev@2.0.0: {}
 
@@ -4586,7 +4633,7 @@ snapshots:
       object-assign: 4.1.1
       thenify-all: 1.6.0
 
-  naive-ui@2.40.1(vue@3.5.12(typescript@5.6.3)):
+  naive-ui@2.41.0(vue@3.5.12(typescript@5.6.3)):
     dependencies:
       '@css-render/plugin-bem': 0.15.14(css-render@0.15.14)
       '@css-render/vue3-ssr': 0.15.14(vue@3.5.12(typescript@5.6.3))
@@ -4690,6 +4737,8 @@ snapshots:
   p-locate@5.0.0:
     dependencies:
       p-limit: 3.1.0
+
+  p-map@7.0.3: {}
 
   package-json-from-dist@1.0.1: {}
 
@@ -5233,6 +5282,15 @@ snapshots:
     transitivePeerDependencies:
       - rollup
       - supports-color
+
+  vite-plugin-static-copy@2.3.1(vite@5.4.10(@types/node@20.17.6)(sass-embedded@1.80.6)):
+    dependencies:
+      chokidar: 3.6.0
+      fast-glob: 3.3.2
+      fs-extra: 11.2.0
+      p-map: 7.0.3
+      picocolors: 1.1.1
+      vite: 5.4.10(@types/node@20.17.6)(sass-embedded@1.80.6)
 
   vite-plugin-vue-devtools@7.6.3(rollup@4.24.4)(vite@5.4.10(@types/node@20.17.6)(sass-embedded@1.80.6))(vue@3.5.12(typescript@5.6.3)):
     dependencies:

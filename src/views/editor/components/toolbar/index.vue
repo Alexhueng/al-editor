@@ -5,8 +5,7 @@
   >
     <div class="flex justify-between">
       <n-space align="center">
-        <router-link to="/" class="font-bold text-[18px] text-primary">返回首页</router-link>
-        <!-- <n-button>全选</n-button> -->
+        <router-link to="/" class="font-bold text-[18px] text-primary">首页</router-link>
       </n-space>
       <n-space>
         <n-button type="primary" @click="handleSave">
@@ -116,7 +115,7 @@ const handleConfirmRender = ({ resolve, reject }: { resolve: () => void; reject:
   resolve()
 }
 
-const exportOptions = [{ label: 'PNG' }, { label: 'SVG' }, { label: 'JPEG' }]
+const exportOptions = [{ label: 'PNG' } /** { label: 'SVG' } */, , { label: 'JPEG' }]
 const handleExportSelect = (value: string, option: DropdownOption) => {
   const graph = graphStore.graph
   if (graph?._isGraphEmpty()) return message.error('当前画布为空')

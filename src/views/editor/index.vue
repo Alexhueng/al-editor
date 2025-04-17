@@ -4,8 +4,13 @@
 
     <Toolbar />
     <div
-      class="flex-grow p-4 pr-0 mt-[50px] w-auto bg-[#f1f3f4]"
-      :style="{ width: `calc(100% - ${stencilWidth + controlPanelWidth}px)` }"
+      ref="graphContainer"
+      id="graph-container-wrapper"
+      class="flex-grow p-4 pr-0 pb-2 mt-[50px] w-auto bg-[#f1f3f4]"
+      :style="{
+        width: `calc(100% - ${stencilWidth + controlPanelWidth}px)`,
+        height: `calc(100% - 50px)`,
+      }"
     >
       <div id="graph-container" :style="{ height: `100%` }" />
     </div>
@@ -16,6 +21,8 @@
     <TeleportContainer />
 
     <OptionsPanel :mask="false" />
+
+    <FloatBoard :position="position" />
   </div>
 </template>
 
@@ -31,19 +38,22 @@ import { useRoute } from 'vue-router'
 import { useEvents } from './useEvents'
 import { useKeyboard } from './useKeyboard'
 import { useStencil } from './stencil'
+import { useElementBounding } from '@vueuse/core'
 
 import OptionsPanel from '@/views/optionsPanel/index.vue'
 import GraphControlPanel from '@/views/optionsPanel/graph.vue'
 import Toolbar from './components/toolbar/index.vue'
+import FloatBoard from './components/floatBoard/index.vue'
 
 const route = useRoute()
 const graphStore = useGraphStore()
 const TeleportContainer = getTeleport()
 let graph: useGraph | null = null
+const graphContainer = ref(null)
+const position = ref({ x: 300, y: 50 })
 
 onMounted(() => {
   preWork()
-
   graph = new useGraph()
 
   graphStore.setGraph(graph)

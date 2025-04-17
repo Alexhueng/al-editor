@@ -2,6 +2,7 @@ import { useGraph } from '../useGraph'
 import { usePanelStore } from '@/stores/panel'
 import { useContextMenu } from '../components/contextMenu/index'
 import { showPorts } from '../ports'
+import { debounce } from 'lodash'
 
 const panelStore = usePanelStore()
 
@@ -107,6 +108,23 @@ export const useEvents = (graph: useGraph) => {
       }
     },
     { passive: false },
+  )
+
+  window.addEventListener(
+    'resize',
+    debounce(() => {
+      const scroller = graph.getPlugin('scroller')
+      const wrapeper = document.getElementById('graph-container-wrapper')!
+      const styleMap = wrapeper?.computedStyleMap() as StylePropertyMapReadOnly
+
+      const getValue = (prop: string) => {
+        return (styleMap?.get(prop) as CSSUnitValue).value
+      }
+      ;(scroller as any).scrollerImpl.resize(
+        wrapeper?.clientWidth - getValue('padding-left') - getValue('padding-right'),
+        wrapeper?.clientHeight - getValue('padding-top') - getValue('padding-bottom'),
+      )
+    }, 300),
   )
 
   // graph.on('cell:click', ({ e, x, y, cell, view }) => {

@@ -21,7 +21,6 @@ export class useGraph extends Graph {
     const options: Graph.Options = {
       container: document.getElementById(id || 'graph-container')!,
       grid: true,
-      // autoResize: true,
       mousewheel: {
         enabled: true,
         zoomAtMousePosition: true,

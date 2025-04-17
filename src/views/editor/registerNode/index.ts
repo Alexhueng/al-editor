@@ -8,6 +8,7 @@ export const useRegisterNode = () => {
     {
       inherit: 'rect',
       ...NODE_SIZE,
+
       attrs: {
         body: {
           strokeWidth: 0,
