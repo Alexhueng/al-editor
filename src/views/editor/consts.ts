@@ -11,12 +11,24 @@ export const colors = {
 
 export const DEFAULT_SCALING = 0.8
 
+export type GridOptions = Partial<Graph.GridManager.CommonOptions> &
+  Graph.GridManager.DrawGridOptions
+
 // 画布默认配置
-export const GRAPH_DEFAULT_OPTIONS: Graph.Options = {
+// : Omit<Graph.Options, 'grid'> & { grid: GridOptions }
+export const GRAPH_DEFAULT_OPTIONS = {
   background: {
     color: '#fff',
   },
-  grid: false,
+  grid: {
+    visible: true,
+    type: 'mesh',
+    size: 10,
+    args: {
+      color: '#ccc',
+      thickness: 1,
+    },
+  },
   mousewheel: {
     minScale: 0.05,
     maxScale: 12,

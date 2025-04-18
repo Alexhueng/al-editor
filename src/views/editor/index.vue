@@ -22,7 +22,7 @@
 
     <OptionsPanel :mask="false" />
 
-    <FloatBoard :position="position" />
+    <!-- <FloatBoard :position="position" title="工具箱" /> -->
   </div>
 </template>
 
@@ -38,7 +38,6 @@ import { useRoute } from 'vue-router'
 import { useEvents } from './useEvents'
 import { useKeyboard } from './useKeyboard'
 import { useStencil } from './stencil'
-import { useElementBounding } from '@vueuse/core'
 
 import OptionsPanel from '@/views/optionsPanel/index.vue'
 import GraphControlPanel from '@/views/optionsPanel/graph.vue'
@@ -79,6 +78,10 @@ onMounted(() => {
 onBeforeUnmount(() => {
   graph!.persistence!.remove()
 })
+
+const handleMouseMove = (e: MouseEvent) => {
+  const a = graph!.clientToLocal(e.pageX, e.pageY)
+}
 </script>
 
 <style lang="scss" scoped></style>

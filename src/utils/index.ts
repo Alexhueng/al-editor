@@ -30,6 +30,22 @@ export const isArray = (value: unknown) => getType(value) === 'Array'
 export const isNull = (value: unknown) => getType(value) === 'Null'
 export const isUndefined = (value: unknown) => getType(value) === 'Undefined'
 
+/**
+ *
+ * @param arr
+ * @param fieldName
+ * @param ascending 升降序, 默认升序
+ * @returns 排序后的数组
+ */
+export function sortByNumberField<T>(arr: T[], fieldName: keyof T, ascending = true): T[] {
+  return arr.slice().sort((a, b) => {
+    const valueA = a[fieldName] as number
+    const valueB = b[fieldName] as number
+
+    return ascending ? valueA - valueB : valueB - valueA
+  })
+}
+
 // 计算出一个八边形的refPoints
 // const sideLength = Math.min(36, 36)
 // // 缩进量，根据等边八角形的几何特性计算

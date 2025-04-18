@@ -6,12 +6,13 @@
     :style="panelStyle"
   >
     <div
+      ref="headerRef"
       class="px-2 py-3 bg-[#333] h-[40px] text-[#fff] flex justify-between items-center select-none shrink-0"
       :class="[{ 'cursor-move': draggable }, { 'cursor-grabbing': isDragging }]"
       @mousedown="startDrag"
       @dblclick="handleHeaderDoubleClick"
     >
-      <span class="text-base font-bold">{{ title }}</span>
+      <span class="text-[14px] font-bold">{{ title }}</span>
       <div class="flex items-center gap-2 select-none" @mousedown.stop>
         <svg-icon
           :name="isMinimized ? 'expand' : 'fold'"
@@ -44,7 +45,7 @@
       class="overflow-hidden will-change-[height] contain-strict transform-gpu translate-z-0"
       :style="contentWrapperStyle"
     >
-      <div class="h-full p-4 overflow-auto">
+      <div class="h-full p-4">
         <slot></slot>
       </div>
     </div>
@@ -60,7 +61,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 
 const props = defineProps({
@@ -78,23 +79,17 @@ const props = defineProps({
 
 const emit = defineEmits(['close', 'minimize', 'maximize', 'restore'])
 
-const panelRef = ref(null)
+const panelRef = ref<HTMLDivElement | null>(null)
 const contentWrapper = ref(null)
+const headerRef = ref<HTMLDivElement | null>(null)
 const isDragging = ref(false)
 const isResizing = ref(false)
 const isMinimized = ref(false)
 const isMaximized = ref(false)
-const zIndex = ref(1)
+const zIndex = ref(1000)
 const offset = ref({ x: 0, y: 0 })
 const startSize = ref({ width: 0, height: 0 })
 const startPos = ref({ x: 0, y: 0 })
-
-watch(
-  () => props.position,
-  (value) => {
-    console.log(value)
-  },
-)
 
 // 保存最大化前的位置和尺寸
 const preMaximizeState = ref({
@@ -131,21 +126,18 @@ const panelStyle = computed(() => {
 const viewportSize = ref({ width: window.innerWidth, height: window.innerHeight })
 
 // 处理标题栏双击事件
-const handleHeaderDoubleClick = (e) => {
+const handleHeaderDoubleClick = (e: MouseEvent) => {
   if (!props.fullscreen) return
-  const panelActions = panelRef.value.querySelector('.panel-actions')
-  if (!panelActions || !panelActions.contains(e.target)) {
-    toggleMaximize()
-  }
+  toggleMaximize()
 }
 
 // 开始拖动
-const startDrag = (e) => {
+const startDrag = (e: MouseEvent) => {
   if (isMaximized.value || !props.draggable) return
 
   bringToFront()
   isDragging.value = true
-  const rect = panelRef.value.getBoundingClientRect()
+  const rect = panelRef.value!.getBoundingClientRect()
   offset.value = {
     x: e.clientX - rect.left,
     y: e.clientY - rect.top,
@@ -155,7 +147,7 @@ const startDrag = (e) => {
 }
 
 // 开始调整大小
-const startResize = (e) => {
+const startResize = (e: MouseEvent) => {
   bringToFront()
   isResizing.value = true
   startSize.value = { ...size.value }
@@ -201,7 +193,7 @@ const bringToFront = () => {
 }
 
 // 使用requestAnimationFrame优化性能
-const handleMouseMove = (e) => {
+const handleMouseMove = (e: MouseEvent) => {
   if (!isDragging.value && !isResizing.value) return
 
   requestAnimationFrame(() => {

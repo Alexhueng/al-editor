@@ -6,6 +6,7 @@
     <div class="flex justify-between">
       <n-space align="center">
         <router-link to="/" class="font-bold text-[18px] text-primary">首页</router-link>
+        <Transform />
       </n-space>
       <n-space>
         <n-button type="primary" @click="handleSave">
@@ -60,11 +61,13 @@
 import { stencilWidth, controlPanelWidth } from '../../consts'
 import { useGraphStore } from '@/stores/graph'
 import Modal from '@/components/Modal/index.vue'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { StorageService } from '@/utils/storage'
 import { useMessage } from 'naive-ui'
 
 import type { DropdownOption } from 'naive-ui'
+
+import Transform from '../transform/index.vue'
 
 const graphStore = useGraphStore()
 const message = useMessage()
@@ -75,6 +78,10 @@ const options = ref<any[]>([])
 const selectedGraph = ref('')
 
 const storage = new StorageService()
+
+const graph = computed(() => {
+  return useGraphStore().graph
+})
 
 const handleSave = () => {
   const getGraph = graphStore.graph
@@ -123,5 +130,14 @@ const handleExportSelect = (value: string, option: DropdownOption) => {
   if (graph) {
     graph[`_export${value}`](fileName)
   }
+}
+
+const handleInsert = () => {
+  graph.value?.addNode({
+    shape: 'rect',
+    x: 1300,
+    y: 400,
+    label: '插入节点',
+  })
 }
 </script>

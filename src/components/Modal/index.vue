@@ -6,9 +6,11 @@
     transform-origin="center"
     @update:show="close"
   >
-    <template #default>
+    <template #default="{ draggableClass }">
       <div class="bg-white w-[500px] rounded">
-        <div v-if="$attrs.title" class="p-4 font-bold modal-header">{{ $attrs.title }}</div>
+        <div v-if="$attrs.title" :class="draggableClass" class="p-4 font-bold modal-header">
+          {{ $attrs.title }}
+        </div>
         <div class="px-4">
           <slot></slot>
         </div>

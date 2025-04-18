@@ -1,9 +1,10 @@
-import { Graph, Shape, Node } from '@antv/x6'
+import { Graph, Shape, Node, Cell } from '@antv/x6'
 import { StorageService } from '@/utils/storage'
 import { Persistence } from './persistence'
 import useTransform from './plugins/transform'
-import { merge } from 'lodash'
+import { merge, round } from 'lodash'
 import { GRAPH_DEFAULT_OPTIONS } from './consts'
+import { sortByNumberField } from '@/utils'
 
 import type { Transform } from '@antv/x6-plugin-transform'
 import { ref } from 'vue'
@@ -165,6 +166,7 @@ export class useGraph extends Graph {
     }
   }
 
+  // #region
   // exports
   private imgExportOptions = {
     padding: 40,
@@ -188,6 +190,7 @@ export class useGraph extends Graph {
   _exportJPEG(fileName: string) {
     this.graph?.exportJPEG(fileName, this.imgExportOptions)
   }
+  // #endregion
 
   _fromLocalJSON(name: string) {
     const json = storage.get('graphs')[name]
@@ -199,6 +202,175 @@ export class useGraph extends Graph {
     this.graph.disposePlugins('transform')
     useTransform(this.graph, options)
     this.graph.createTransformWidget(node)
+  }
+
+  private getPossibleCells(cells?: Cell[] | Cell) {
+    const _cells =
+      cells !== undefined ? (Array.isArray(cells) ? cells : [cells]) : this.graph.getSelectedCells()
+
+    return _cells
+  }
+  private getSelectedNodes(cells?: Cell[] | Cell) {
+    const _cells = this.getPossibleCells(cells)
+    return _cells.filter((cell) => cell.isNode())
+  }
+  _toFront(cells?: Cell[] | Cell, options?: Cell.ToFrontOptions) {
+    const _cells = this.getPossibleCells(cells)
+    sortByNumberField(_cells, 'zIndex').forEach((cell: Cell) => cell.toFront(options))
+  }
+  _toBack(cells?: Cell[] | Cell, options?: Cell.ToBackOptions) {
+    const _cells = this.getPossibleCells(cells)
+    sortByNumberField(_cells, 'zIndex', false).forEach((cell: Cell) => cell.toBack(options))
+  }
+  _toUp(cells?: Cell[] | Cell, options?: Cell.SetOptions) {
+    const _cells = this.getPossibleCells(cells)
+    _cells.forEach((cell) => {
+      cell.setZIndex(cell.getZIndex()! + 1, options)
+    })
+  }
+  _toDown(cells?: Cell[] | Cell, options?: Cell.SetOptions) {
+    const _cells = this.getPossibleCells(cells)
+    _cells.forEach((cell) => {
+      cell.setZIndex(cell.getZIndex()! - 1, options)
+    })
+  }
+  _rotate(angel: number, cells?: Cell[] | Cell, options?: Node.RotateOptions) {
+    const _cells = this.getPossibleCells(cells)
+    _cells.forEach((cell) => {
+      if (Node.isNode(cell)) {
+        cell.rotate(angel, {
+          absolute: true,
+          ...options,
+        })
+      }
+    })
+  }
+  _alignToGrid(cells?: Cell[] | Cell, options?: Node.SetPositionOptions) {
+    const _cells = this.getPossibleCells(cells)
+    const gridSize = this.graph.getGridSize()
+    _cells.forEach((cell) => {
+      if (cell.isNode()) {
+        const position = cell.getPosition()
+        cell.setPosition(
+          {
+            x: round(position.x / gridSize) * gridSize,
+            y: round(position.y / gridSize) * gridSize,
+          },
+          options,
+        )
+      }
+    })
+  }
+  _alignLeft(cells?: Cell[] | Cell) {
+    const nodes = this.getSelectedNodes(cells)
+    const xs = nodes.map((node) => node.getPosition().x)
+    const minX = Math.min(...xs)
+    nodes.forEach((node) => {
+      node.setPosition({
+        x: minX,
+        y: node.getPosition().y,
+      })
+    })
+  }
+  _alignRight(cells?: Cell[] | Cell) {
+    const nodes = this.getSelectedNodes(cells)
+    const { node: maxNode, max } = this.getMaxNode(nodes, 'x')
+    nodes.forEach((node) => {
+      if (node !== maxNode) {
+        node.setPosition({
+          x: max - node.getSize().width,
+          y: node.getPosition().y,
+        })
+      }
+    })
+  }
+  _alignTop(cells?: Cell[] | Cell) {
+    const nodes = this.getSelectedNodes(cells)
+    const ys = nodes.map((node) => node.getPosition().y)
+    const minY = Math.min(...ys)
+    nodes.forEach((node) => {
+      node.setPosition({
+        x: node.getPosition().x,
+        y: minY,
+      })
+    })
+  }
+  _alignBottom(cells?: Cell[] | Cell) {
+    const nodes = this.getSelectedNodes(cells)
+    const { node: maxNode, max } = this.getMaxNode(nodes, 'y')
+    nodes.forEach((node) => {
+      if (node !== maxNode) {
+        node.setPosition({
+          x: node.getPosition().x,
+          y: max - node.getSize().height,
+        })
+      }
+    })
+  }
+  /**
+   * 计算距离指定轴最远的节点和距离, 比如传入x, 则返回距离画布左侧最远的节点和x坐标. 也即距离画布右侧最近
+   */
+  private getMaxNode(nodes: Node[], axis: 'x' | 'y') {
+    let max = undefined
+    let maxNode = null
+    for (let i = 0; i < nodes.length; i++) {
+      const node = nodes[i]
+      const size = node.getSize()
+      const value = node.getPosition()[axis] + (axis === 'x' ? size.width : size.height)
+      if (max === undefined || value > max) {
+        max = value
+        maxNode = node
+      }
+    }
+    return {
+      node: maxNode!,
+      max: max!,
+    }
+  }
+  /**
+   * 计算距离指定轴最近的节点和距离, 比如传入x, 则返回距离画布左侧最近的节点和x坐标.
+   */
+  private getMinNode(nodes: Node[], axis: 'x' | 'y') {
+    let min = undefined
+    let minNode = null
+    for (let i = 0; i < nodes.length; i++) {
+      const node = nodes[i]
+      const value = node.getPosition()[axis]
+      if (min === undefined || value < min) {
+        min = value
+        minNode = node
+      }
+    }
+    return {
+      node: minNode!,
+      min: min!,
+    }
+  }
+  _alignVertically(cells?: Cell[] | Cell) {
+    const nodes = this.getSelectedNodes(cells)
+    const { node, min } = this.getMinNode(nodes, 'y')
+    if (node) {
+      const centralAxis = min! + node!.getSize().height / 2
+      nodes.forEach((node) => {
+        node.setPosition({
+          x: node.getPosition().x,
+          y: centralAxis - node.getSize().height / 2,
+        })
+      })
+    }
+  }
+  _alignHorizontally(cells?: Cell[] | Cell) {
+    const nodes = this.getSelectedNodes(cells)
+    const { node, min } = this.getMinNode(nodes, 'x')
+    if (node) {
+      const centralAxis = min! + node!.getSize().width / 2
+      nodes.forEach((node) => {
+        node.setPosition({
+          x: centralAxis - node.getSize().width / 2,
+          y: node.getPosition().y,
+        })
+      })
+    }
   }
 
   // getters
