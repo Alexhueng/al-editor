@@ -7,9 +7,15 @@
     @update:show="close"
   >
     <template #default="{ draggableClass }">
-      <div class="bg-white w-[500px] rounded">
-        <div v-if="$attrs.title" :class="draggableClass" class="p-4 font-bold modal-header">
-          {{ $attrs.title }}
+      <div class="bg-white rounded" :style="{ width: width + 'px' }">
+        <div
+          v-if="$attrs.title || $slots.title"
+          :class="draggableClass"
+          class="p-4 font-bold modal-header"
+        >
+          <slot name="title">
+            {{ $attrs.title }}
+          </slot>
         </div>
         <div class="px-4">
           <slot></slot>
@@ -39,6 +45,10 @@ const props = defineProps({
   footer: {
     type: Boolean,
     default: true,
+  },
+  width: {
+    type: [String, Number],
+    default: 500,
   },
 })
 

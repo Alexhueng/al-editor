@@ -58,6 +58,7 @@ export const useRegisterNode = () => {
         fill: colors.text,
       },
     },
+    ports: { ...defaultPorts },
   })
 
   Graph.registerNode(

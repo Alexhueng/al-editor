@@ -46,6 +46,21 @@ export function sortByNumberField<T>(arr: T[], fieldName: keyof T, ascending = t
   })
 }
 
+export const IMAGE_EXTENSIONS = ['jpeg', 'jpg', 'png', 'bmp', 'webp', 'svg', 'ico']
+
+// 将数组转换为正则表达式需要的字符串格式
+export const IMAGE_EXTENSIONS_STR = IMAGE_EXTENSIONS.join('|')
+
+export function isImageFile(filename: string) {
+  const imageRegex = new RegExp(`\\.(${IMAGE_EXTENSIONS_STR})$`, 'i')
+  return imageRegex.test(filename)
+}
+
+export function isWebImageUrl(url: string) {
+  const regex = new RegExp(`^https?://.+(\\.(${IMAGE_EXTENSIONS_STR}))(\\?[^#]*)?(#.*)?$`, 'i')
+  return regex.test(url)
+}
+
 // 计算出一个八边形的refPoints
 // const sideLength = Math.min(36, 36)
 // // 缩进量，根据等边八角形的几何特性计算

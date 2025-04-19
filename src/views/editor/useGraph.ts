@@ -8,7 +8,6 @@ import { sortByNumberField, randomColor } from '@/utils'
 import { useGraphStore } from '@/stores/graph'
 
 import type { Transform } from '@antv/x6-plugin-transform'
-import { ref } from 'vue'
 
 const storage = new StorageService()
 

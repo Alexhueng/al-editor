@@ -20,6 +20,8 @@
       <n-input-number v-model:value="angel" placeholder="请输入角度值" :min="0" :max="360" />
     </div>
   </Modal>
+
+  <InsertImage v-model:visible="insertImageVisible" />
 </template>
 
 <script lang="tsx" setup>
@@ -35,6 +37,7 @@ import {
 } from 'vue'
 import { useGraphStore } from '@/stores/graph'
 import Modal from '@/components/Modal/index.vue'
+import InsertImage from './insertImage/index.vue'
 
 import type { Cell } from '@antv/x6'
 import type { DropdownOption } from 'naive-ui'
@@ -48,18 +51,11 @@ type OptionItem = { click?: (key: string, option: DropdownOption) => void } & Dr
 const selectedCells = ref<Cell[]>([])
 const angelVisible = ref(false)
 const angel = ref<number | undefined>(undefined)
+const insertImageVisible = ref(false)
 
 nextTick(() => {
   graph.value!.on('selection:changed', () => {
     selectedCells.value = graph.value!.getSelectedCells()
-    // console.log(selectedCells.value[0])
-    // const node = selectedCells.value[0]
-    // const position = node.isNode() && node.getPosition()
-    // const relativePosition = node.isNode() && node.getPosition({ relative: true })
-    // // graph.value.
-    // console.log(position)
-    // console.log(relativePosition)
-    // console.log(graph.value!.localToGraph(position))
   })
 })
 
@@ -142,23 +138,34 @@ const options = computed(() => {
         }
       }),
     },
-    { label: '插入', children: [{ label: '图片' }, { label: '自由绘图' }] },
     {
-      label: '布局',
+      label: '插入',
       children: [
-        { label: '水平树' },
-        { label: '垂直树' },
-        { label: '径向树' },
-        { label: '环形' },
-        { label: '椭圆' },
-        { label: '力导向' },
+        {
+          label: '图片',
+          click: () => {
+            insertImageVisible.value = true
+          },
+        },
+        // { label: '自由绘图' },
       ],
     },
-    { type: 'divider' },
-    { label: '组合' },
-    { label: '取消组合' },
-    { label: '移出组合' },
-    { type: 'divider' },
+    // {
+    //   label: '布局',
+    //   children: [
+    //     { label: '水平树' },
+    //     { label: '垂直树' },
+    //     { label: '径向树' },
+    //     { label: '环形' },
+    //     { label: '椭圆' },
+    //     { label: '力导向' },
+    //   ],
+    // },
+    // { type: 'divider' },
+    // { label: '组合' },
+    // { label: '取消组合' },
+    // { label: '移出组合' },
+    // { type: 'divider' },
   ] as OptionItem[]
 })
 
