@@ -95,6 +95,7 @@ const handleConfirm = ({ resolve, reject }: { resolve: () => void; reject: () =>
 
   const graph = graphStore.graph
   if (graph) {
+    graph._removeAllTools()
     const json = graph.toJSON()
     graphs[form.value.name] = json
     storage.set('graphs', graphs)

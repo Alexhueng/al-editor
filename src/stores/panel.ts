@@ -1,6 +1,6 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
-import type { Cell, Node, Edge } from '@antv/x6'
+import type { Cell } from '@antv/x6'
 
 interface PanelStore {
   panelVisible: boolean

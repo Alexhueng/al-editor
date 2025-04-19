@@ -21,7 +21,7 @@ export const GRAPH_DEFAULT_OPTIONS = {
     color: '#fff',
   },
   grid: {
-    visible: true,
+    visible: false,
     type: 'mesh',
     size: 10,
     args: {
@@ -33,6 +33,15 @@ export const GRAPH_DEFAULT_OPTIONS = {
     minScale: 0.05,
     maxScale: 12,
   },
+  connecting: {
+    edgeAnchor: 'closest',
+  },
+}
+
+export const DEFAULT_TARGET_MARKER = {
+  name: 'block',
+  width: 12,
+  height: 8,
 }
 
 export const NODE_SIZE = {

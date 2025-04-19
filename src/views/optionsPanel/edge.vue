@@ -13,7 +13,7 @@
           class="w-full"
           @update:value="handleUpdateLabel"
         />
-        <div class="flex items-center justify-center mt-2 break-keep">
+        <div class="flex items-center mt-2 break-keep">
           <span>字体颜色:</span>
           <n-color-picker
             v-model:value="label.color"
@@ -32,7 +32,7 @@
             @update:value="handleUpdateLabel"
           />
 
-          <span class="mx-2">位置:</span>
+          <!-- <span class="mx-2">位置:</span>
           <n-input-number
             v-model:value="label.distance"
             class="w-[150px]"
@@ -43,7 +43,7 @@
             @update:value="handleUpdateLabel"
           >
             <template #suffix> % </template>
-          </n-input-number>
+          </n-input-number> -->
         </div>
       </div>
     </n-form-item>
@@ -74,7 +74,7 @@
     </n-form-item>
 
     <n-form-item label="线条">
-      <div class="flex justify-between">
+      <div class="flex justify-between w-full">
         <n-select
           v-model:value="strokeType"
           class="w-[50%] flex-shrink mr-4"
@@ -91,6 +91,30 @@
         />
       </div>
     </n-form-item>
+
+    <n-form-item label="锚点" v-if="isConnetedEdge">
+      <div class="flex justify-between w-full">
+        <n-select
+          v-model:value="anchor"
+          class="w-[50%] flex-shrink mr-4"
+          :options="anchorMap"
+          @update:value="handleUpdateAnchor"
+        />
+        <n-input-number
+          v-model:value="anchorValue"
+          :disabled="!hasAnchorValue"
+          :min="0"
+          :max="anchor === 'ratio' ? 100 : undefined"
+          class="w-[50%] flex-shrink"
+          @update:value="handleUpdateAnchor"
+        >
+          <template #suffix>
+            <span v-if="anchor === 'ratio'">%</span>
+            <span v-if="anchor === 'length'">像素</span>
+          </template>
+        </n-input-number>
+      </div>
+    </n-form-item>
   </n-form>
 </template>
 
@@ -98,6 +122,7 @@
 import { computed, reactive, ref, watch, h, onMounted, onBeforeUnmount } from 'vue'
 import { usePanelStore } from '@/stores/panel'
 import { useGraphStore } from '@/stores/graph'
+import { GRAPH_DEFAULT_OPTIONS } from '@/views/editor/consts'
 
 // import types
 import { Edge, Node } from '@antv/x6'
@@ -143,6 +168,20 @@ const stroke = ref('')
 const strokeType = ref('0')
 const strokeWidth = ref(1)
 const labels = ref<Label[]>([])
+const anchor = ref('')
+const anchorValue = ref<number | undefined>(undefined)
+const isConnetedEdge = ref(false)
+
+const anchorMap = [
+  { value: 'ratio', label: '百分比', default: 50 },
+  { value: 'length', label: '指定长度', default: 20 },
+  { value: 'closest', label: '最接近点' },
+  { value: 'orth', label: '正交点' },
+]
+
+const hasAnchorValue = computed(() => {
+  return ['ratio', 'length'].includes(anchor.value)
+})
 
 const form = reactive<{
   router?: Edge.RouterData['name']
@@ -172,12 +211,34 @@ const initEdge = () => {
   strokeType.value = edge.value.getAttrByPath('line/strokeDasharray')
   strokeWidth.value = edge.value.getAttrByPath('line/strokeWidth')
 
+  anchorHandle()
+
   // handle labels
   const _labels = edge.value.getLabels()
   const transformed = transfomLabels(_labels)
   labels.value = transformed.filter((label) => label.text)
   if (!labels.value.length) {
     handleAddLabel()
+  }
+}
+
+const anchorHandle = () => {
+  isConnetedEdge.value = graph.value!._isConnetedEdge(edge.value)
+  if (!isConnetedEdge.value) return
+
+  const target = edge.value.getProp().target
+  console.log(target)
+  if (!target.anchor /** 设置默认锚点 */) {
+    anchor.value = GRAPH_DEFAULT_OPTIONS.connecting.edgeAnchor
+    anchorValue.value = undefined
+  } else {
+    if (typeof target.anchor === 'string') {
+      anchor.value = target.anchor
+    } else {
+      anchor.value = target.anchor.name
+      const value = target.anchor.args[anchor.value]
+      anchorValue.value = anchor.value === 'ratio' ? value * 100 : value
+    }
   }
 }
 
@@ -256,7 +317,7 @@ const handleColorChange = (value: string) => {
 }
 
 const renderLabel = (option: SelectOption): VNodeChild => {
-  const baseClass = 'border-b-[1px] border-[#000] h-[1px] w-[200px]'
+  const baseClass = 'border-b-[1px] border-[#000] h-[1px] w-full'
   return h(
     'div',
     { class: 'w-full flex  items-center h-[30px]', title: option.label },
@@ -280,5 +341,22 @@ const handleStrokeWidth = (value: number) => {
       strokeWidth: value,
     },
   })
+}
+
+const handleUpdateAnchor = (value: string | number, option: SelectOption) => {
+  if (hasAnchorValue.value) {
+    const isInputTrigger = option === undefined
+    const _value = isInputTrigger ? (value as number) : (option.default as number)
+    anchorValue.value = _value
+    edge.value.prop('target/anchor', {
+      name: isInputTrigger ? anchor.value : value,
+      args: {
+        [isInputTrigger ? anchor.value : value]: value === 'ratio' ? _value / 100 : _value,
+      },
+    })
+  } else {
+    edge.value.prop('target/anchor', value)
+    anchorValue.value = undefined
+  }
 }
 </script>

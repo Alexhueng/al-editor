@@ -20,7 +20,6 @@ export const useEvents = (graph: useGraph) => {
     }
     if (cell.isEdge()) {
       cell.addTools(['vertices', 'segments'])
-      // console.log('cell:selected', cell)
     }
   })
 

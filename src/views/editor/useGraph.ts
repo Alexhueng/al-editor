@@ -1,17 +1,16 @@
-import { Graph, Shape, Node, Cell } from '@antv/x6'
+import { Graph, Shape, Node, Cell, EdgeView, NodeView, Edge } from '@antv/x6'
 import { StorageService } from '@/utils/storage'
 import { Persistence } from './persistence'
 import useTransform from './plugins/transform'
 import { merge, round } from 'lodash'
-import { GRAPH_DEFAULT_OPTIONS } from './consts'
-import { sortByNumberField } from '@/utils'
+import { GRAPH_DEFAULT_OPTIONS, DEFAULT_TARGET_MARKER } from './consts'
+import { sortByNumberField, randomColor } from '@/utils'
+import { useGraphStore } from '@/stores/graph'
 
 import type { Transform } from '@antv/x6-plugin-transform'
 import { ref } from 'vue'
 
 const storage = new StorageService()
-
-export const bgColor = ref('#fff')
 
 export class useGraph extends Graph {
   graph: Graph
@@ -19,6 +18,7 @@ export class useGraph extends Graph {
   [key: string]: any
 
   constructor(id?: string) {
+    const graphStore = useGraphStore()
     const options: Graph.Options = {
       container: document.getElementById(id || 'graph-container')!,
       grid: true,
@@ -45,8 +45,10 @@ export class useGraph extends Graph {
         //     radius: 8,
         //   },
         // },
+        allowNode: true,
+        allowEdge: true,
         anchor: 'center',
-        connectionPoint: 'anchor',
+        connectionPoint: 'boundary',
         allowBlank: true,
         snap: {
           radius: 20,
@@ -55,45 +57,41 @@ export class useGraph extends Graph {
           return new Shape.Edge({
             attrs: {
               line: {
-                stroke: '#0c0c0c',
+                stroke: graphStore.edgeRandomColor ? randomColor() : '#0c0c0c',
                 strokeWidth: 2,
                 strokeDasharray: '0',
-                targetMarker: {
-                  name: 'block',
-                  width: 12,
-                  height: 8,
-                },
+                targetMarker: DEFAULT_TARGET_MARKER,
               },
             },
-            // labels: [
-            //   {
-            //     attrs: {
-            //       label: {
-            //         text: '',
-            //       },
-            //     },
-            //   },
-            // ],
             tools: ['edge-editor'],
             router: 'manhattan',
             connector: 'normal',
             zIndex: 0,
           })
         },
-        validateConnection({ targetMagnet }: any) {
-          return !!targetMagnet
+        // validateConnection(...args) {
+        //   return !!targetMagnet
+        // },
+        validateEdge: ({ edge, previous, type }) => {
+          if (this._isConnetedEdge(edge)) {
+            edge.removeAttrByPath('line/targetMarker')
+          } else {
+            edge.setAttrByPath('line/targetMarker', DEFAULT_TARGET_MARKER)
+          }
+
+          return true
         },
       },
       highlighting: {
-        magnetAdsorbed: {
-          name: 'stroke',
-          args: {
-            attrs: {
-              fill: '#000',
-              stroke: '#5F95FF',
-            },
-          },
-        },
+        // magnetAdsorbed: {
+        //   name: 'stroke',
+        //   args: {
+        //     attrs: {
+        //       fill: '#000',
+        //       stroke: '#5F95FF',
+        //     },
+        //   },
+        // },
       },
     }
 
@@ -371,6 +369,39 @@ export class useGraph extends Graph {
         })
       })
     }
+  }
+  _isConnetedBlank(edge: Edge) {
+    const { target } = edge
+    return target.hasOwnProperty('x') || target.hasOwnProperty('y')
+  }
+  isPosition(target: any) {
+    return target.hasOwnProperty('x') || target.hasOwnProperty('y')
+  }
+  _isConnetedNode(edge: Edge) {
+    const { target }: { target: any } = edge
+    if (target.cell) {
+      return this.graph.getCellById(target.cell as unknown as string).isNode()
+    } else {
+      return false
+    }
+  }
+  _isConnetedEdge(edge: Edge) {
+    const { target }: { target: any } = edge
+    if (target.cell) {
+      return this.graph.getCellById(target.cell as unknown as string).isEdge()
+    } else {
+      return false
+    }
+  }
+  _removeAllTools() {
+    const cells = this.graph.getCells()
+    cells.forEach((cell) => {
+      const tools = cell.getTools()
+      if (tools?.items.length) {
+        cell.removeTools()
+      }
+    })
+    return this
   }
 
   // getters

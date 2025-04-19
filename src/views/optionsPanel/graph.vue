@@ -73,6 +73,12 @@
           @update:value="handleUpdateZoom"
         ></n-slider>
       </n-form-item> -->
+      <n-form-item label="随机边颜色">
+        <n-switch
+          v-model:value="form.edgeRandomColor"
+          @update:value="handleUpdateEdgeRandomColor"
+        ></n-switch>
+      </n-form-item>
     </n-form>
   </div>
 </template>
@@ -83,6 +89,8 @@ import { useGraphStore } from '@/stores/graph'
 // import Upload from '@/components/Upload.vue'
 import { GRAPH_DEFAULT_OPTIONS } from '@/views/editor/consts'
 
+const graphStore = useGraphStore()
+
 const form = reactive({
   // @ts-ignore
   backgroundColor: GRAPH_DEFAULT_OPTIONS.background!.color,
@@ -92,9 +100,8 @@ const form = reactive({
   size: '' as any,
   grid: GRAPH_DEFAULT_OPTIONS.grid,
   zoom: 1.2,
+  edgeRandomColor: graphStore.edgeRandomColor,
 })
-
-const graphStore = useGraphStore()
 
 watch(
   () => graphStore.graph,
@@ -145,6 +152,10 @@ const handleUpdateGrid = (value: boolean) => {
 
 const handleUpdateZoom = (value: number) => {
   graphStore.graph?.zoomTo(value)
+}
+
+const handleUpdateEdgeRandomColor = (value: boolean) => {
+  graphStore.edgeRandomColor = value
 }
 </script>
 
