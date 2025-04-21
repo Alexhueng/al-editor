@@ -6,7 +6,7 @@
     placement="bottom-start"
     @select="handleSelect"
   >
-    <span class="p-4 text-[#3f3f3f] hover:text-primary hover:bg-[#f3f3f5]">图形调整</span>
+    <span class="p-4 text-[#202942] hover:text-primary hover:bg-[#f3f3f5]">图形调整</span>
   </n-dropdown>
 
   <Modal
@@ -55,7 +55,7 @@ const insertImageVisible = ref(false)
 
 nextTick(() => {
   graph.value!.on('selection:changed', () => {
-    selectedCells.value = graph.value!.getSelectedCells()
+    selectedCells.value = graph.value!.getSelectedNodes()
   })
 })
 

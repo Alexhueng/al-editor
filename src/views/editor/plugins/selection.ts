@@ -1,4 +1,4 @@
-import type { Graph } from '@antv/x6'
+import { Cell, type Graph } from '@antv/x6'
 import { Selection } from '@antv/x6-plugin-selection'
 
 export default function (graph: Graph) {
@@ -8,9 +8,11 @@ export default function (graph: Graph) {
       multiple: true,
       movable: true,
       rubberband: true,
+      rubberEdge: true,
+      following: true,
       showNodeSelectionBox: true,
-      showEdgeSelectionBox: true,
-      pointerEvents: 'none',
+      showEdgeSelectionBox: false,
+      // pointerEvents: 'none',
     }),
   )
 }

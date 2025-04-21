@@ -317,7 +317,7 @@ const handleColorChange = (value: string) => {
 }
 
 const renderLabel = (option: SelectOption): VNodeChild => {
-  const baseClass = 'border-b-[1px] border-[#000] h-[1px] w-full'
+  const baseClass = 'border-b-[1px] border-[#000] h-[1px] w-[200px]'
   return h(
     'div',
     { class: 'w-full flex  items-center h-[30px]', title: option.label },

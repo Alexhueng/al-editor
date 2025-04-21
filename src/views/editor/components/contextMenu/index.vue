@@ -155,6 +155,33 @@ const options: (DropdownOption & {
       graph._clearGraph()
     },
   },
+  {
+    type: 'divider',
+  },
+  {
+    label: '全屏',
+    key: 'fullscreen',
+    click: () => {
+      const doc = document.documentElement as any
+      if (document.fullscreenElement) {
+        if (document.exitFullscreen) {
+          document.exitFullscreen()
+        } else if (doc.webkitExitFullscreen) {
+          doc.webkitExitFullscreen()
+        } else if (doc.msExitFullscreen) {
+          doc.msExitFullscreen()
+        }
+      } else {
+        if (doc.requestFullscreen) {
+          doc.requestFullscreen()
+        } else if (doc.webkitRequestFullscreen) {
+          doc.webkitRequestFullscreen()
+        } else if (doc.msRequestFullscreen) {
+          doc.msRequestFullscreen()
+        }
+      }
+    },
+  },
 ]
 
 const show = (x: number, y: number, event: any) => {

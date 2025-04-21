@@ -47,80 +47,43 @@ export function preWork() {
   .x6-widget-transform {
     margin: -1px 0 0 -1px;
     padding: 0px;
+    // transform: translate(-10px, -10px);
     border: 1px solid #239edd;
+    border-style: dashed;
   }
   .x6-widget-transform > div {
     border: 1px solid #239edd;
+    // border-radius: 50%;
+    // background: #239edd;
   }
   .x6-widget-transform > div:hover {
-    background-color: #3dafe4;
+    background-color: #ffeb3b;
   }
   .x6-widget-transform-active-handle {
-    background-color: #3dafe4;
+    background-color: #ffeb3b !important;
   }
   .x6-widget-transform-resize {
     border-radius: 0;
   }
+  .x6-widget-transform-rotate {
+    
+  }
+
   .x6-widget-selection-inner {
     border: 1px solid #239edd;
   }
   .x6-widget-selection-box {
-    opacity: 1;
+    // padding: 10px;
+    // transform: translate(-10px, -10px);
+    opacity: 0;
+    // border-width: 2px;
+    // border-color: #ff9800;
+  }
+
+  @keyframes running-line {
+    to {
+      stroke-dashoffset: -1000;
+    }
   }
 `)
 }
-
-// #container {
-//   display: flex;
-//   border: 1px solid #dfe3e8;
-// }
-// #stencil {
-//   height: 100%;
-//   position: relative;
-//   border-right: 1px solid #dfe3e8;
-// }
-// // #graph-container {
-// //   width: calc(100% - 300px);
-// //   height: 100%;
-// // }
-// .x6-widget-stencil {
-//   background-color: #fff;
-//   border: 1px solid red;
-// }
-// .x6-widget-stencil-content {
-//   padding: 10px;
-//   padding-top: 42px;
-// }
-// .x6-widget-stencil-title {
-//   background-color: #fff;
-// }
-// .x6-widget-stencil-group {
-//   padding: 20px !important;
-// }
-
-// .x6-widget-stencil-group-title {
-//   background-color: #fff !important;
-// }
-// .x6-widget-transform {
-//   margin: -1px 0 0 -1px;
-//   padding: 0px;
-//   border: 1px solid #239edd;
-// }
-// .x6-widget-transform > div {
-//   border: 1px solid #239edd;
-// }
-// .x6-widget-transform > div:hover {
-//   background-color: #3dafe4;
-// }
-// .x6-widget-transform-active-handle {
-//   background-color: #3dafe4;
-// }
-// .x6-widget-transform-resize {
-//   border-radius: 0;
-// }
-// .x6-widget-selection-inner {
-//   border: 1px solid #239edd;
-// }
-// .x6-widget-selection-box {
-//   opacity: 0;
-// }

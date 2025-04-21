@@ -13,7 +13,8 @@ const storage = new StorageService()
 
 export class useGraph extends Graph {
   graph: Graph
-  persistence: Persistence;
+  persistence: Persistence
+  animationStack: Map<Edge, any> = new Map();
   [key: string]: any
 
   constructor(id?: string) {
@@ -60,6 +61,9 @@ export class useGraph extends Graph {
                 strokeWidth: 2,
                 strokeDasharray: '0',
                 targetMarker: DEFAULT_TARGET_MARKER,
+                style: {
+                  animation: 'running-line 30s infinite linear',
+                },
               },
             },
             tools: ['edge-editor'],
@@ -401,6 +405,19 @@ export class useGraph extends Graph {
       }
     })
     return this
+  }
+  addAnimation(edge: Edge) {
+    this.animationStack.set(edge, edge.getAttrs())
+    edge.attr('line/stroke', '#18a058')
+    edge.attr('line/strokeDasharray', 5)
+    edge.attr('line/style/animation', 'running-line 30s infinite linear')
+  }
+  removeAnimation(edge: Edge) {
+    const attrs = this.animationStack.get(edge)
+    if (attrs) {
+      edge.setAttrs(attrs)
+      this.animationStack.delete(edge)
+    }
   }
 
   // getters

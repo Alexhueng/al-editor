@@ -169,7 +169,9 @@ onBeforeUnmount(() => {
 
 const handleUpdateAspectRatio = (value: boolean) => {
   node.value.setProp('preserveAspectRatio', value)
-  graph.value._recreateTransform(node.value, { resizing: { preserveAspectRatio: value } })
+  // graph.value._recreateTransform(node.value)
+  graph.value.clearTransformWidget(node.value)
+  graph.value.createTransformWidget(node.value)
 }
 
 const handleZIndexChange = (value: number, type: 'up' | 'down' | 'top' | 'bottom') => {

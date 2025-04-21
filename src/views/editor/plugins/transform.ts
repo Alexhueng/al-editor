@@ -1,5 +1,6 @@
-import type { Graph } from '@antv/x6'
-import { Transform } from '@antv/x6-plugin-transform'
+import type { Graph, Node } from '@antv/x6'
+// import { Transform } from '@antv/x6-plugin-transform'
+import { Transform } from '@/plugins/transform/index'
 import { merge } from 'lodash'
 
 export default function (graph: Graph, options: Transform.Options = {}) {
@@ -9,10 +10,15 @@ export default function (graph: Graph, options: Transform.Options = {}) {
         {
           resizing: {
             enabled: true,
+            preserveAspectRatio: (node: Node) => {
+              const preserveAspectRatio = node.getProp('preserveAspectRatio')
+              return !!preserveAspectRatio
+            },
           },
           rotating: {
             enabled: true,
           },
+          allowMultiple: true,
         } as Transform.Options,
         options,
       ),

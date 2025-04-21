@@ -9,6 +9,7 @@ const panelStore = usePanelStore()
 export const useEvents = (graph: useGraph) => {
   graph.on('cell:selected', ({ cell }) => {
     const selectedCells = graph.getSelectedCells()
+
     if (selectedCells.length === 1) {
       panelStore.panelVisible = true
       panelStore.setCell(cell)
@@ -18,24 +19,24 @@ export const useEvents = (graph: useGraph) => {
       // console.log(selectedCells)
       // panelStore.panelVisible = true
     }
+    if (cell.isNode()) {
+      graph.createTransformWidget(cell)
+    }
+
     if (cell.isEdge()) {
       cell.addTools(['vertices', 'segments'])
+      graph.addAnimation(cell)
     }
-  })
-
-  graph.on('node:click', ({ node }) => {
-    const preserveAspectRatio = node.getProp('preserveAspectRatio')
-    graph._recreateTransform(node, { resizing: { preserveAspectRatio } })
   })
 
   graph.on('cell:unselected', ({ cell }) => {
     panelStore.setCell(null)
     panelStore.panelVisible = false
-    if (cell.isNode()) {
-      graph.disposePlugins('transform')
-    }
 
     cell.removeTools()
+    if (cell.isEdge()) {
+      graph.removeAnimation(cell)
+    }
   })
 
   graph.on('blank:contextmenu', (event) => {
