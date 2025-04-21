@@ -49,21 +49,16 @@ const graph = computed(() => {
 type OptionItem = { click?: (key: string, option: DropdownOption) => void } & DropdownOption
 
 const selectedCells = ref<Cell[]>([])
+const selectedNodes = ref<Node[]>([])
 const angelVisible = ref(false)
 const angel = ref<number | undefined>(undefined)
 const insertImageVisible = ref(false)
 
 nextTick(() => {
   graph.value!.on('selection:changed', () => {
-    selectedCells.value = graph.value!.getSelectedNodes()
+    selectedCells.value = graph.value!.getSelectedCells()
+    selectedNodes.value = graph.value!.getSelectedNodes()
   })
-})
-
-const isMoreThan1Selected = computed(() => {
-  return selectedCells.value?.length >= 1
-})
-const isMoreThan2Selected = computed(() => {
-  return selectedCells.value?.length >= 2
 })
 
 const handleAngelConfirm = ({ resolve, reject }: { resolve: () => void; reject: () => void }) => {
@@ -80,28 +75,28 @@ const options = computed(() => {
   return [
     {
       label: '移至最前',
-      disabled: !isMoreThan1Selected.value,
+      disabled: selectedCells.value.length <= 1,
       click: () => graph.value?._toFront(),
     },
     {
       label: '移至最后',
-      disabled: !isMoreThan1Selected.value,
+      disabled: selectedCells.value.length <= 1,
       click: () => graph.value?._toBack(),
     },
     {
       label: '上移一层',
-      disabled: !isMoreThan1Selected.value,
+      disabled: selectedCells.value.length <= 1,
       click: () => graph.value?._toUp(),
     },
     {
       label: '下移一层',
-      disabled: !isMoreThan1Selected.value,
+      disabled: selectedCells.value.length <= 1,
       click: () => graph.value?._toDown(),
     },
     { type: 'divider' },
     {
       label: '方向',
-      disabled: !isMoreThan1Selected.value,
+      disabled: !selectedNodes.value.length,
       children: [
         // { label: '水平翻转' },
         // { label: '垂直翻转' },
@@ -110,8 +105,8 @@ const options = computed(() => {
     },
     {
       label: '旋转90°',
-      disabled: !isMoreThan1Selected.value,
-      click: () => graph.value?._rotate(90),
+      disabled: !selectedNodes.value.length,
+      click: () => graph.value?._rotate(90, undefined, { absolute: false }),
     },
     { type: 'divider' },
     {
@@ -128,13 +123,13 @@ const options = computed(() => {
         { type: 'divider' },
         {
           label: '对齐到网格',
-          disabled: !isMoreThan1Selected.value,
+          disabled: !selectedNodes.value.length,
           click: () => graph.value?._alignToGrid(),
         },
       ].map((item) => {
         return {
           ...item,
-          disabled: item.disabled ?? !isMoreThan2Selected.value,
+          disabled: item.disabled ?? selectedNodes.value.length <= 1,
         }
       }),
     },

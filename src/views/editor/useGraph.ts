@@ -248,31 +248,27 @@ export class useGraph extends Graph {
       cell.setZIndex(cell.getZIndex()! - 1, options)
     })
   }
-  _rotate(angel: number, cells?: Cell[] | Cell, options?: Node.RotateOptions) {
-    const _cells = this.getPossibleCells(cells)
-    _cells.forEach((cell) => {
-      if (Node.isNode(cell)) {
-        cell.rotate(angel, {
-          absolute: true,
-          ...options,
-        })
-      }
+  _rotate(angel: number, nodes?: Node[] | Node, options?: Node.RotateOptions) {
+    const _cells = this.getSelectedNodes(nodes)
+    _cells.forEach((node) => {
+      node.rotate(angel % 360, {
+        absolute: true,
+        ...options,
+      })
     })
   }
-  _alignToGrid(cells?: Cell[] | Cell, options?: Node.SetPositionOptions) {
-    const _cells = this.getPossibleCells(cells)
+  _alignToGrid(nodes?: Node[] | Node, options?: Node.SetPositionOptions) {
+    const _nodes = this.getSelectedNodes(nodes)
     const gridSize = this.graph.getGridSize()
-    _cells.forEach((cell) => {
-      if (cell.isNode()) {
-        const position = cell.getPosition()
-        cell.setPosition(
-          {
-            x: round(position.x / gridSize) * gridSize,
-            y: round(position.y / gridSize) * gridSize,
-          },
-          options,
-        )
-      }
+    _nodes.forEach((node) => {
+      const position = node.getPosition()
+      node.setPosition(
+        {
+          x: round(position.x / gridSize) * gridSize,
+          y: round(position.y / gridSize) * gridSize,
+        },
+        options,
+      )
     })
   }
   _alignLeft(cells?: Cell[] | Cell) {

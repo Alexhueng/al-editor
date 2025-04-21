@@ -5,8 +5,11 @@ export default function (graph: useGraph) {
   graph.use(
     new Scroller({
       enabled: true,
-      pannable: true,
-      modifiers: ['ctrl', 'meta'],
+      pannable: {
+        enabled: true,
+        eventTypes: ['rightMouseDown'],
+      },
+      // modifiers: ['ctrl', 'meta'],
       pageVisible: true,
       pageBreak: true,
       background: {

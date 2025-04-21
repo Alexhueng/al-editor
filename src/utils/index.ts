@@ -61,6 +61,11 @@ export function isWebImageUrl(url: string) {
   return regex.test(url)
 }
 
+export function capitalize(str: string) {
+  if (typeof str !== 'string' || !str.length) return str
+  return str[0].toUpperCase() + str.slice(1).toLowerCase()
+}
+
 // 计算出一个八边形的refPoints
 // const sideLength = Math.min(36, 36)
 // // 缩进量，根据等边八角形的几何特性计算

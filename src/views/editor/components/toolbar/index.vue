@@ -7,6 +7,7 @@
       <n-space align="center">
         <router-link to="/" class="font-bold text-[18px] text-primary">首页</router-link>
         <Transform />
+        <Help />
       </n-space>
       <n-space>
         <n-button type="primary" @click="handleSave">
@@ -68,6 +69,7 @@ import { useMessage } from 'naive-ui'
 import type { DropdownOption } from 'naive-ui'
 
 import Transform from '../transform/index.vue'
+import Help from '../help/index.vue'
 
 const graphStore = useGraphStore()
 const message = useMessage()

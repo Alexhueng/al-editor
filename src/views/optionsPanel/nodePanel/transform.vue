@@ -219,7 +219,6 @@ const handleNodePostionChange = (evt: InputEvent, type: positionType) => {
 }
 
 const handleUpdateRotate = (value: number, opts: Node.RotateOptions = {}) => {
-  node.value.rotate(value, { absolute: true, ...opts })
-  angel.value = node.value.getAngle()
+  node.value.rotate(value % 360, { absolute: true, ...opts })
 }
 </script>
