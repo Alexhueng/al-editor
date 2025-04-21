@@ -200,7 +200,6 @@ const initEdge = () => {
   } else {
     form.router = router?.name
   }
-
   const connector = edge.value.getConnector()
   if (typeof connector === 'string') {
     form.connector = connector

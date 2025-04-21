@@ -1,6 +1,6 @@
 # AL-Editor
 
-> A visual graph editor based on X6 and Vue.
+> A visual graph editor based on X6 and Vue3.
 
 ## 预览
 

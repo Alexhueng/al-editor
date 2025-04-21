@@ -1,46 +1,58 @@
 import { usePanelStore } from '@/stores/panel'
 import { useGraph } from '../useGraph'
-
-const panelStore = usePanelStore()
+import * as SHORTCUT_KEYS from './shortcutKeys'
 
 export const useKeyboard = (graph: useGraph) => {
-  graph.bindKey(['meta+c', 'ctrl+c'], () => {
+  // copy
+  graph.bindKey(SHORTCUT_KEYS.COPY, () => {
     graph._copy()
     return false
   })
-  graph.bindKey(['meta+x', 'ctrl+x'], () => {
+
+  // cut
+  graph.bindKey(SHORTCUT_KEYS.CUT, () => {
     graph._cut()
     return false
   })
-  graph.bindKey(['meta+v', 'ctrl+v'], () => {
+
+  // paste
+  graph.bindKey(SHORTCUT_KEYS.PASTE, () => {
     graph._paste()
     return false
   })
 
-  // undo redo
-  graph.bindKey(['meta+z', 'ctrl+z'], (...args) => {
+  // undo
+  graph.bindKey(SHORTCUT_KEYS.UNDO, () => {
     graph._undo()
     return false
   })
-  graph.bindKey(['meta+shift+z', 'ctrl+shift+z'], () => {
+
+  // redo
+  graph.bindKey(SHORTCUT_KEYS.REDO, () => {
     graph._redo()
     return false
   })
 
   // select all
-  graph.bindKey(['meta+a', 'ctrl+a'], () => {
+  graph.bindKey(SHORTCUT_KEYS.SELECT_ALL, () => {
     graph._selectAll()
     return false
   })
 
   // delete
-  graph.bindKey(['delete'], () => {
+  graph.bindKey(SHORTCUT_KEYS.DELETE, () => {
     graph._deleteCells()
   })
   window.addEventListener('keydown', (e) => {
-    if (e.key === 'Delete') {
+    if (SHORTCUT_KEYS.DELETE.includes(e.key.toLowerCase())) {
       graph._deleteCells()
     }
+  })
+
+  // rotate
+  graph.bindKey(SHORTCUT_KEYS.ROTATE_90, () => {
+    graph._rotate(90, undefined, { absolute: false })
+    return false
   })
 
   // zoom

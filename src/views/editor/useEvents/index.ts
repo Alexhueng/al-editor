@@ -67,8 +67,16 @@ export const useEvents = (graph: useGraph) => {
     }
   })
 
+  let time = 0
+  window.addEventListener('mousedown', (event: MouseEvent) => {
+    if (event.button === 2) {
+      time = Date.now()
+    }
+  })
   graph.on('blank:contextmenu', (event) => {
-    useContextMenu(event.e.pageX, event.e.pageY, event)
+    if (Date.now() - time < 200) {
+      useContextMenu(event.e.pageX, event.e.pageY, event)
+    }
   })
 
   const getPorts = () => {

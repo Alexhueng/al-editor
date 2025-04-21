@@ -17,16 +17,18 @@
             {{ $attrs.title }}
           </slot>
         </div>
-        <div class="px-4">
+        <div class="px-4" :class="[footer ? 'pb-0' : 'pb-4']">
           <slot></slot>
         </div>
-        <div v-if="footer" class="p-4">
-          <n-space justify="center">
-            <n-button class="w-[80px]" @click="close">取消</n-button>
-            <n-button class="w-[80px]" :loading="confirmLoading" type="primary" @click="confirm">
-              确定
-            </n-button>
-          </n-space>
+        <div v-if="footer || $slots.footer" class="p-4">
+          <slot name="footer" :close="close">
+            <n-space justify="center">
+              <n-button class="w-[80px]" @click="close">取消</n-button>
+              <n-button class="w-[80px]" :loading="confirmLoading" type="primary" @click="confirm">
+                确定
+              </n-button>
+            </n-space>
+          </slot>
         </div>
       </div>
     </template>

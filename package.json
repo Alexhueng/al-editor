@@ -14,7 +14,8 @@
     "lint:eslint": "eslint . --fix",
     "lint": "run-s lint:*",
     "format": "prettier --write src/",
-    "vercel": "vercel --prod"
+    "vercel": "vercel --prod",
+    "push": "git push github main && git push gitee master"
   },
   "dependencies": {
     "@antv/x6": "^2.18.1",
