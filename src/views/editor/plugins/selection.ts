@@ -10,7 +10,7 @@ export default function (graph: Graph) {
       rubberband: true,
       rubberEdge: true,
       following: true,
-      showNodeSelectionBox: true,
+      showNodeSelectionBox: false,
       showEdgeSelectionBox: false,
       // pointerEvents: 'none',
     }),

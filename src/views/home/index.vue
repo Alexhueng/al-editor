@@ -1,6 +1,12 @@
 <template>
   <div class="w-full h-full">
-    <div class="w-full h-[56px] shadow-sm"></div>
+    <div class="w-full h-[56px] px-10 bg-zinc-900 shadow-2xl">
+      <div class="flex items-center justify-end h-full">
+        <n-button circle @click="handleGithub">
+          <svg-icon name="github" color="#fff" />
+        </n-button>
+      </div>
+    </div>
 
     <PatternBackground
       :animate="true"
@@ -23,18 +29,23 @@
         </n-button>
       </div>
 
-      <div class="w-[1200px] mx-auto mt-20 flex flex-wrap">
-        <div
-          v-for="(item, index) in Object.keys(graphs).slice(0, maxCount)"
-          class="w-[31%] mb-4 h-[400px] flex-shrink bg-[#fff] p-3 relative rounded cursor-pointer hover:scale-[1.05] transition-all duration-300 ease-in-out shadow-md"
-          :class="[(index + 1) % 3 ? 'mr-8' : 'mr-0']"
-          @click="handleClick(item)"
-        >
-          <span class="absolute top-3 left-3">{{ item }}</span>
+      <div class="w-[1200px] mx-auto mt-20">
+        <h3 class="text-[60px] font-bold relative text-[#000] mt-20 bg-clip-text">DEMO</h3>
+        <div class="flex flex-wrap">
           <div
-            :ref="(el) => setItemRef(el as HTMLDivElement, index)"
-            class="text-xl text-[#000] h-full"
-          />
+            v-for="(item, index) in Object.keys(graphs).slice(0, maxCount)"
+            class="w-[31%] mb-4 h-[400px] flex-shrink bg-[#fff] p-3 relative rounded cursor-pointer hover:scale-[1.05] transition-all duration-300 ease-in-out shadow-md"
+            :class="[(index + 1) % 3 ? 'mr-8' : 'mr-0']"
+            @click="handleClick(item)"
+          >
+            <span class="absolute top-3 left-3 text-[20px] z-30 text-[#000] font-bold">{{
+              item
+            }}</span>
+            <div
+              :ref="(el) => setItemRef(el as HTMLDivElement, index)"
+              class="text-xl text-[#000] h-full pt-14"
+            />
+          </div>
         </div>
       </div>
     </PatternBackground>
@@ -55,6 +66,7 @@ import {
   PATTERN_BACKGROUND_SPEED,
 } from '@/components/ui/pattern-background/index'
 import { useGraphStore } from '@/stores/graph'
+import demoData from './data.json'
 
 const graphStore = useGraphStore()
 const router = useRouter()
@@ -62,7 +74,10 @@ const storage = new StorageService()
 const maxCount = 6
 
 const graphs = computed(() => {
-  return storage.get('graphs') || {}
+  return {
+    ...demoData,
+    ...(storage.get('graphs') || {}),
+  }
 })
 
 const itemRefs = ref<HTMLDivElement[]>([])
@@ -85,6 +100,10 @@ onMounted(() => {
 const handleClick = (item: string) => {
   router.push({ path: 'editor' })
   graphStore.setCurrentGraphName(item)
+}
+
+const handleGithub = () => {
+  window.open('https://github.com/Alexhueng/al-editor', '_blank')
 }
 </script>
 

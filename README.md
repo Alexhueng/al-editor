@@ -1,45 +1,57 @@
-# al-editor
+# AL-Editor
 
-This template should help get you started developing with Vue 3 in Vite.
+> A visual graph editor based on X6 and Vue.
 
-## Recommended IDE Setup
+## 预览
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+[在线预览](https://al-editor.vercel.app/editor)
 
-## Type Support for `.vue` Imports in TS
+## 本地运行(推荐使用pnpm)
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+```bash
+# git clone https://github.com/Alexhueng/al-editor
 
-## Customize configuration
+# pnpm i
 
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
+# pnpm dev
 ```
 
-### Compile and Hot-Reload for Development
+## 功能
 
-```sh
-npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-npm run test:unit
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+| 功能                 | 快捷键      | 状态 |
+| :------------------- | :---------- | :--- |
+| 撤销                 | ctrl + z    | ✔   |
+| 历史记录             |             | ✔   |
+| 复制                 | ctrl + c    | ✔   |
+| 粘贴                 | ctrl + v    | ✔   |
+| 剪切                 | ctrl + x    | ✔   |
+| 删除                 | Delete      | ✔   |
+| 全选                 | ctrl + a    | ✔   |
+| 在这粘贴             |             | ✔   |
+| 复制为图像           |             | ✔   |
+| 清空画布             |             | ✔   |
+| 缩放                 | ctrl + 滚轮 | ✔   |
+| 画布背景色           |             | ✔   |
+| 画布背景自定义       |             | ✖   |
+| 节点配置面板         |             | ✔   |
+| 边配置面板           |             | ✔   |
+| 置于顶层             |             | ✔   |
+| 置于底层             |             | ✔   |
+| 上下移一层           |             | ✔   |
+| 任意角度旋转         |             | ✔   |
+| 对齐                 |             | ✔   |
+| 插入图片(网络或本地) |             | ✔   |
+| 编辑模式             |             | ✖   |
+| 预览模式             |             | ✖   |
+| 导出                 |             | ✔   |
+| 全屏                 |             | ✔   |
+| 国际化               |             | ✖   |
+| 快捷键列表           |             | ✖   |
+| 主题切换             |             | ✖   |
+| 便签本               |             | ✖   |
+| 右键操作方式         |             | ✖   |
+| 布局                 |             | ✖   |
+| 组合                 |             | ✖   |
+| 小地图               |             | ✖   |
+| 个性化字体           |             | ✖   |
+| 更多图形             |             | ✖   |

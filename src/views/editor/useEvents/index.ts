@@ -3,6 +3,7 @@ import { usePanelStore } from '@/stores/panel'
 import { useContextMenu } from '../components/contextMenu/index'
 import { showPorts } from '../ports'
 import { debounce } from 'lodash'
+import { stroke } from '@antv/x6/lib/registry/highlighter/stroke'
 
 const panelStore = usePanelStore()
 
@@ -16,7 +17,6 @@ export const useEvents = (graph: useGraph) => {
       // cell.addTools('node-editor')
     } else {
       // todo: 群组选中的面板
-      // console.log(selectedCells)
       // panelStore.panelVisible = true
     }
     if (cell.isNode()) {
@@ -25,7 +25,33 @@ export const useEvents = (graph: useGraph) => {
 
     if (cell.isEdge()) {
       cell.addTools(['vertices', 'segments'])
-      graph.addAnimation(cell)
+
+      cell.addTools([
+        {
+          name: 'source-arrowhead',
+          args: {
+            attrs: {
+              fill: '#36ad6a',
+              stroke: '#36ad6a',
+              // strokeWidth: 2,
+              d: 'M 0 -5 A 5 5 0 1 0 0 5 A 5 5 0 1 0 0 -5 Z',
+              // d: 'M 50 10 A 40 40 0 1 1 50 90 A 40 40 0 1 1 50 10',
+            },
+          },
+        },
+        {
+          name: 'target-arrowhead',
+          args: {
+            attrs: {
+              fill: '#36ad6a',
+              stroke: '#36ad6a',
+              // d: 'M 0 0 L -8 -4 L -8 4 Z',
+              d: 'M 0 -5 A 5 5 0 1 0 0 5 A 5 5 0 1 0 0 -5 Z',
+            },
+          },
+        },
+      ])
+      // graph.addAnimation(cell)
     }
   })
 
@@ -35,7 +61,9 @@ export const useEvents = (graph: useGraph) => {
 
     cell.removeTools()
     if (cell.isEdge()) {
-      graph.removeAnimation(cell)
+      // graph.removeAnimation(cell)
+      cell.removeTool('source-arrowhead')
+      cell.removeTool('target-arrowhead')
     }
   })
 
@@ -49,46 +77,19 @@ export const useEvents = (graph: useGraph) => {
   }
 
   let timeout: any = null
-  graph.on('cell:mouseenter', ({ cell }) => {
+  graph.on('node:mouseenter', ({ cell }) => {
     const ports = getPorts()
     if (timeout) {
       clearTimeout(timeout)
     }
     showPorts(ports, true)
-
-    if (cell.isEdge()) {
-      cell.addTools([
-        {
-          name: 'source-arrowhead',
-          args: {
-            attrs: {
-              width: 6,
-              height: 6,
-              fill: '#36ad6a',
-              stroke: '#36ad6a',
-            },
-          },
-        },
-        {
-          name: 'target-arrowhead',
-          args: {
-            attrs: {
-              fill: '#36ad6a',
-              stroke: '#36ad6a',
-            },
-          },
-        },
-      ])
-    }
   })
 
-  graph.on('cell:mouseleave', ({ cell }) => {
+  graph.on('node:mouseleave', ({ cell }) => {
     const ports = getPorts()
     timeout = setTimeout(() => {
       showPorts(ports, false)
     }, 500)
-    cell.removeTool('source-arrowhead')
-    cell.removeTool('target-arrowhead')
   })
 
   graph.on('blank:mousewheel', ({ e }) => {

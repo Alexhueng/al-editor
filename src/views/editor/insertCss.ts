@@ -75,7 +75,7 @@ export function preWork() {
   .x6-widget-selection-box {
     // padding: 10px;
     // transform: translate(-10px, -10px);
-    opacity: 0;
+    opacity: 1;
     // border-width: 2px;
     // border-color: #ff9800;
   }

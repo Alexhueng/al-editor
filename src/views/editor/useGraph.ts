@@ -2,10 +2,11 @@ import { Graph, Shape, Node, Cell, EdgeView, NodeView, Edge } from '@antv/x6'
 import { StorageService } from '@/utils/storage'
 import { Persistence } from './persistence'
 import useTransform from './plugins/transform'
-import { merge, round } from 'lodash'
+import { merge, round, cloneDeep } from 'lodash'
 import { GRAPH_DEFAULT_OPTIONS, DEFAULT_TARGET_MARKER } from './consts'
 import { sortByNumberField, randomColor } from '@/utils'
 import { useGraphStore } from '@/stores/graph'
+import demoData from '@/views/home/data.json'
 
 import type { Transform } from '@antv/x6-plugin-transform'
 
@@ -61,9 +62,6 @@ export class useGraph extends Graph {
                 strokeWidth: 2,
                 strokeDasharray: '0',
                 targetMarker: DEFAULT_TARGET_MARKER,
-                style: {
-                  animation: 'running-line 30s infinite linear',
-                },
               },
             },
             tools: ['edge-editor'],
@@ -85,17 +83,17 @@ export class useGraph extends Graph {
           return true
         },
       },
-      highlighting: {
-        // magnetAdsorbed: {
-        //   name: 'stroke',
-        //   args: {
-        //     attrs: {
-        //       fill: '#000',
-        //       stroke: '#5F95FF',
-        //     },
-        //   },
-        // },
-      },
+      // highlighting: {
+      //   // magnetAdsorbed: {
+      //   //   name: 'stroke',
+      //   //   args: {
+      //   //     attrs: {
+      //   //       fill: '#000',
+      //   //       stroke: '#5F95FF',
+      //   //     },
+      //   //   },
+      //   // },
+      // },
     }
 
     const graph = super(merge(options, GRAPH_DEFAULT_OPTIONS) as Graph.Options)
@@ -138,6 +136,21 @@ export class useGraph extends Graph {
       this.persistence.remove()
     }
   }
+
+  // const cells = this.graph.cloneCells(this.graph.getSelectedCells())
+
+  //   const newCells = Object.keys(cells).map((key) => {
+  //     const cell = cells[key]
+  //     if (cell.isEdge()) {
+  //       const originAttrs = this.animationStack.get(this.graph.getCellById(key) as Edge)
+  //       cell.replaceAttrs(JSON.parse(JSON.stringify(originAttrs)))
+  //       return cell
+  //     }
+  //     return cell
+  //   })
+  //   if (newCells.length) {
+  //     this.graph.copy(newCells)
+  //   }
   _copy() {
     const cells = this.graph.getSelectedCells()
     if (cells.length) {
@@ -194,7 +207,7 @@ export class useGraph extends Graph {
   // #endregion
 
   _fromLocalJSON(name: string) {
-    const json = storage.get('graphs')[name]
+    const json = { ...demoData, ...(storage.get('graphs') || {}) }[name]
     this.graph.fromJSON(json)
 
     return this.graph
@@ -407,17 +420,18 @@ export class useGraph extends Graph {
     return this
   }
   addAnimation(edge: Edge) {
-    this.animationStack.set(edge, edge.getAttrs())
-    edge.attr('line/stroke', '#18a058')
-    edge.attr('line/strokeDasharray', 5)
-    edge.attr('line/style/animation', 'running-line 30s infinite linear')
+    // const clonedAttrs = cloneDeep(edge.getAttrs())
+    // this.animationStack.set(edge, clonedAttrs)
+    // edge.attr('line/stroke', '#18a058')
+    // edge.attr('line/strokeDasharray', 5)
+    // edge.attr('wrap/style/animation', 'running-line 30s infinite linear')
   }
   removeAnimation(edge: Edge) {
-    const attrs = this.animationStack.get(edge)
-    if (attrs) {
-      edge.setAttrs(attrs)
-      this.animationStack.delete(edge)
-    }
+    // const attrs = this.animationStack.get(edge)
+    // if (attrs) {
+    //   edge.replaceAttrs(attrs)
+    //   this.animationStack.delete(edge)
+    // }
   }
 
   // getters

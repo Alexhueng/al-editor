@@ -227,7 +227,6 @@ const anchorHandle = () => {
   if (!isConnetedEdge.value) return
 
   const target = edge.value.getProp().target
-  console.log(target)
   if (!target.anchor /** 设置默认锚点 */) {
     anchor.value = GRAPH_DEFAULT_OPTIONS.connecting.edgeAnchor
     anchorValue.value = undefined
