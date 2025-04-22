@@ -38,6 +38,7 @@ import {
 import { useGraphStore } from '@/stores/graph'
 import Modal from '@/components/Modal/index.vue'
 import InsertImage from './insertImage/index.vue'
+import { zIndexOperations } from '../contextMenu/commonOperations'
 
 import type { Cell } from '@antv/x6'
 import type { DropdownOption } from 'naive-ui'
@@ -73,26 +74,12 @@ const handleAngelClose = () => {
 
 const options = computed(() => {
   return [
-    {
-      label: '移至最前',
-      disabled: selectedCells.value.length <= 1,
-      click: () => graph.value?._toFront(),
-    },
-    {
-      label: '移至最后',
-      disabled: selectedCells.value.length <= 1,
-      click: () => graph.value?._toBack(),
-    },
-    {
-      label: '上移一层',
-      disabled: selectedCells.value.length <= 1,
-      click: () => graph.value?._toUp(),
-    },
-    {
-      label: '下移一层',
-      disabled: selectedCells.value.length <= 1,
-      click: () => graph.value?._toDown(),
-    },
+    ...zIndexOperations.map((item) => {
+      return {
+        ...item,
+        disabled: selectedCells.value.length < 1,
+      }
+    }),
     { type: 'divider' },
     {
       label: '方向',

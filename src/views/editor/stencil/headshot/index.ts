@@ -7,7 +7,9 @@ const options = {
   name: 'headshot',
   // graphHeight: 250,
   layoutOptions: {
-    // rowHeight: 80,
+    rowHeight: 50,
+    columns: 4,
+    columnWidth: 60,
   },
   nodeMovable: true,
 }

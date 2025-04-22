@@ -22,7 +22,7 @@
 
     <OptionsPanel :mask="false" />
 
-    <!-- <FloatBoard :position="position" title="工具箱" /> -->
+    <!-- <FloatBoard :position="position" resizable title="便签本"> </FloatBoard> -->
   </div>
 </template>
 

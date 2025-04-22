@@ -147,7 +147,6 @@ const initNode = () => {
   if (!node.value || !node.value.isNode()) return
   preserveAspectRatio.value = !!node.value.getProp('preserveAspectRatio')
   zIndex.value = node.value?.getZIndex()!
-
   nodeChangeHandler()
 }
 
@@ -197,7 +196,23 @@ const handleUpdateSize = (value: number, type: SizeType) => {
 
 const resize = (value: number, type: SizeType) => {
   const size = node.value.getSize()
-  node.value.resize(type === 'w' ? value : size.width, type === 'h' ? value : size.height)
+  const currentRatio = size.width / size.height
+  const preserveAspectRatio = node.value.getProp('preserveAspectRatio')
+
+  if (type === 'w') {
+    if (preserveAspectRatio) {
+      node.value.resize(value, value / currentRatio)
+    } else {
+      node.value.resize(value, size.height)
+    }
+  } else {
+    if (preserveAspectRatio) {
+      node.value.resize(value * currentRatio, value)
+    } else {
+      node.value.resize(size.width, value)
+    }
+  }
+  // node.value.resize(type === 'w' ? value : size.width, type === 'h' ? value : size.height)
 }
 
 const handleNodeSizeChange = (evt: InputEvent, type: SizeType) => {

@@ -58,6 +58,7 @@ const list = [
   { label: '全选', key: SHORTCUT_KEYS.SELECT_ALL },
   { label: '删除', key: SHORTCUT_KEYS.DELETE },
   { label: '旋转90°', key: SHORTCUT_KEYS.ROTATE_90 },
+  { label: '画布缩放', key: '鼠标滚轮' },
   { label: '画布拖拽', key: '按住鼠标右键拖动' },
   { label: '框选', key: '按住鼠标左键拖动' },
   { label: '右键菜单', key: '点击鼠标右键' },

@@ -6,6 +6,8 @@
     :y="position.y"
     :options="options"
     :show="visible"
+    key-field="label"
+    class="min-w-[200px]"
     :on-clickoutside="onClickoutside"
     @select="handleSelect"
   >
@@ -17,177 +19,26 @@
 import { ref } from 'vue'
 import { NDropdown } from 'naive-ui'
 import type { DropdownOption } from 'naive-ui'
-import { useGraphStore } from '@/stores/graph'
-import { base64Image2Clipboard, isString, isObject } from '@/utils'
-import type { Node } from '@antv/x6'
-
-const graphStore = useGraphStore()
+import type { InitParameters } from '.'
 
 const visible = ref(false)
 const position = ref<{ x?: number; y?: number }>({
   x: undefined,
   y: undefined,
 })
+
 const eventTarget = ref<any>(null)
 
-const getDistance = (pos1: { x: number; y: number }, pos2: { x: number; y: number }) => {
-  return {
-    dx: pos2.x - pos1.x,
-    dy: pos2.y - pos1.y,
-  }
+const options = ref<OptionItem[]>([])
+
+const init = (data: InitParameters) => {
+  options.value = data.options
+  position.value = data.position
+  eventTarget.value = data.event
 }
 
-const options: (DropdownOption & {
-  click?: (key: string, option: (typeof options)[number]) => void
-})[] = [
-  {
-    label: '撤销',
-    key: '1',
-    click: (key, option) => {
-      const graph = graphStore.graph
-      if (!graph) return
-      graph._undo()
-    },
-  },
-  {
-    label: '在这粘贴',
-    key: '2',
-    click: (key, option) => {
-      const graph = graphStore.graph
-      if (!graph) return
-      graph.startBatch('paste-here')
-      const cells = graph.getCellsInClipboard()
-      if (cells.length) {
-        // if the first element is a not a node, maybe throw error
-        const { dx, dy } = getDistance((cells[0] as unknown as Node).getPosition(), {
-          x: eventTarget.value.x,
-          y: eventTarget.value.y,
-        })
-        cells.forEach((cell) => {
-          if (cell.isNode()) {
-            const { x, y } = cell.getPosition()
-            cell.setPosition(x + dx, y + dy)
-          }
-
-          if (cell.isEdge()) {
-            const vertices = cell.getVertices()
-            const newVertices = vertices.map((v) => {
-              return {
-                x: v.x + dx,
-                y: v.y + dy,
-              }
-            })
-            cell.setVertices(newVertices)
-          }
-        })
-        const pasteCells = graph.paste({ offset: 0 })
-        graph.resetSelection(pasteCells)
-      }
-      graph.stopBatch('paste-here')
-    },
-  },
-  {
-    label: '复制为图像',
-    key: 'copy2image',
-    click: () => {
-      const graph = graphStore.graph
-      if (!graph) return
-      graph.background.options.background
-      if (graph._isGraphEmpty()) return
-
-      let background: any = graph.background.options.background
-      if (isObject(background) && 'color' in background) {
-        background = background.color
-      } else {
-        background = '#fff'
-      }
-
-      graph.toPNG(
-        async (dataUri) => {
-          const clipboardItem = await base64Image2Clipboard(dataUri)
-
-          await navigator.clipboard.write([clipboardItem])
-        },
-        {
-          padding: 40,
-          backgroundColor: background,
-          quality: 1,
-        },
-      )
-    },
-  },
-  {
-    type: 'divider',
-  },
-  {
-    label: '全选',
-    key: 'select-all',
-    click: () => {
-      const graph = graphStore.graph
-      if (!graph) return
-      graph._selectNodes()
-    },
-  },
-  {
-    label: '选择节点',
-    key: 'select-nodes',
-    click: () => {
-      const graph = graphStore.graph
-      if (!graph) return
-      graph._selectNodes()
-    },
-  },
-  {
-    label: '选择线',
-    key: 'select-edges',
-    click: () => {
-      const graph = graphStore.graph
-      if (!graph) return
-      graph._selectEdges()
-    },
-  },
-  {
-    label: '清空画布',
-    key: 'clear-graph',
-    click: () => {
-      const graph = graphStore.graph
-      if (!graph) return
-      graph._clearGraph()
-    },
-  },
-  {
-    type: 'divider',
-  },
-  {
-    label: '全屏',
-    key: 'fullscreen',
-    click: () => {
-      const doc = document.documentElement as any
-      if (document.fullscreenElement) {
-        if (document.exitFullscreen) {
-          document.exitFullscreen()
-        } else if (doc.webkitExitFullscreen) {
-          doc.webkitExitFullscreen()
-        } else if (doc.msExitFullscreen) {
-          doc.msExitFullscreen()
-        }
-      } else {
-        if (doc.requestFullscreen) {
-          doc.requestFullscreen()
-        } else if (doc.webkitRequestFullscreen) {
-          doc.webkitRequestFullscreen()
-        } else if (doc.msRequestFullscreen) {
-          doc.msRequestFullscreen()
-        }
-      }
-    },
-  },
-]
-
-const show = (x: number, y: number, event: any) => {
+const show = () => {
   visible.value = true
-  position.value = { x, y }
-  eventTarget.value = event
 }
 
 const handleSelect = (key: string, option: DropdownOption) => {
@@ -201,5 +52,8 @@ const onClickoutside = () => {
   visible.value = false
 }
 
-defineExpose({ show })
+defineExpose({
+  init,
+  show,
+})
 </script>

@@ -7,7 +7,9 @@ const options = {
   name: 'corloredNumbers',
   // graphHeight: 250,
   layoutOptions: {
-    // rowHeight: 80,
+    columns: 4,
+    rowHeight: 50,
+    columnWidth: 60,
   },
   nodeMovable: true,
 }

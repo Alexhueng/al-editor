@@ -75,7 +75,7 @@ export function preWork() {
   .x6-widget-selection-box {
     // padding: 10px;
     // transform: translate(-10px, -10px);
-    opacity: 1;
+    opacity: 0;
     // border-width: 2px;
     // border-color: #ff9800;
   }
@@ -85,5 +85,16 @@ export function preWork() {
       stroke-dashoffset: -1000;
     }
   }
+
+  // .x6-edge-selected path {
+  //   // stroke: #FFA500 !important;
+  //   // stroke-width: 3px !important;
+  //   filter: drop-shadow(0 0 3px #33ac68);
+  // }
+  
+  // /* 悬停状态 */
+  // .x6-edge:hover path {
+  //   // stroke-width: 3px;
+  // }
 `)
 }

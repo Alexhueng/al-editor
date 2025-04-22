@@ -6,7 +6,8 @@ const options = {
   name: 'base',
   title: '基础节点',
   layoutOptions: {
-    rowHeight: 60,
+    columns: 3,
+    rowHeight: 50,
   },
   nodeMovable: true,
 }

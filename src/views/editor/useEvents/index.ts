@@ -1,9 +1,12 @@
 import { useGraph } from '../useGraph'
 import { usePanelStore } from '@/stores/panel'
 import { useContextMenu } from '../components/contextMenu/index'
+import { getBlankOptions } from '@/views/editor/components/contextMenu/blankContextMenu'
+import { getEdgeOptions } from '@/views/editor/components/contextMenu/edgeContextmenu'
+import { getNodeOptions } from '@/views/editor/components/contextMenu/nodeContextmenu'
 import { showPorts } from '../ports'
 import { debounce } from 'lodash'
-import { stroke } from '@antv/x6/lib/registry/highlighter/stroke'
+import type { EventArgs } from '@antv/x6'
 
 const panelStore = usePanelStore()
 
@@ -35,7 +38,6 @@ export const useEvents = (graph: useGraph) => {
               stroke: '#36ad6a',
               // strokeWidth: 2,
               d: 'M 0 -5 A 5 5 0 1 0 0 5 A 5 5 0 1 0 0 -5 Z',
-              // d: 'M 50 10 A 40 40 0 1 1 50 90 A 40 40 0 1 1 50 10',
             },
           },
         },
@@ -45,7 +47,6 @@ export const useEvents = (graph: useGraph) => {
             attrs: {
               fill: '#36ad6a',
               stroke: '#36ad6a',
-              // d: 'M 0 0 L -8 -4 L -8 4 Z',
               d: 'M 0 -5 A 5 5 0 1 0 0 5 A 5 5 0 1 0 0 -5 Z',
             },
           },
@@ -68,14 +69,37 @@ export const useEvents = (graph: useGraph) => {
   })
 
   let time = 0
-  window.addEventListener('mousedown', (event: MouseEvent) => {
+  window.addEventListener('mousedown', (event) => {
     if (event.button === 2) {
       time = Date.now()
     }
   })
   graph.on('blank:contextmenu', (event) => {
     if (Date.now() - time < 200) {
-      useContextMenu(event.e.pageX, event.e.pageY, event)
+      useContextMenu({
+        position: {
+          x: event.e.pageX,
+          y: event.e.pageY,
+        },
+        event,
+        getOptions: getBlankOptions,
+      })
+    }
+  })
+  graph.on('cell:contextmenu', ({ cell, e }) => {
+    if (Date.now() - time < 200) {
+      graph.clearTransformWidgets()
+      graph.cleanSelection()
+      graph.select(cell)
+
+      useContextMenu({
+        position: {
+          x: e.pageX,
+          y: e.pageY,
+        },
+        event: e as unknown as EventArgs['cell:contextmenu'],
+        getOptions: cell.isEdge() ? getEdgeOptions : getNodeOptions,
+      })
     }
   })
 

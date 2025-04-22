@@ -9,7 +9,7 @@ export default function (graph: Graph) {
       movable: true,
       rubberband: true,
       rubberEdge: true,
-      following: true,
+      // following: true,
       showNodeSelectionBox: false,
       showEdgeSelectionBox: false,
       // pointerEvents: 'none',
