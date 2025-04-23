@@ -73,6 +73,9 @@ onMounted(() => {
     }
   }
   graph.zoomTo(0.8)
+  if (graph._isGraphEmpty()) {
+    graph.center()
+  }
 })
 
 onBeforeUnmount(() => {
