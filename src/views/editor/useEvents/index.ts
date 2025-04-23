@@ -1,7 +1,7 @@
 import { useGraph } from '../useGraph'
 import { usePanelStore } from '@/stores/panel'
 import { useContextMenu } from '../components/contextMenu/index'
-import { getBlankOptions } from '@/views/editor/components/contextMenu/blankContextMenu'
+import { getBlankOptions } from '@/views/editor/components/contextMenu/blankContextmenu'
 import { getEdgeOptions } from '@/views/editor/components/contextMenu/edgeContextmenu'
 import { getNodeOptions } from '@/views/editor/components/contextMenu/nodeContextmenu'
 import { showPorts } from '../ports'
