@@ -83,3 +83,17 @@ export function capitalize(str: string) {
 //   `${centerX},${centerY + sideLength - indent}`,
 //   `${centerX},${centerY + indent}`,
 // ].join(' ')
+
+/**
+ * 将对象形式的 CSS 转换为 style 内联的字符串
+ * @param {Record<string, string | number>} styleObj - 包含 CSS 属性和值的对象
+ * @returns {string} - 转换后的 style 内联字符串
+ */
+export const objectToStyle = (styleObj: Record<string, string | number>): string => {
+  return Object.entries(styleObj)
+    .map(([key, value]) => {
+      const camelCaseToKebabCase = key.replace(/([A-Z])/g, '-$1').toLowerCase()
+      return `${camelCaseToKebabCase}:${value};`
+    })
+    .join('')
+}

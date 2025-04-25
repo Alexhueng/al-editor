@@ -1,5 +1,5 @@
 import { useGraph } from '@/views/editor/useGraph'
-import { NODE_SIZE, EQUAL_NODE_SIZE, colors } from '@/views/editor/consts'
+import { EQUAL_NODE_SIZE, colors } from '@/views/editor/consts'
 import { Stencil } from '@/plugins/stencil'
 
 const options = {
@@ -15,7 +15,6 @@ const options = {
 export const load = (graph: useGraph, stencil: Stencil) => {
   const r1 = graph.createNode({
     shape: 'normal-rect',
-    label: 'text',
     attrs: {
       body: {
         rx: 20,
@@ -23,19 +22,11 @@ export const load = (graph: useGraph, stencil: Stencil) => {
       },
     },
   })
-  // register nodes
-  // useRegister(undefined, {
-  //   ports,
-  // })
-
-  // const r1 = graph.createNode({
-  //   shape: 'normal-1',
-  // })
 
   const r2 = graph.createNode({
     shape: 'normal-rect',
-    label: 'text',
   })
+
   const r3 = graph.createNode({
     shape: 'normal-rect',
     attrs: {
@@ -44,7 +35,6 @@ export const load = (graph: useGraph, stencil: Stencil) => {
         ry: 6,
       },
     },
-    label: 'text',
   })
   const r4 = graph.createNode({
     shape: 'normal-polygon',
@@ -53,7 +43,6 @@ export const load = (graph: useGraph, stencil: Stencil) => {
         refPoints: '0,10 10,0 20,10 10,20',
       },
     },
-    label: 'text',
   })
   const r5 = graph.createNode({
     shape: 'normal-polygon',
@@ -62,15 +51,11 @@ export const load = (graph: useGraph, stencil: Stencil) => {
         refPoints: '10,0 40,0 30,20 0,20',
       },
     },
-    label: 'text',
   })
   const r6 = graph.createNode({
     shape: 'normal-circle',
-    label: 'text',
   })
-  const ring = graph.createNode({
-    shape: 'ring',
-  })
+
   const container = graph.createNode({
     shape: 'container',
   })
@@ -86,7 +71,6 @@ export const load = (graph: useGraph, stencil: Stencil) => {
         fill: '#fff',
       },
     },
-    // label: 'text', // e.g., "Judgment" or "Condition"
   })
 
   const pentagon = graph.createNode({
@@ -149,8 +133,16 @@ export const load = (graph: useGraph, stencil: Stencil) => {
 
   const ellipse = graph.createNode({
     shape: 'normal-ellipse',
-    label: 'text',
   })
+
+  // const html = graph.createNode({
+  //   shape: 'normal-html',
+  //   attrs: {
+  //     text: {
+  //       text: INITIAL_TEXT,
+  //     },
+  //   },
+  // })
 
   stencil.addGroup(options)
   stencil.load(
@@ -163,13 +155,13 @@ export const load = (graph: useGraph, stencil: Stencil) => {
       r6,
       ellipse,
       triangleNode,
-      ring,
       container,
       pentagon,
       octagon,
       cross,
       love,
       star,
+      // html,
     ],
     options.name,
   )

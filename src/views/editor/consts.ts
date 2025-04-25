@@ -5,11 +5,13 @@ export const controlPanelWidth = 500
 
 export const colors = {
   primary: '#1e131d',
-  text: '#fff',
+  white: '#fff',
+  text: '#333',
   transparent: 'transparent',
 }
 
 export const DEFAULT_SCALING = 0.8
+export const INITIAL_TEXT = 'text'
 
 export type GridOptions = Partial<Graph.GridManager.CommonOptions> &
   Graph.GridManager.DrawGridOptions

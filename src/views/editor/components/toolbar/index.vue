@@ -87,6 +87,7 @@ const graph = computed(() => {
 
 const handleSave = () => {
   const getGraph = graphStore.graph
+  console.log(getGraph?.toJSON())
   if (getGraph?._isGraphEmpty()) return
   visible.value = true
 }

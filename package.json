@@ -15,7 +15,7 @@
     "lint": "run-s lint:*",
     "format": "prettier --write src/",
     "vercel": "vercel --prod",
-    "push": "git push github main && git push gitee master"
+    "push": "git push github master && git push gitee master"
   },
   "dependencies": {
     "@antv/x6": "^2.18.1",

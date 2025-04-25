@@ -17,7 +17,6 @@ export const useEvents = (graph: useGraph) => {
     if (selectedCells.length === 1) {
       panelStore.panelVisible = true
       panelStore.setCell(cell)
-      // cell.addTools('node-editor')
     } else {
       // todo: 群组选中的面板
       // panelStore.panelVisible = true
@@ -29,27 +28,24 @@ export const useEvents = (graph: useGraph) => {
     if (cell.isEdge()) {
       cell.addTools(['vertices', 'segments'])
 
+      const arrowheadConfig = {
+        args: {
+          attrs: {
+            fill: '#36ad6a',
+            stroke: '#36ad6a',
+            d: 'M 0 -5 A 5 5 0 1 0 0 5 A 5 5 0 1 0 0 -5 Z',
+          },
+        },
+      }
+
       cell.addTools([
         {
           name: 'source-arrowhead',
-          args: {
-            attrs: {
-              fill: '#36ad6a',
-              stroke: '#36ad6a',
-              // strokeWidth: 2,
-              d: 'M 0 -5 A 5 5 0 1 0 0 5 A 5 5 0 1 0 0 -5 Z',
-            },
-          },
+          ...arrowheadConfig,
         },
         {
           name: 'target-arrowhead',
-          args: {
-            attrs: {
-              fill: '#36ad6a',
-              stroke: '#36ad6a',
-              d: 'M 0 -5 A 5 5 0 1 0 0 5 A 5 5 0 1 0 0 -5 Z',
-            },
-          },
+          ...arrowheadConfig,
         },
       ])
       // graph.addAnimation(cell)

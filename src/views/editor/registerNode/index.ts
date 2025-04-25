@@ -1,6 +1,29 @@
 import { Graph, Shape } from '@antv/x6'
 import { defaultPorts } from '../ports'
-import { colors, NODE_SIZE, EQUAL_NODE_SIZE } from '../consts'
+import { colors, NODE_SIZE, EQUAL_NODE_SIZE, INITIAL_TEXT } from '../consts'
+import { merge } from 'lodash'
+
+const getInitAttrs = (override: Recordable = {}) => {
+  return merge(
+    {
+      body: {
+        strokeWidth: 2,
+        stroke: colors.primary,
+      },
+      text: {
+        fontSize: 12,
+        textWrap: {
+          width: '100%',
+          height: '0',
+          text: '',
+          breakWord: true,
+          ellipsis: true,
+        },
+      },
+    },
+    override,
+  )
+}
 
 export const useRegisterNode = () => {
   Graph.registerNode(
@@ -8,17 +31,7 @@ export const useRegisterNode = () => {
     {
       inherit: 'rect',
       ...NODE_SIZE,
-
-      attrs: {
-        body: {
-          strokeWidth: 0,
-          fill: colors.primary,
-        },
-        text: {
-          fontSize: 12,
-          fill: colors.text,
-        },
-      },
+      attrs: getInitAttrs(),
       ports: { ...defaultPorts },
     },
     true,
@@ -29,17 +42,7 @@ export const useRegisterNode = () => {
     {
       inherit: 'polygon',
       ...NODE_SIZE,
-      attrs: {
-        body: {
-          strokeWidth: 0,
-          // stroke: colors.primary,
-          fill: colors.primary,
-        },
-        text: {
-          fontSize: 12,
-          fill: colors.text,
-        },
-      },
+      attrs: getInitAttrs(),
       ports: { ...defaultPorts },
     },
     true,
@@ -48,16 +51,7 @@ export const useRegisterNode = () => {
   Graph.registerNode('normal-ellipse', {
     inherit: 'ellipse',
     ...NODE_SIZE,
-    attrs: {
-      body: {
-        strokeWidth: 0,
-        fill: colors.primary,
-      },
-      text: {
-        fontSize: 12,
-        fill: colors.text,
-      },
-    },
+    attrs: getInitAttrs(),
     ports: { ...defaultPorts },
   })
 
@@ -66,16 +60,7 @@ export const useRegisterNode = () => {
     {
       inherit: 'polygon',
       ...EQUAL_NODE_SIZE,
-      attrs: {
-        body: {
-          strokeWidth: 0,
-          fill: colors.primary,
-        },
-        text: {
-          fontSize: 12,
-          fill: colors.text,
-        },
-      },
+      attrs: getInitAttrs(),
       ports: { ...defaultPorts },
     },
     true,
@@ -88,17 +73,7 @@ export const useRegisterNode = () => {
     {
       inherit: 'circle',
       ...EQUAL_NODE_SIZE,
-      attrs: {
-        body: {
-          strokeWidth: 0,
-          // stroke: colors.primary,
-          fill: colors.primary,
-        },
-        text: {
-          fontSize: 12,
-          fill: colors.text,
-        },
-      },
+      attrs: getInitAttrs(),
       ports: { ...defaultPorts },
     },
     true,
@@ -111,17 +86,7 @@ export const useRegisterNode = () => {
     {
       inherit: 'circle',
       ...EQUAL_NODE_SIZE,
-      attrs: {
-        body: {
-          strokeWidth: 2,
-          stroke: colors.primary,
-          fill: colors.transparent,
-        },
-        text: {
-          fontSize: 12,
-          // fill: colors.text,
-        },
-      },
+      attrs: getInitAttrs(),
       ports: { ...defaultPorts },
     },
     true,
@@ -132,37 +97,17 @@ export const useRegisterNode = () => {
   Graph.registerNode(
     'container',
     {
-      inherit: 'rect',
-      width: 66,
-      height: 36,
-      attrs: {
-        body: {
-          strokeWidth: 2,
-          stroke: colors.primary,
-          fill: 'transparent',
-        },
-        text: {
-          fontSize: 12,
-        },
-      },
-      ports: { ...defaultPorts },
+      inherit: 'normal-rect',
     },
     true,
-  )
+  ).config({
+    zoom: 4,
+  })
 
   Graph.registerNode('normal-path', {
     inherit: 'path',
     ...EQUAL_NODE_SIZE,
-    attrs: {
-      body: {
-        strokeWidth: 2,
-        stroke: colors.primary,
-      },
-      text: {
-        fontSize: 12,
-        fill: colors.text,
-      },
-    },
+    attrs: getInitAttrs(),
     ports: { ...defaultPorts },
   })
 
@@ -174,6 +119,34 @@ export const useRegisterNode = () => {
   }).config({
     preserveAspectRatio: true,
   })
+
+  // Shape.HTML.register({
+  //   shape: 'normal-html',
+  //   ...NODE_SIZE,
+  //   effect: ['data', 'attrs'],
+  //   attrs: {
+  //     text: {
+  //       display: 'none',
+  //     },
+  //   },
+  //   html(cell) {
+  //     const div = document.createElement('div')
+  //     div.className = 'custom-html'
+  //     const styleString = objectToStyle({
+  //       wordBreak: 'break-word',
+  //       height: '100%',
+  //       width: '100%',
+  //       display: 'flex',
+  //       alignItems: 'center',
+  //       justifyContent: 'center',
+  //       color: '#000',
+  //       fontSize: '12px',
+  //     })
+  //     div.style.cssText = styleString
+  //     div.innerText = cell.getAttrByPath('text/text')
+  //     return div
+  //   },
+  // })
 
   // Graph.registerNode(
   //   'normal-image',

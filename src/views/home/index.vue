@@ -56,9 +56,9 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
 import { StorageService } from '@/utils/storage'
-import { computed, watch, useTemplateRef, ref, onMounted, nextTick } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 import { Graph } from '@antv/x6'
-import { useRegisterNode } from '@/views/editor/registerNode'
+// import { useRegisterNode } from '@/views/editor/registerNode'
 import {
   PatternBackground,
   PATTERN_BACKGROUND_DIRECTION,

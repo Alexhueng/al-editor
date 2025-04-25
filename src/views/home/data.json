@@ -1156,7 +1156,11 @@
         "position": { "x": 325, "y": 93.00000000000011 },
         "size": { "width": 350, "height": 350 },
         "attrs": {
-          "text": { "fontSize": 60, "fill": "#FFFFFFFF", "text": "现在文学家\n谱系" },
+          "text": {
+            "fontSize": 60,
+            "fill": "#FFFFFFFF",
+            "textWrap": { "text": "现在文学家\n谱系" }
+          },
           "body": { "fill": "rgba(3, 23, 33, 1)" }
         },
         "visible": true,
@@ -1231,7 +1235,7 @@
         "position": { "x": 1012, "y": 762 },
         "size": { "width": 120, "height": 120 },
         "attrs": {
-          "text": { "fontSize": 20, "fill": "#FFFFFFFF", "text": "鲁迅" },
+          "text": { "fontSize": 20, "fill": "#FFFFFFFF", "textWrap": { "text": "鲁迅" } },
           "body": { "fill": "#546e7a" }
         },
         "visible": true,
@@ -1306,7 +1310,7 @@
       {
         "position": { "x": 1222, "y": 762 },
         "size": { "width": 36, "height": 36 },
-        "attrs": { "text": { "text": "姓名\n籍贯" } },
+        "attrs": { "text": { "textWrap": { "text": "姓名\n籍贯" } } },
         "visible": true,
         "shape": "normal-circle",
         "preserveAspectRatio": true,
@@ -1383,8 +1387,10 @@
             "fill": "#000000FF",
             "refX": 0,
             "textAnchor": "start",
-            "text": "曾用名周樟寿, 后改名周树人, 字豫山, \n后改豫才, 浙江省绍兴府会嵇县",
-            "refX2": "2%"
+            "refX2": "2%",
+            "textWrap": {
+              "text": "曾用名周樟寿, 后改名周树人, 字豫山, \n后改豫才, 浙江省绍兴府会嵇县"
+            }
           },
           "body": {
             "strokeWidth": 1,
@@ -1470,8 +1476,8 @@
             "fill": "#000000FF",
             "refX": 0,
             "textAnchor": "start",
-            "text": "1881年9月25日-1936年10月19日\n(病逝于上海, 享年55岁)",
-            "refX2": "2%"
+            "refX2": "2%",
+            "textWrap": { "text": "1881年9月25日-1936年10月19日\n(病逝于上海, 享年55岁)" }
           },
           "body": {
             "strokeWidth": 1,
@@ -1552,7 +1558,7 @@
       {
         "position": { "x": 1222, "y": 832 },
         "size": { "width": 36, "height": 36 },
-        "attrs": { "text": { "text": "生卒\n年龄" } },
+        "attrs": { "text": { "textWrap": { "text": "生卒\n年龄" } } },
         "visible": true,
         "shape": "normal-circle",
         "preserveAspectRatio": true,
@@ -1625,11 +1631,11 @@
         "position": { "x": 1222, "y": 632 },
         "size": { "width": 36, "height": 36 },
         "attrs": {
-          "text": { "text": "后辈\n子女" },
+          "text": { "textWrap": { "text": "后辈\n子女" } },
           "body": { "stroke": "rgba(235, 234, 235, 1)", "fill": "#00bcd4" }
         },
         "visible": true,
-        "shape": "ring",
+        "shape": "normal-circle",
         "preserveAspectRatio": true,
         "ports": {
           "groups": {
@@ -1699,7 +1705,7 @@
       {
         "position": { "x": 1310, "y": 650 },
         "size": { "width": 50, "height": 50 },
-        "attrs": { "text": { "text": "周海婴" }, "body": { "fill": "#009688" } },
+        "attrs": { "text": { "textWrap": { "text": "周海婴" } }, "body": { "fill": "#009688" } },
         "visible": true,
         "shape": "normal-circle",
         "preserveAspectRatio": true,
@@ -1772,7 +1778,7 @@
         "position": { "x": 1100, "y": 530 },
         "size": { "width": 100, "height": 100 },
         "attrs": {
-          "text": { "fontSize": 20, "fill": "#FFFFFFFF", "text": "许广平\n\n" },
+          "text": { "fontSize": 20, "fill": "#FFFFFFFF", "textWrap": { "text": "许广平\n\n" } },
           "body": { "fill": "#546e7a" }
         },
         "visible": true,
@@ -1848,7 +1854,10 @@
         "position": { "x": 1112, "y": 567 },
         "size": { "width": 80, "height": 50 },
         "attrs": {
-          "text": { "fontSize": 8, "text": "笔名景宋, \n广东番禹人,\n病逝北京,\n享年70岁" },
+          "text": {
+            "fontSize": 8,
+            "textWrap": { "text": "笔名景宋, \n广东番禹人,\n病逝北京,\n享年70岁" }
+          },
           "body": { "fill": "transparent", "rx": 6, "ry": 6 }
         },
         "visible": true,
@@ -1922,7 +1931,7 @@
       {
         "position": { "x": 1022, "y": 625 },
         "size": { "width": 50, "height": 50 },
-        "attrs": { "text": { "text": "朱安" }, "body": { "fill": "#607d8b" } },
+        "attrs": { "text": { "textWrap": { "text": "朱安" } }, "body": { "fill": "#607d8b" } },
         "visible": true,
         "shape": "normal-circle",
         "preserveAspectRatio": true,
@@ -1994,7 +2003,7 @@
       {
         "position": { "x": 876, "y": 724 },
         "size": { "width": 36, "height": 36 },
-        "attrs": { "text": { "text": "社会\n地位" } },
+        "attrs": { "text": { "textWrap": { "text": "社会\n地位" } } },
         "visible": true,
         "shape": "normal-circle",
         "preserveAspectRatio": true,
@@ -2071,8 +2080,10 @@
             "fill": "#000000FF",
             "refX": 0,
             "textAnchor": "start",
-            "text": "著名文学家、思想家、民主战士, 五四\n新文化运动的重要参与者, 中国现代文学的奠基人",
-            "refX2": "2%"
+            "refX2": "2%",
+            "textWrap": {
+              "text": "著名文学家、思想家、民主战士, 五四\n新文化运动的重要参与者, 中国现代文学的奠基人"
+            }
           },
           "body": {
             "strokeWidth": 1,
@@ -2158,8 +2169,8 @@
             "fill": "#000000FF",
             "refX": 0,
             "textAnchor": "start",
-            "text": "1881年9月25日-1936年10月19日\n(病逝于上海, 享年55岁)",
-            "refX2": "2%"
+            "refX2": "2%",
+            "textWrap": { "text": "1881年9月25日-1936年10月19日\n(病逝于上海, 享年55岁)" }
           },
           "body": {
             "strokeWidth": 1,
@@ -2240,7 +2251,7 @@
       {
         "position": { "x": 876, "y": 906 },
         "size": { "width": 36, "height": 36 },
-        "attrs": { "text": { "text": "主要\n作品" } },
+        "attrs": { "text": { "textWrap": { "text": "主要\n作品" } } },
         "visible": true,
         "shape": "normal-circle",
         "preserveAspectRatio": true,
@@ -2370,7 +2381,7 @@
       {
         "position": { "x": 780, "y": 828 },
         "size": { "width": 40, "height": 40 },
-        "attrs": { "text": { "text": "小说集" } },
+        "attrs": { "text": { "textWrap": { "text": "小说集" } } },
         "visible": true,
         "shape": "normal-circle",
         "preserveAspectRatio": true,
@@ -2442,7 +2453,7 @@
       {
         "position": { "x": 780, "y": 886 },
         "size": { "width": 40, "height": 40 },
-        "attrs": { "text": { "text": "散文集" } },
+        "attrs": { "text": { "textWrap": { "text": "散文集" } } },
         "visible": true,
         "shape": "normal-circle",
         "preserveAspectRatio": true,
@@ -2514,7 +2525,7 @@
       {
         "position": { "x": 780, "y": 942 },
         "size": { "width": 40, "height": 40 },
-        "attrs": { "text": { "text": "散文\n诗集" } },
+        "attrs": { "text": { "textWrap": { "text": "散文\n诗集" } } },
         "visible": true,
         "shape": "normal-circle",
         "preserveAspectRatio": true,
@@ -2586,7 +2597,7 @@
       {
         "position": { "x": 780, "y": 998 },
         "size": { "width": 40, "height": 40 },
-        "attrs": { "text": { "text": "杂文集" } },
+        "attrs": { "text": { "textWrap": { "text": "杂文集" } } },
         "visible": true,
         "shape": "normal-circle",
         "preserveAspectRatio": true,
@@ -2663,8 +2674,8 @@
             "fill": "#000000FF",
             "refX": 0,
             "textAnchor": "start",
-            "text": "《呐喊》《彷徨》《故事新编》",
-            "refX2": "2%"
+            "refX2": "2%",
+            "textWrap": { "text": "《呐喊》《彷徨》《故事新编》" }
           },
           "body": {
             "strokeWidth": 1,
@@ -2750,8 +2761,8 @@
             "fill": "#000000FF",
             "refX": 0,
             "textAnchor": "start",
-            "text": "《野草》",
-            "refX2": "2%"
+            "refX2": "2%",
+            "textWrap": { "text": "《野草》" }
           },
           "body": {
             "strokeWidth": 1,
@@ -2837,8 +2848,10 @@
             "fill": "#000000FF",
             "refX": 0,
             "textAnchor": "start",
-            "text": "《坟》《热风》《华盖集》《华盖集续\n编》《南腔北调集》《三闲集》《二心\n集》《而已集》《且介亭杂文》",
-            "refX2": "2%"
+            "refX2": "2%",
+            "textWrap": {
+              "text": "《坟》《热风》《华盖集》《华盖集续\n编》《南腔北调集》《三闲集》《二心\n集》《而已集》《且介亭杂文》"
+            }
           },
           "body": {
             "strokeWidth": 1,
@@ -2920,7 +2933,7 @@
         "position": { "x": -320, "y": 918 },
         "size": { "width": 120, "height": 120 },
         "attrs": {
-          "text": { "fontSize": 20, "fill": "#FFFFFFFF", "text": "沈从文" },
+          "text": { "fontSize": 20, "fill": "#FFFFFFFF", "textWrap": { "text": "沈从文" } },
           "body": { "fill": "#ffc107" }
         },
         "visible": true,
@@ -2995,7 +3008,7 @@
         "position": { "x": -510, "y": 798 },
         "size": { "width": 70, "height": 70 },
         "attrs": {
-          "text": { "fontSize": 20, "fill": "#FFFFFFFF", "text": "张兆和" },
+          "text": { "fontSize": 20, "fill": "#FFFFFFFF", "textWrap": { "text": "张兆和" } },
           "body": { "fill": "#673ab7" }
         },
         "visible": true,
@@ -3070,11 +3083,11 @@
         "position": { "x": -320, "y": 798 },
         "size": { "width": 36, "height": 36 },
         "attrs": {
-          "text": { "text": "后辈\n子女" },
+          "text": { "textWrap": { "text": "后辈\n子女" } },
           "body": { "stroke": "rgba(235, 234, 235, 1)", "fill": "#00bcd4" }
         },
         "visible": true,
-        "shape": "ring",
+        "shape": "normal-circle",
         "preserveAspectRatio": true,
         "ports": {
           "groups": {
@@ -3144,7 +3157,7 @@
       {
         "position": { "x": -334, "y": 700 },
         "size": { "width": 50, "height": 50 },
-        "attrs": { "text": { "text": "沈龙朱" }, "body": { "fill": "#009688" } },
+        "attrs": { "text": { "textWrap": { "text": "沈龙朱" } }, "body": { "fill": "#009688" } },
         "visible": true,
         "shape": "normal-circle",
         "preserveAspectRatio": true,
@@ -3216,7 +3229,7 @@
       {
         "position": { "x": -228, "y": 755 },
         "size": { "width": 50, "height": 50 },
-        "attrs": { "text": { "text": "沈虎雏" }, "body": { "fill": "#009688" } },
+        "attrs": { "text": { "textWrap": { "text": "沈虎雏" } }, "body": { "fill": "#009688" } },
         "visible": true,
         "shape": "normal-circle",
         "preserveAspectRatio": true,
@@ -3293,8 +3306,8 @@
             "fill": "#000000FF",
             "refX": 0,
             "textAnchor": "start",
-            "text": "作家、历史文物研究者",
-            "refX2": "2%"
+            "refX2": "2%",
+            "textWrap": { "text": "作家、历史文物研究者" }
           },
           "body": {
             "strokeWidth": 1,
@@ -3375,7 +3388,7 @@
       {
         "position": { "x": -60, "y": 926 },
         "size": { "width": 36, "height": 36 },
-        "attrs": { "text": { "text": "姓名\n籍贯" } },
+        "attrs": { "text": { "textWrap": { "text": "姓名\n籍贯" } } },
         "visible": true,
         "shape": "normal-circle",
         "preserveAspectRatio": true,
@@ -3447,7 +3460,7 @@
       {
         "position": { "x": -60, "y": 996 },
         "size": { "width": 36, "height": 36 },
-        "attrs": { "text": { "text": "生卒\n年龄" } },
+        "attrs": { "text": { "textWrap": { "text": "生卒\n年龄" } } },
         "visible": true,
         "shape": "normal-circle",
         "preserveAspectRatio": true,
@@ -3524,8 +3537,8 @@
             "fill": "#000000FF",
             "refX": 0,
             "textAnchor": "start",
-            "text": "190年12月28日-1988年5月10日[病逝\n北京, 享年86岁]",
-            "refX2": "2%"
+            "refX2": "2%",
+            "textWrap": { "text": "190年12月28日-1988年5月10日[病逝\n北京, 享年86岁]" }
           },
           "body": {
             "strokeWidth": 1,
@@ -3611,8 +3624,10 @@
             "fill": "#000000FF",
             "refX": 0,
             "textAnchor": "start",
-            "text": "原名沈岳焕, 笔名休芸芸、甲辰、上官碧、\n旋若等, 乳名茂林, 字崇文, 湖南凤凰人",
-            "refX2": "2%"
+            "refX2": "2%",
+            "textWrap": {
+              "text": "原名沈岳焕, 笔名休芸芸、甲辰、上官碧、\n旋若等, 乳名茂林, 字崇文, 湖南凤凰人"
+            }
           },
           "body": {
             "strokeWidth": 1,
@@ -3757,7 +3772,7 @@
       {
         "position": { "x": -476, "y": 926 },
         "size": { "width": 36, "height": 36 },
-        "attrs": { "text": { "text": "社会\n地位" } },
+        "attrs": { "text": { "textWrap": { "text": "社会\n地位" } } },
         "visible": true,
         "shape": "normal-circle",
         "preserveAspectRatio": true,
@@ -3829,7 +3844,7 @@
       {
         "position": { "x": -476, "y": 1000 },
         "size": { "width": 36, "height": 36 },
-        "attrs": { "text": { "text": "主要\n作品" } },
+        "attrs": { "text": { "textWrap": { "text": "主要\n作品" } } },
         "visible": true,
         "shape": "normal-circle",
         "preserveAspectRatio": true,
@@ -3906,8 +3921,8 @@
             "fill": "#000000FF",
             "refX": 0,
             "textAnchor": "start",
-            "text": "《边城》《湘行散记》",
-            "refX2": "2%"
+            "refX2": "2%",
+            "textWrap": { "text": "《边城》《湘行散记》" }
           },
           "body": {
             "strokeWidth": 1,
@@ -3989,7 +4004,7 @@
         "position": { "x": -440, "y": 310 },
         "size": { "width": 120, "height": 120 },
         "attrs": {
-          "text": { "fontSize": 20, "fill": "#FFFFFFFF", "text": "矛盾\n[沈雁冰]" },
+          "text": { "fontSize": 20, "fill": "#FFFFFFFF", "textWrap": { "text": "矛盾\n[沈雁冰]" } },
           "body": { "fill": "#3f51b5" }
         },
         "visible": true,
@@ -4064,7 +4079,7 @@
         "position": { "x": -520, "y": 170 },
         "size": { "width": 70, "height": 70 },
         "attrs": {
-          "text": { "fontSize": 20, "fill": "#FFFFFFFF", "text": "孔德沚" },
+          "text": { "fontSize": 20, "fill": "#FFFFFFFF", "textWrap": { "text": "孔德沚" } },
           "body": { "fill": "#673ab7" }
         },
         "visible": true,
@@ -4139,11 +4154,11 @@
         "position": { "x": -380, "y": 196 },
         "size": { "width": 36, "height": 36 },
         "attrs": {
-          "text": { "text": "后辈\n子女" },
+          "text": { "textWrap": { "text": "后辈\n子女" } },
           "body": { "stroke": "rgba(235, 234, 235, 1)", "fill": "#00bcd4" }
         },
         "visible": true,
-        "shape": "ring",
+        "shape": "normal-circle",
         "preserveAspectRatio": true,
         "ports": {
           "groups": {
@@ -4213,7 +4228,7 @@
       {
         "position": { "x": -405, "y": 78 },
         "size": { "width": 50, "height": 50 },
-        "attrs": { "text": { "text": "沈霞" }, "body": { "fill": "#009688" } },
+        "attrs": { "text": { "textWrap": { "text": "沈霞" } }, "body": { "fill": "#009688" } },
         "visible": true,
         "shape": "normal-circle",
         "preserveAspectRatio": true,
@@ -4285,7 +4300,7 @@
       {
         "position": { "x": -288, "y": 153 },
         "size": { "width": 50, "height": 50 },
-        "attrs": { "text": { "text": "韦韬" }, "body": { "fill": "#009688" } },
+        "attrs": { "text": { "textWrap": { "text": "韦韬" } }, "body": { "fill": "#009688" } },
         "visible": true,
         "shape": "normal-circle",
         "preserveAspectRatio": true,
@@ -4362,8 +4377,8 @@
             "fill": "#000000FF",
             "refX": 0,
             "textAnchor": "start",
-            "text": "中国现代著名作家、文学评论家、\n文化活动家、以及社会活动家",
-            "refX2": "2%"
+            "refX2": "2%",
+            "textWrap": { "text": "中国现代著名作家、文学评论家、\n文化活动家、以及社会活动家" }
           },
           "body": {
             "strokeWidth": 1,
@@ -4444,7 +4459,7 @@
       {
         "position": { "x": -236, "y": 324 },
         "size": { "width": 36, "height": 36 },
-        "attrs": { "text": { "text": "姓名\n籍贯" } },
+        "attrs": { "text": { "textWrap": { "text": "姓名\n籍贯" } } },
         "visible": true,
         "shape": "normal-circle",
         "preserveAspectRatio": true,
@@ -4516,7 +4531,7 @@
       {
         "position": { "x": -236, "y": 394 },
         "size": { "width": 36, "height": 36 },
-        "attrs": { "text": { "text": "生卒\n年龄" } },
+        "attrs": { "text": { "textWrap": { "text": "生卒\n年龄" } } },
         "visible": true,
         "shape": "normal-circle",
         "preserveAspectRatio": true,
@@ -4593,8 +4608,8 @@
             "fill": "#000000FF",
             "refX": 0,
             "textAnchor": "start",
-            "text": "1896年7月4日—1981年3月27日\n享年85岁",
-            "refX2": "2%"
+            "refX2": "2%",
+            "textWrap": { "text": "1896年7月4日—1981年3月27日\n享年85岁" }
           },
           "body": {
             "strokeWidth": 1,
@@ -4680,8 +4695,8 @@
             "fill": "#000000FF",
             "refX": 0,
             "textAnchor": "start",
-            "text": "原名沈德鸿，字雁冰，浙江桐乡乌镇人。",
-            "refX2": "2%"
+            "refX2": "2%",
+            "textWrap": { "text": "原名沈德鸿，字雁冰，浙江桐乡乌镇人。" }
           },
           "body": {
             "strokeWidth": 1,
@@ -4762,7 +4777,7 @@
       {
         "position": { "x": -536, "y": 310 },
         "size": { "width": 36, "height": 36 },
-        "attrs": { "text": { "text": "社会\n地位" } },
+        "attrs": { "text": { "textWrap": { "text": "社会\n地位" } } },
         "visible": true,
         "shape": "normal-circle",
         "preserveAspectRatio": true,
@@ -4834,7 +4849,7 @@
       {
         "position": { "x": -536, "y": 407.0000000000001 },
         "size": { "width": 36, "height": 36 },
-        "attrs": { "text": { "text": "主要\n作品" } },
+        "attrs": { "text": { "textWrap": { "text": "主要\n作品" } } },
         "visible": true,
         "shape": "normal-circle",
         "preserveAspectRatio": true,
@@ -4911,8 +4926,10 @@
             "fill": "#000000FF",
             "refX": 0,
             "textAnchor": "start",
-            "text": "《林家铺子》《春蚕》《秋收》《残冬》\n（合称《农村三部曲》）《蚀》三部曲\n（《幻灭》《动摇》《追求》）、\n《虹》《腐蚀》等",
-            "refX2": "2%"
+            "refX2": "2%",
+            "textWrap": {
+              "text": "《林家铺子》《春蚕》《秋收》《残冬》\n（合称《农村三部曲》）《蚀》三部曲\n（《幻灭》《动摇》《追求》）、\n《虹》《腐蚀》等"
+            }
           },
           "body": {
             "strokeWidth": 1,
@@ -5353,7 +5370,7 @@
         "position": { "x": -320, "y": -230 },
         "size": { "width": 120, "height": 120 },
         "attrs": {
-          "text": { "fontSize": 20, "fill": "#FFFFFFFF", "text": "冰心\n[谢婉莹]" },
+          "text": { "fontSize": 20, "fill": "#FFFFFFFF", "textWrap": { "text": "冰心\n[谢婉莹]" } },
           "body": { "fill": "#3f51b5" }
         },
         "visible": true,
@@ -5428,7 +5445,7 @@
         "position": { "x": -418, "y": -368 },
         "size": { "width": 70, "height": 70 },
         "attrs": {
-          "text": { "fontSize": 20, "fill": "#FFFFFFFF", "text": "吴文藻" },
+          "text": { "fontSize": 20, "fill": "#FFFFFFFF", "textWrap": { "text": "吴文藻" } },
           "body": { "fill": "#673ab7" }
         },
         "visible": true,
@@ -5503,11 +5520,11 @@
         "position": { "x": -278, "y": -342 },
         "size": { "width": 36, "height": 36 },
         "attrs": {
-          "text": { "text": "后辈\n子女" },
+          "text": { "textWrap": { "text": "后辈\n子女" } },
           "body": { "stroke": "rgba(235, 234, 235, 1)", "fill": "#00bcd4" }
         },
         "visible": true,
-        "shape": "ring",
+        "shape": "normal-circle",
         "preserveAspectRatio": true,
         "ports": {
           "groups": {
@@ -5577,7 +5594,7 @@
       {
         "position": { "x": -303, "y": -460 },
         "size": { "width": 50, "height": 50 },
-        "attrs": { "text": { "text": "吴平" }, "body": { "fill": "#009688" } },
+        "attrs": { "text": { "textWrap": { "text": "吴平" } }, "body": { "fill": "#009688" } },
         "visible": true,
         "shape": "normal-circle",
         "preserveAspectRatio": true,
@@ -5649,7 +5666,7 @@
       {
         "position": { "x": -178, "y": -410 },
         "size": { "width": 50, "height": 50 },
-        "attrs": { "text": { "text": "吴冰" }, "body": { "fill": "#cddc39" } },
+        "attrs": { "text": { "textWrap": { "text": "吴冰" } }, "body": { "fill": "#cddc39" } },
         "visible": true,
         "shape": "normal-circle",
         "preserveAspectRatio": true,
@@ -5726,8 +5743,10 @@
             "fill": "#000000FF",
             "refX": 0,
             "textAnchor": "start",
-            "text": "中国诗人, 现代作家、翻译家, 儿童文学作家\n社会活动家, 散文家. 笔名冰心取自\"一片冰心在玉壶\"",
-            "refX2": "2%"
+            "refX2": "2%",
+            "textWrap": {
+              "text": "中国诗人, 现代作家、翻译家, 儿童文学作家\n社会活动家, 散文家. 笔名冰心取自\"一片冰心在玉壶\""
+            }
           },
           "body": {
             "strokeWidth": 1,
@@ -5808,7 +5827,7 @@
       {
         "position": { "x": -134, "y": -214 },
         "size": { "width": 36, "height": 36 },
-        "attrs": { "text": { "text": "姓名\n籍贯" } },
+        "attrs": { "text": { "textWrap": { "text": "姓名\n籍贯" } } },
         "visible": true,
         "shape": "normal-circle",
         "preserveAspectRatio": true,
@@ -5880,7 +5899,7 @@
       {
         "position": { "x": -134, "y": -144 },
         "size": { "width": 36, "height": 36 },
-        "attrs": { "text": { "text": "生卒\n年龄" } },
+        "attrs": { "text": { "textWrap": { "text": "生卒\n年龄" } } },
         "visible": true,
         "shape": "normal-circle",
         "preserveAspectRatio": true,
@@ -5957,8 +5976,8 @@
             "fill": "#000000FF",
             "refX": 0,
             "textAnchor": "start",
-            "text": "1900年10月5日-1999年2月28日\n[病逝北京享年99岁]",
-            "refX2": "2%"
+            "refX2": "2%",
+            "textWrap": { "text": "1900年10月5日-1999年2月28日\n[病逝北京享年99岁]" }
           },
           "body": {
             "strokeWidth": 1,
@@ -6044,8 +6063,8 @@
             "fill": "#000000FF",
             "refX": 0,
             "textAnchor": "start",
-            "text": "本命谢婉莹, 福建长乐人",
-            "refX2": "2%"
+            "refX2": "2%",
+            "textWrap": { "text": "本命谢婉莹, 福建长乐人" }
           },
           "body": {
             "strokeWidth": 1,
@@ -6126,7 +6145,7 @@
       {
         "position": { "x": -434, "y": -230 },
         "size": { "width": 36, "height": 36 },
-        "attrs": { "text": { "text": "社会\n地位" } },
+        "attrs": { "text": { "textWrap": { "text": "社会\n地位" } } },
         "visible": true,
         "shape": "normal-circle",
         "preserveAspectRatio": true,
@@ -6198,7 +6217,7 @@
       {
         "position": { "x": -434, "y": -146 },
         "size": { "width": 36, "height": 36 },
-        "attrs": { "text": { "text": "主要\n作品" } },
+        "attrs": { "text": { "textWrap": { "text": "主要\n作品" } } },
         "visible": true,
         "shape": "normal-circle",
         "preserveAspectRatio": true,
@@ -6276,8 +6295,8 @@
             "fill": "#000000FF",
             "refX": 0,
             "textAnchor": "start",
-            "text": "《繁星·春水》《荷叶·母亲》",
-            "refX2": "2%"
+            "refX2": "2%",
+            "textWrap": { "text": "《繁星·春水》《荷叶·母亲》" }
           },
           "body": {
             "strokeWidth": 1,
@@ -6718,7 +6737,7 @@
       {
         "position": { "x": -148, "y": -328 },
         "size": { "width": 50, "height": 50 },
-        "attrs": { "text": { "text": "吴青" }, "body": { "fill": "#2196f3" } },
+        "attrs": { "text": { "textWrap": { "text": "吴青" } }, "body": { "fill": "#2196f3" } },
         "visible": true,
         "shape": "normal-circle",
         "preserveAspectRatio": true,
@@ -6791,7 +6810,7 @@
         "position": { "x": 440, "y": -530 },
         "size": { "width": 120, "height": 120 },
         "attrs": {
-          "text": { "fontSize": 20, "fill": "#FFFFFFFF", "text": "朱自请" },
+          "text": { "fontSize": 20, "fill": "#FFFFFFFF", "textWrap": { "text": "朱自请" } },
           "body": { "fill": "#00bcd4" }
         },
         "visible": true,
@@ -6866,7 +6885,7 @@
         "position": { "x": 310, "y": -676 },
         "size": { "width": 70, "height": 70 },
         "attrs": {
-          "text": { "fontSize": 20, "fill": "#FFFFFFFF", "text": "武钟谦" },
+          "text": { "fontSize": 20, "fill": "#FFFFFFFF", "textWrap": { "text": "武钟谦" } },
           "body": { "fill": "#009688" }
         },
         "visible": true,
@@ -6941,11 +6960,11 @@
         "position": { "x": 482, "y": -642 },
         "size": { "width": 36, "height": 36 },
         "attrs": {
-          "text": { "text": "后辈\n子女" },
+          "text": { "textWrap": { "text": "后辈\n子女" } },
           "body": { "stroke": "rgba(235, 234, 235, 1)", "fill": "#00bcd4" }
         },
         "visible": true,
-        "shape": "ring",
+        "shape": "normal-circle",
         "preserveAspectRatio": true,
         "ports": {
           "groups": {
@@ -7015,7 +7034,7 @@
       {
         "position": { "x": 457, "y": -760 },
         "size": { "width": 50, "height": 50 },
-        "attrs": { "text": { "text": "朱采芷" }, "body": { "fill": "#cddc39" } },
+        "attrs": { "text": { "textWrap": { "text": "朱采芷" } }, "body": { "fill": "#cddc39" } },
         "visible": true,
         "shape": "normal-circle",
         "preserveAspectRatio": true,
@@ -7087,7 +7106,7 @@
       {
         "position": { "x": 582, "y": -710 },
         "size": { "width": 50, "height": 50 },
-        "attrs": { "text": { "text": "朱逖先" }, "body": { "fill": "#9e9e9e" } },
+        "attrs": { "text": { "textWrap": { "text": "朱逖先" } }, "body": { "fill": "#9e9e9e" } },
         "visible": true,
         "shape": "normal-circle",
         "preserveAspectRatio": true,
@@ -7164,8 +7183,8 @@
             "fill": "#000000FF",
             "refX": 0,
             "textAnchor": "start",
-            "text": "现代杰出的散文家、诗人、学者、民主战士",
-            "refX2": "2%"
+            "refX2": "2%",
+            "textWrap": { "text": "现代杰出的散文家、诗人、学者、民主战士" }
           },
           "body": {
             "strokeWidth": 1,
@@ -7246,7 +7265,7 @@
       {
         "position": { "x": 626, "y": -514 },
         "size": { "width": 36, "height": 36 },
-        "attrs": { "text": { "text": "姓名\n籍贯" } },
+        "attrs": { "text": { "textWrap": { "text": "姓名\n籍贯" } } },
         "visible": true,
         "shape": "normal-circle",
         "preserveAspectRatio": true,
@@ -7318,7 +7337,7 @@
       {
         "position": { "x": 626, "y": -444 },
         "size": { "width": 36, "height": 36 },
-        "attrs": { "text": { "text": "生卒\n年龄" } },
+        "attrs": { "text": { "textWrap": { "text": "生卒\n年龄" } } },
         "visible": true,
         "shape": "normal-circle",
         "preserveAspectRatio": true,
@@ -7395,8 +7414,8 @@
             "fill": "#000000FF",
             "refX": 0,
             "textAnchor": "start",
-            "text": "1898年11月22日—1948年8月12日\n[享年50岁]",
-            "refX2": "2%"
+            "refX2": "2%",
+            "textWrap": { "text": "1898年11月22日—1948年8月12日\n[享年50岁]" }
           },
           "body": {
             "strokeWidth": 1,
@@ -7482,8 +7501,10 @@
             "fill": "#000000FF",
             "refX": 0,
             "textAnchor": "start",
-            "text": "原名朱自华，号实秋，后改名自清，字佩弦，\n原籍浙江省绍兴, 生于江苏省连云港市东海县\n（今连云港市东海县平明镇",
-            "refX2": "2%"
+            "refX2": "2%",
+            "textWrap": {
+              "text": "原名朱自华，号实秋，后改名自清，字佩弦，\n原籍浙江省绍兴, 生于江苏省连云港市东海县\n（今连云港市东海县平明镇"
+            }
           },
           "body": {
             "strokeWidth": 1,
@@ -7564,7 +7585,7 @@
       {
         "position": { "x": 326, "y": -530 },
         "size": { "width": 36, "height": 36 },
-        "attrs": { "text": { "text": "社会\n地位" } },
+        "attrs": { "text": { "textWrap": { "text": "社会\n地位" } } },
         "visible": true,
         "shape": "normal-circle",
         "preserveAspectRatio": true,
@@ -7636,7 +7657,7 @@
       {
         "position": { "x": 326, "y": -446 },
         "size": { "width": 36, "height": 36 },
-        "attrs": { "text": { "text": "主要\n作品" } },
+        "attrs": { "text": { "textWrap": { "text": "主要\n作品" } } },
         "visible": true,
         "shape": "normal-circle",
         "preserveAspectRatio": true,
@@ -7714,8 +7735,8 @@
             "fill": "#000000FF",
             "refX": 0,
             "textAnchor": "start",
-            "text": "《背影》《欧游杂记》《伦敦杂记》《你我》",
-            "refX2": "2%"
+            "refX2": "2%",
+            "textWrap": { "text": "《背影》《欧游杂记》《伦敦杂记》《你我》" }
           },
           "body": {
             "strokeWidth": 1,
@@ -7796,7 +7817,7 @@
       {
         "position": { "x": 610, "y": -628 },
         "size": { "width": 50, "height": 50 },
-        "attrs": { "text": { "text": "朱效武" }, "body": { "fill": "#2196f3" } },
+        "attrs": { "text": { "textWrap": { "text": "朱效武" } }, "body": { "fill": "#2196f3" } },
         "visible": true,
         "shape": "normal-circle",
         "preserveAspectRatio": true,
@@ -8261,7 +8282,7 @@
         "position": { "x": 1100, "y": -140 },
         "size": { "width": 120, "height": 120 },
         "attrs": {
-          "text": { "fontSize": 20, "fill": "#FFFFFFFF", "text": "曹禺\n[万家宝]" },
+          "text": { "fontSize": 20, "fill": "#FFFFFFFF", "textWrap": { "text": "曹禺\n[万家宝]" } },
           "body": { "fill": "#3f51b5" }
         },
         "visible": true,
@@ -8336,7 +8357,7 @@
         "position": { "x": 986, "y": -284 },
         "size": { "width": 70, "height": 70 },
         "attrs": {
-          "text": { "fontSize": 20, "fill": "#FFFFFFFF", "text": "郑秀" },
+          "text": { "fontSize": 20, "fill": "#FFFFFFFF", "textWrap": { "text": "郑秀" } },
           "body": { "fill": "#673ab7" }
         },
         "visible": true,
@@ -8411,11 +8432,11 @@
         "position": { "x": 1112, "y": -266 },
         "size": { "width": 36, "height": 36 },
         "attrs": {
-          "text": { "text": "后辈\n两女" },
+          "text": { "textWrap": { "text": "后辈\n两女" } },
           "body": { "stroke": "rgba(235, 234, 235, 1)", "fill": "#00bcd4" }
         },
         "visible": true,
-        "shape": "ring",
+        "shape": "normal-circle",
         "preserveAspectRatio": true,
         "ports": {
           "groups": {
@@ -8490,8 +8511,8 @@
             "fill": "#000000FF",
             "refX": 0,
             "textAnchor": "start",
-            "text": "中国杰出的现代话剧剧作家, 为中国\n新文化运动的开拓者之一",
-            "refX2": "2%"
+            "refX2": "2%",
+            "textWrap": { "text": "中国杰出的现代话剧剧作家, 为中国\n新文化运动的开拓者之一" }
           },
           "body": {
             "strokeWidth": 1,
@@ -8572,7 +8593,7 @@
       {
         "position": { "x": 1286, "y": -124 },
         "size": { "width": 36, "height": 36 },
-        "attrs": { "text": { "text": "姓名\n籍贯" } },
+        "attrs": { "text": { "textWrap": { "text": "姓名\n籍贯" } } },
         "visible": true,
         "shape": "normal-circle",
         "preserveAspectRatio": true,
@@ -8644,7 +8665,7 @@
       {
         "position": { "x": 1286, "y": -54 },
         "size": { "width": 36, "height": 36 },
-        "attrs": { "text": { "text": "生卒\n年龄" } },
+        "attrs": { "text": { "textWrap": { "text": "生卒\n年龄" } } },
         "visible": true,
         "shape": "normal-circle",
         "preserveAspectRatio": true,
@@ -8721,8 +8742,8 @@
             "fill": "#000000FF",
             "refX": 0,
             "textAnchor": "start",
-            "text": "1910年9月24如-1996年12月13日\n[于北京去世享年86岁]",
-            "refX2": "2%"
+            "refX2": "2%",
+            "textWrap": { "text": "1910年9月24如-1996年12月13日\n[于北京去世享年86岁]" }
           },
           "body": {
             "strokeWidth": 1,
@@ -8808,8 +8829,10 @@
             "fill": "#000000FF",
             "refX": 0,
             "textAnchor": "start",
-            "text": "原名万家宝, 字小石, 小名添甲. 祖籍湖北潜江, \n出生在天津一个没落的封建官僚家庭.",
-            "refX2": "2%"
+            "refX2": "2%",
+            "textWrap": {
+              "text": "原名万家宝, 字小石, 小名添甲. 祖籍湖北潜江, \n出生在天津一个没落的封建官僚家庭."
+            }
           },
           "body": {
             "strokeWidth": 1,
@@ -8890,7 +8913,7 @@
       {
         "position": { "x": 986, "y": -140 },
         "size": { "width": 36, "height": 36 },
-        "attrs": { "text": { "text": "社会\n地位" } },
+        "attrs": { "text": { "textWrap": { "text": "社会\n地位" } } },
         "visible": true,
         "shape": "normal-circle",
         "preserveAspectRatio": true,
@@ -8962,7 +8985,7 @@
       {
         "position": { "x": 986, "y": -56 },
         "size": { "width": 36, "height": 36 },
-        "attrs": { "text": { "text": "主要\n作品" } },
+        "attrs": { "text": { "textWrap": { "text": "主要\n作品" } } },
         "visible": true,
         "shape": "normal-circle",
         "preserveAspectRatio": true,
@@ -9040,8 +9063,8 @@
             "fill": "#000000FF",
             "refX": 0,
             "textAnchor": "start",
-            "text": "《雷雨》《日出》《原野》《北京人》",
-            "refX2": "2%"
+            "refX2": "2%",
+            "textWrap": { "text": "《雷雨》《日出》《原野》《北京人》" }
           },
           "body": {
             "strokeWidth": 1,
@@ -9422,11 +9445,11 @@
         "position": { "x": 1258, "y": -298 },
         "size": { "width": 36, "height": 36 },
         "attrs": {
-          "text": { "text": "后辈\n两女" },
+          "text": { "textWrap": { "text": "后辈\n两女" } },
           "body": { "stroke": "rgba(235, 234, 235, 1)", "fill": "#00bcd4" }
         },
         "visible": true,
-        "shape": "ring",
+        "shape": "normal-circle",
         "preserveAspectRatio": true,
         "ports": {
           "groups": {
@@ -9497,7 +9520,7 @@
         "position": { "x": 1170, "y": -368 },
         "size": { "width": 70, "height": 70 },
         "attrs": {
-          "text": { "fontSize": 20, "fill": "#FFFFFFFF", "text": "邓译生" },
+          "text": { "fontSize": 20, "fill": "#FFFFFFFF", "textWrap": { "text": "邓译生" } },
           "body": { "fill": "#673ab7" }
         },
         "visible": true,
@@ -9572,7 +9595,7 @@
         "position": { "x": 1322, "y": -262 },
         "size": { "width": 70, "height": 70 },
         "attrs": {
-          "text": { "fontSize": 20, "fill": "#FFFFFFFF", "text": "李玉茹" },
+          "text": { "fontSize": 20, "fill": "#FFFFFFFF", "textWrap": { "text": "李玉茹" } },
           "body": { "fill": "#673ab7" }
         },
         "visible": true,
@@ -9647,7 +9670,7 @@
         "position": { "x": 1624, "y": 282 },
         "size": { "width": 120, "height": 120 },
         "attrs": {
-          "text": { "fontSize": 20, "fill": "#FFFFFFFF", "text": "郭沫若" },
+          "text": { "fontSize": 20, "fill": "#FFFFFFFF", "textWrap": { "text": "郭沫若" } },
           "body": { "fill": "#3f51b5" }
         },
         "visible": true,
@@ -9722,7 +9745,7 @@
         "position": { "x": 1530, "y": 140.00000000000023 },
         "size": { "width": 70, "height": 70 },
         "attrs": {
-          "text": { "fontSize": 20, "fill": "#FFFFFFFF", "text": "郭安娜" },
+          "text": { "fontSize": 20, "fill": "#FFFFFFFF", "textWrap": { "text": "郭安娜" } },
           "body": { "fill": "#673ab7" }
         },
         "visible": true,
@@ -9797,11 +9820,11 @@
         "position": { "x": 1656, "y": 158.00000000000023 },
         "size": { "width": 36, "height": 36 },
         "attrs": {
-          "text": { "text": "后辈\n子女" },
+          "text": { "textWrap": { "text": "后辈\n子女" } },
           "body": { "stroke": "rgba(235, 234, 235, 1)", "fill": "#00bcd4" }
         },
         "visible": true,
-        "shape": "ring",
+        "shape": "normal-circle",
         "preserveAspectRatio": true,
         "ports": {
           "groups": {
@@ -9876,8 +9899,10 @@
             "fill": "#000000FF",
             "refX": 0,
             "textAnchor": "start",
-            "text": "中国新诗的奠基人之一、中国历史剧的开创者之一、\n古文学学家、考古学家、社会活动家、甲骨学四堂之一,\n 第一届中央研究院院士",
-            "refX2": "2%"
+            "refX2": "2%",
+            "textWrap": {
+              "text": "中国新诗的奠基人之一、中国历史剧的开创者之一、\n古文学学家、考古学家、社会活动家、甲骨学四堂之一,\n 第一届中央研究院院士"
+            }
           },
           "body": {
             "strokeWidth": 1,
@@ -9958,7 +9983,7 @@
       {
         "position": { "x": 1830, "y": 300.0000000000002 },
         "size": { "width": 36, "height": 36 },
-        "attrs": { "text": { "text": "姓名\n籍贯" } },
+        "attrs": { "text": { "textWrap": { "text": "姓名\n籍贯" } } },
         "visible": true,
         "shape": "normal-circle",
         "preserveAspectRatio": true,
@@ -10030,7 +10055,7 @@
       {
         "position": { "x": 1830, "y": 370.0000000000002 },
         "size": { "width": 36, "height": 36 },
-        "attrs": { "text": { "text": "生卒\n年龄" } },
+        "attrs": { "text": { "textWrap": { "text": "生卒\n年龄" } } },
         "visible": true,
         "shape": "normal-circle",
         "preserveAspectRatio": true,
@@ -10107,8 +10132,8 @@
             "fill": "#000000FF",
             "refX": 0,
             "textAnchor": "start",
-            "text": "1892年11月16日-1978年6月12日\n[于北京去世享年86岁]",
-            "refX2": "2%"
+            "refX2": "2%",
+            "textWrap": { "text": "1892年11月16日-1978年6月12日\n[于北京去世享年86岁]" }
           },
           "body": {
             "strokeWidth": 1,
@@ -10194,8 +10219,8 @@
             "fill": "#000000FF",
             "refX": 0,
             "textAnchor": "start",
-            "text": "幼名文豹, 原名开贞, 字鼎堂, 号尚武",
-            "refX2": "2%"
+            "refX2": "2%",
+            "textWrap": { "text": "幼名文豹, 原名开贞, 字鼎堂, 号尚武" }
           },
           "body": {
             "strokeWidth": 1,
@@ -10276,7 +10301,7 @@
       {
         "position": { "x": 1530, "y": 284.0000000000002 },
         "size": { "width": 36, "height": 36 },
-        "attrs": { "text": { "text": "社会\n地位" } },
+        "attrs": { "text": { "textWrap": { "text": "社会\n地位" } } },
         "visible": true,
         "shape": "normal-circle",
         "preserveAspectRatio": true,
@@ -10348,7 +10373,7 @@
       {
         "position": { "x": 1530, "y": 368.0000000000002 },
         "size": { "width": 36, "height": 36 },
-        "attrs": { "text": { "text": "主要\n作品" } },
+        "attrs": { "text": { "textWrap": { "text": "主要\n作品" } } },
         "visible": true,
         "shape": "normal-circle",
         "preserveAspectRatio": true,
@@ -10426,8 +10451,8 @@
             "fill": "#000000FF",
             "refX": 0,
             "textAnchor": "start",
-            "text": "《中国史稿》《甲骨文合集》",
-            "refX2": "2%"
+            "refX2": "2%",
+            "textWrap": { "text": "《中国史稿》《甲骨文合集》" }
           },
           "body": {
             "strokeWidth": 1,
@@ -10807,7 +10832,7 @@
       {
         "position": { "x": 1780, "y": 162.00000000000023 },
         "size": { "width": 50, "height": 50 },
-        "attrs": { "text": { "text": "郭志鸿" }, "body": { "fill": "#009688" } },
+        "attrs": { "text": { "textWrap": { "text": "郭志鸿" } }, "body": { "fill": "#009688" } },
         "visible": true,
         "shape": "normal-circle",
         "preserveAspectRatio": true,
@@ -10879,7 +10904,7 @@
       {
         "position": { "x": 1694, "y": 54.00000000000023 },
         "size": { "width": 50, "height": 50 },
-        "attrs": { "text": { "text": "郭博" }, "body": { "fill": "#ffeb3b" } },
+        "attrs": { "text": { "textWrap": { "text": "郭博" } }, "body": { "fill": "#ffeb3b" } },
         "visible": true,
         "shape": "normal-circle",
         "preserveAspectRatio": true,

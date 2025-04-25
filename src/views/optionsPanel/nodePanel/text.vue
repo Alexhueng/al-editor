@@ -93,7 +93,8 @@ const verticalAlign = ref('middle')
 
 const initNode = () => {
   if (!node.value || !node.value.isNode()) return
-  text.value = node.value.getAttrByPath('text/text') || ''
+  text.value =
+    node.value.getAttrByPath('text/text') || node.value.getAttrByPath('text/textWrap/text') || ''
   fontColor.value = node.value!.getAttrByPath('text/fill')
   fontSize.value = node.value!.getAttrByPath('text/fontSize')
   isBold.value = node.value!.getAttrByPath('text/fontWeight') === 'bold'
@@ -118,9 +119,16 @@ onBeforeUnmount(() => {
 })
 
 const handleNodeContentChange = (value: string) => {
+  // if (!value) {
+  //   node.value.setAttrByPath('text/textWrap/text', '')
+  //   node.value.removeAttrByPath('text/textWrap/text')
+  // }
   node.value.setAttrs({
     text: {
-      text: value,
+      // text: value,
+      textWrap: {
+        text: value,
+      },
     },
   })
 }
@@ -156,7 +164,8 @@ const handleVertical = () => {
   isVertical.value = !isVertical.value
   node.value.setAttrs({
     text: {
-      transform: `rotate(${isVertical.value ? 90 : 0}deg)`,
+      // transform: `rotate(${isVertical.value ? 90 : 0}deg)`,
+      'writing-mode': isVertical.value ? 'vertical-lr' : 'horizontal-tb',
     },
   })
 }

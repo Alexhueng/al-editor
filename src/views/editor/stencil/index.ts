@@ -17,13 +17,13 @@ export const useStencil = (graph: useGraph) => {
     },
     beforeDndStart: ({ node, e }) => {
       const cloneNode = node.clone()
-      const shape = cloneNode.shape
 
-      if (shape === 'container') {
+      const zoom = node.getProp('zoom')
+      if (zoom) {
         const size = cloneNode.prop('size')
         cloneNode.prop('size', {
-          width: size!.width * 4,
-          height: size!.height * 4,
+          width: size!.width * zoom,
+          height: size!.height * zoom,
         })
       }
       return cloneNode
