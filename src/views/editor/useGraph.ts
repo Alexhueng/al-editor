@@ -59,7 +59,7 @@ export class useGraph extends Graph {
             attrs: {
               line: {
                 stroke: graphStore.edgeRandomColor ? randomColor() : '#0c0c0c',
-                strokeWidth: 2,
+                strokeWidth: 1,
                 strokeDasharray: '0',
                 targetMarker: DEFAULT_TARGET_MARKER,
               },

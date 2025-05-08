@@ -7,14 +7,19 @@
   >
     <div
       ref="headerRef"
-      class="px-2 py-3 bg-[#333] h-[40px] text-[#fff] flex justify-between items-center select-none shrink-0"
-      :class="[{ 'cursor-move': draggable }, { 'cursor-grabbing': isDragging }]"
+      class="px-2 py-3 bg-[#333] text-[#fff] flex justify-between items-center select-none shrink-0"
+      :class="[
+        { 'cursor-move': draggable },
+        { 'cursor-grabbing': isDragging },
+        `h-[${HEADER_HEIGHT}px]`,
+      ]"
       @mousedown="startDrag"
       @dblclick="handleHeaderDoubleClick"
     >
       <span class="text-[14px] font-bold">{{ title }}</span>
       <div class="flex items-center gap-2 select-none" @mousedown.stop>
         <svg-icon
+          v-if="foldable"
           :name="isMinimized ? 'expand' : 'fold'"
           color="#fff"
           size="16"
@@ -42,10 +47,9 @@
 
     <div
       ref="contentWrapper"
-      class="overflow-hidden will-change-[height] contain-strict transform-gpu translate-z-0"
-      :style="contentWrapperStyle"
+      class="will-change-[height] transform-gpu translate-z-0 transition-[height] duration-300 ease-in-out"
     >
-      <div class="h-full p-4">
+      <div class="h-full p-4 overflow-auto">
         <slot></slot>
       </div>
     </div>
@@ -64,29 +68,31 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 
+const HEADER_HEIGHT = 32
+
 const props = defineProps({
   title: { type: String, default: '' },
-  width: { type: Number, default: 300 },
-  height: { type: Number, default: 200 },
+  width: { type: Number, default: 400 },
   position: { type: Object, default: () => ({ x: 0, y: 0 }) },
-  fullscreen: { type: Boolean, default: false },
+  fullscreen: { type: Boolean, default: true },
   draggable: { type: Boolean, default: true },
   resizable: { type: Boolean, default: false },
-  minimizable: { type: Boolean, default: true },
-  maximizable: { type: Boolean, default: true },
+  foldable: { type: Boolean, default: true },
   boundary: { type: Boolean, default: true },
 })
 
 const emit = defineEmits(['close', 'minimize', 'maximize', 'restore'])
 
-const panelRef = ref<HTMLDivElement | null>(null)
-const contentWrapper = ref(null)
-const headerRef = ref<HTMLDivElement | null>(null)
+type DivRefType = Nullable<HTMLDivElement>
+
+const panelRef = ref<DivRefType>(null)
+const contentWrapper = ref<DivRefType>(null)
+const headerRef = ref<DivRefType>(null)
 const isDragging = ref(false)
 const isResizing = ref(false)
 const isMinimized = ref(false)
 const isMaximized = ref(false)
-const zIndex = ref(1000)
+const zIndex = ref(10)
 const offset = ref({ x: 0, y: 0 })
 const startSize = ref({ width: 0, height: 0 })
 const startPos = ref({ x: 0, y: 0 })
@@ -94,19 +100,12 @@ const startPos = ref({ x: 0, y: 0 })
 // 保存最大化前的位置和尺寸
 const preMaximizeState = ref({
   position: { x: props.position.x, y: props.position.y },
-  size: { width: props.width, height: props.height },
+  size: { width: props.width, height: 0 },
 })
 
 // 面板位置和尺寸
 const position = ref({ x: props.position.x, y: props.position.y })
-const size = ref({ width: props.width, height: props.height })
-
-// 内容区域样式
-const contentWrapperStyle = computed(() => ({
-  height: isMinimized.value ? '0' : `${size.value.height - 40}px`,
-  transition: 'height 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
-  overflow: 'hidden',
-}))
+const size = ref({ width: props.width, height: 0 })
 
 // 计算样式
 const panelStyle = computed(() => {
@@ -114,9 +113,12 @@ const panelStyle = computed(() => {
     left: isMaximized.value ? 0 : `${position.value.x}px`,
     top: isMaximized.value ? 0 : `${position.value.y}px`,
     width: isMaximized.value ? '100%' : `${size.value.width}px`,
-    height: isMaximized.value ? '100%' : isMinimized.value ? '40px' : `${size.value.height}px`,
+    height: isMaximized.value
+      ? '100%'
+      : isMinimized.value
+        ? `${HEADER_HEIGHT}px`
+        : `${size.value.height + HEADER_HEIGHT}px`,
     zIndex: zIndex.value,
-    // cursor: isDragging.value ? 'grabbing' : 'default',
     transition:
       isDragging.value || isResizing.value ? 'none' : 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)', // 统一添加过渡效果
   }
@@ -131,7 +133,6 @@ const handleHeaderDoubleClick = (e: MouseEvent) => {
   toggleMaximize()
 }
 
-// 开始拖动
 const startDrag = (e: MouseEvent) => {
   if (isMaximized.value || !props.draggable) return
 
@@ -158,8 +159,6 @@ const startResize = (e: MouseEvent) => {
 
 // 最大化/还原
 const toggleMaximize = () => {
-  if (!props.maximizable) return
-
   if (isMaximized.value) {
     // 还原
     isMaximized.value = false
@@ -182,7 +181,19 @@ const toggleMaximize = () => {
 
 // 最小化/还原
 const toggleMinimize = () => {
-  if (!props.minimizable) return
+  const wrapper = contentWrapper.value!
+  if (isMinimized.value) {
+    wrapper.style.height = 'auto'
+    const h = wrapper.offsetHeight
+    wrapper.style.height = '0'
+    wrapper.clientHeight // 强制重新渲染
+    wrapper.style.height = `${h}px`
+  } else {
+    const h = wrapper.offsetHeight
+    wrapper.style.height = `${h}px`
+    wrapper.clientHeight
+    wrapper.style.height = '0'
+  }
   isMinimized.value = !isMinimized.value
   emit('minimize', isMinimized.value)
 }
@@ -227,6 +238,7 @@ const handleMouseMove = (e: MouseEvent) => {
       newWidth = Math.max(200, Math.min(newWidth, viewportSize.value.width - position.value.x))
       newHeight = Math.max(150, Math.min(newHeight, viewportSize.value.height - position.value.y))
 
+      contentWrapper.value!.style.height = `${newHeight}px`
       size.value = { width: newWidth, height: newHeight }
     }
   })
@@ -258,6 +270,8 @@ onMounted(() => {
   window.addEventListener('mousemove', handleMouseMove)
   window.addEventListener('mouseup', handleMouseUp)
   window.addEventListener('resize', updateViewportSize)
+
+  size.value.height = contentWrapper.value!.offsetHeight
 })
 
 onUnmounted(() => {

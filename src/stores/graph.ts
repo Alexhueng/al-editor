@@ -1,6 +1,7 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import { useGraph } from '@/views/editor/useGraph'
+import type { Cell, Node } from '@antv/x6'
 
 // export const useGraphStore = defineStore('graph', () => {
 //   const graph = ref<useGraph | null>(null)
@@ -17,12 +18,12 @@ import { useGraph } from '@/views/editor/useGraph'
 //   return { graph, setGraph, setCurrentGraphName, currentGraphName, edgeRandomColor }
 // })
 
-export const useGraphStore = defineStore({
-  id: 'graph',
+export const useGraphStore = defineStore('graph', {
   state: () => ({
     graph: null as useGraph | null,
     currentGraphName: '',
     edgeRandomColor: false,
+    memoPad: [] as Node.Properties[],
   }),
   actions: {
     setGraph(value: useGraph) {
@@ -31,5 +32,9 @@ export const useGraphStore = defineStore({
     setCurrentGraphName(value: string) {
       this.currentGraphName = value
     },
+  },
+  persist: {
+    key: 'graph-persit',
+    pick: ['memoPad'],
   },
 })

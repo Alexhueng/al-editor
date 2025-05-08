@@ -4,8 +4,6 @@
 
     <Toolbar />
     <div
-      ref="graphContainer"
-      id="graph-container-wrapper"
       class="flex-grow p-4 pr-0 pb-2 mt-[50px] w-auto bg-[#f1f3f4]"
       :style="{
         width: `calc(100% - ${stencilWidth + controlPanelWidth}px)`,
@@ -22,7 +20,7 @@
 
     <OptionsPanel :mask="false" />
 
-    <!-- <FloatBoard :position="position" resizable title="便签本"> </FloatBoard> -->
+    <!-- <MemoPad /> -->
   </div>
 </template>
 
@@ -40,16 +38,15 @@ import { useKeyboard } from './useKeyboard'
 import { useStencil } from './stencil'
 
 import OptionsPanel from '@/views/optionsPanel/index.vue'
-import GraphControlPanel from '@/views/optionsPanel/graph.vue'
+import GraphControlPanel from '@/views/optionsPanel/globalGraph/index.vue'
 import Toolbar from './components/toolbar/index.vue'
-import FloatBoard from './components/floatBoard/index.vue'
+
+import MemoPad from '@/views/menoPad/index.vue'
 
 const route = useRoute()
 const graphStore = useGraphStore()
 const TeleportContainer = getTeleport()
 let graph: useGraph | null = null
-const graphContainer = ref(null)
-const position = ref({ x: 300, y: 50 })
 
 onMounted(() => {
   preWork()

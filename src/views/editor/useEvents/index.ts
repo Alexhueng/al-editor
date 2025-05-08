@@ -10,9 +10,12 @@ import type { EventArgs } from '@antv/x6'
 
 const panelStore = usePanelStore()
 
+const MAX_CELLS_NUM = 100
+
 export const useEvents = (graph: useGraph) => {
   graph.on('cell:selected', ({ cell }) => {
     const selectedCells = graph.getSelectedCells()
+    if (selectedCells.length > MAX_CELLS_NUM) return
 
     if (selectedCells.length === 1) {
       panelStore.panelVisible = true
@@ -95,6 +98,7 @@ export const useEvents = (graph: useGraph) => {
         },
         event: e as unknown as EventArgs['cell:contextmenu'],
         getOptions: cell.isEdge() ? getEdgeOptions : getNodeOptions,
+        cell,
       })
     }
   })
@@ -147,7 +151,7 @@ export const useEvents = (graph: useGraph) => {
       const styleMap = wrapeper?.computedStyleMap() as StylePropertyMapReadOnly
 
       const getValue = (prop: string) => {
-        return (styleMap?.get(prop) as CSSUnitValue).value
+        return (styleMap?.get(prop) as CSSUnitValue)?.value
       }
       ;(scroller as any).scrollerImpl.resize(
         wrapeper?.clientWidth - getValue('padding-left') - getValue('padding-right'),

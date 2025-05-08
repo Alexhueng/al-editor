@@ -48,6 +48,10 @@
         @update:value="handleBorderWidth"
       />
     </n-space>
+
+    <n-space>
+      <n-button @click="handleVisible">显示/隐藏</n-button>
+    </n-space>
   </div>
 </template>
 
@@ -201,6 +205,11 @@ const handleBorderWidth = (value: number) => {
       strokeWidth: value,
     },
   })
+}
+
+const handleVisible = () => {
+  const visible = node.value?.getProp('visible')
+  node.value.setProp('visible', !visible)
 }
 </script>
 

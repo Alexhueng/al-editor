@@ -8,10 +8,15 @@ const graph = computed(() => {
   return useGraphStore().graph
 })
 
+const memoPad = computed(() => {
+  return useGraphStore().memoPad
+})
+
 export const getNodeOptions: UseContextMenuParameters['getOptions'] = (
   position,
   eventTarget,
   instance,
+  cell,
 ) => {
   return [
     {
@@ -30,5 +35,20 @@ export const getNodeOptions: UseContextMenuParameters['getOptions'] = (
       type: 'divider',
     },
     ...zIndexOperations,
+    {
+      type: 'divider',
+    },
+    {
+      label: '添加到便签本',
+      click: () => {
+        const json = cell?.toJSON() as Node.Properties
+        delete json.ports
+        delete json.position
+        delete json.zIndex
+
+        memoPad.value.push(json)
+        console.log(memoPad.value)
+      },
+    },
   ] as OptionItem[]
 }

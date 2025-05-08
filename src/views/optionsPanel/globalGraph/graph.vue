@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full p-4 select-none pt-[60px]">
+  <div class="w-full select-none">
     <n-form
       :model="form"
       class="[&>div]:mb-3"

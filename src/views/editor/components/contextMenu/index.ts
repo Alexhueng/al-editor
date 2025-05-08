@@ -1,6 +1,6 @@
 import { ref, createApp, type ComponentPublicInstance } from 'vue'
 import Template from './index.vue'
-import type { EventArgs } from '@antv/x6'
+import type { Cell, EventArgs } from '@antv/x6'
 // import { NDropdown } from 'naive-ui'
 
 let instance: DropdownInstance | null = null
@@ -14,10 +14,10 @@ const createDropdownInstance = (): DropdownInstance => {
   return app.mount(mountNode) as DropdownInstance
 }
 
-export const useContextMenu = ({ position, event, getOptions }: UseContextMenuParameters) => {
+export const useContextMenu = ({ position, event, getOptions, cell }: UseContextMenuParameters) => {
   instance = instance || createDropdownInstance()
   instance.init({
-    options: getOptions(position, event, instance),
+    options: getOptions(position, event, instance, cell),
     position,
     event,
   })
@@ -50,5 +50,7 @@ export type UseContextMenuParameters = Omit<InitParameters, 'options'> & {
     position: { x: number; y: number },
     event: EventArgs['blank:contextmenu'] | EventArgs['cell:contextmenu'],
     instance: DropdownInstance,
+    cell?: Cell,
   ) => OptionItem[]
+  cell?: Cell
 }

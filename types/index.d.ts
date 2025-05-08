@@ -5,3 +5,5 @@ declare interface Fn<T = any, R = T> {
 }
 
 declare type Recordable<T = any> = Record<string, T>
+
+declare type Nullable<T> = T | null

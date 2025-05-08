@@ -1,5 +1,5 @@
 import { Stencil } from '@/plugins/stencil'
-import { useGraph } from '../useGraph'
+import { type useGraph } from '../useGraph'
 import { load } from './base'
 
 const modules = import.meta.glob(['./**/index.ts', '!./base/index.ts'])
